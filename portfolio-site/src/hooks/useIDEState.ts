@@ -150,7 +150,7 @@ function buildCommandOutput(cmd: string): { lines: TermLine[]; navTo: string | n
       [
         ["about", "who I am & how I work"],
         ["projects", "list case studies"],
-        ["open <name>", "open a file (try: open atlas)"],
+        ["open <name>", "open a file (try: open alpha)"],
         ["research", "ux research & writeups"],
         ["resume", "grab my CV"],
         ["contact", "email · github · linkedin"],
@@ -234,6 +234,15 @@ export function useIDEState() {
     dispatch({ type: "RUN_COMMAND", cmd: raw.trim(), lines, navTo });
   }, []);
 
+  const onTermKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter") { e.preventDefault(); runCommand(state.termInput); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); histUp(); }
+      else if (e.key === "ArrowDown") { e.preventDefault(); histDown(); }
+    },
+    [state.termInput, runCommand, histUp, histDown]
+  );
+
   return {
     state,
     openDoc,
@@ -244,8 +253,6 @@ export function useIDEState() {
     toggleTerm,
     setTermInput,
     clearTerm,
-    histUp,
-    histDown,
-    runCommand,
+    onTermKeyDown,
   };
 }

@@ -458,7 +458,7 @@ class Component extends DCLogic {
     if (cmd === '') { /* nothing */ }
     else if (verb === 'help') {
       push('Available commands —', '#7b828f');
-      [['about', 'who I am & how I work'], ['projects', 'list case studies'], ['open <name>', 'open a file (try: open atlas)'],
+      [['about', 'who I am & how I work'], ['projects', 'list case studies'], ['open <name>', 'open a file (try: open alpha)'],
        ['research', 'ux research & writeups'], ['resume', 'grab my CV'], ['contact', 'email · github · linkedin'],
        ['ls', 'list files here'], ['theme', 'switch theme'], ['clear', 'clear the screen']].forEach((r) => {
         push('  ' + r[0] + Array(Math.max(1, 16 - r[0].length)).join(' ') + r[1], '#cdd2da');

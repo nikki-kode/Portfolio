@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Nikki Kode",
-  description: "Software engineer · UX designer · UX researcher",
+  description: "Software Engineer · UX Designer/Researcher · Musician",
   metadataBase: new URL("https://nikkikode.dev"),
 };
 
