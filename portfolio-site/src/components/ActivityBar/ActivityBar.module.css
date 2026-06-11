@@ -1,0 +1,43 @@
+.bar {
+  width: var(--activitybar-width);
+  flex: none;
+  background: var(--activitybar-bg);
+  border-right: 1px solid var(--border-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding-top: 14px;
+}
+
+.tile {
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dimmest);
+  cursor: pointer;
+  transition: color 0.1s;
+  border-left: 2px solid transparent;
+}
+
+.tile:hover {
+  color: var(--text-dim);
+}
+
+.tileActive {
+  background: var(--card-bg);
+  border-left-color: var(--accent);
+  color: var(--accent);
+}
+
+.tileActive:hover {
+  color: var(--accent);
+}
+
+.bottom {
+  margin-top: auto;
+  margin-bottom: 14px;
+}
