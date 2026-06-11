@@ -2,6 +2,7 @@ import { getDoc } from "@/data/docs";
 import type { View } from "@/hooks/useIDEState";
 import AboutView from "./AboutView";
 import ContactView from "./ContactView";
+import StubView from "./StubView";
 import styles from "./ContentArea.module.css";
 
 type Props = {
@@ -88,9 +89,10 @@ export default function ContentArea({ activeKey, view, activeSection, setSection
         <div className={previewPaneClass}>
           {doc.type === "about" && <AboutView doc={doc} />}
           {doc.type === "contact" && <ContactView doc={doc} />}
-          {doc.type !== "about" && doc.type !== "contact" && (
+          {doc.type === "stub" && <StubView filename={activeKey} />}
+          {doc.type === "project" && (
             <div style={{ padding: "40px", color: "var(--text-dimmest)", fontSize: "13px" }}>
-              {/* project / stub views — coming next */}
+              {/* project view — coming next */}
               {activeKey}
             </div>
           )}
