@@ -3,9 +3,12 @@ import type { View } from "@/hooks/useIDEState";
 import styles from "./TabBar.module.css";
 
 type Props = {
+  tabs: string[];
   activeKey: string;
   view: View;
   setView: (v: View) => void;
+  onTabClick: (key: string) => void;
+  onTabClose: (key: string) => void;
 };
 
 const VIEWS: { value: View; label: string }[] = [
@@ -14,15 +17,32 @@ const VIEWS: { value: View; label: string }[] = [
   { value: "preview", label: "Preview" },
 ];
 
-export default function TabBar({ activeKey, view, setView }: Props) {
+export default function TabBar({ tabs, activeKey, view, setView, onTabClick, onTabClose }: Props) {
   return (
     <div className={styles.bar}>
       <div className={styles.tabs}>
-        <div className={styles.tab}>
-          <span className={styles.tabDot} />
-          {activeKey}
-          <span className={styles.tabClose}>×</span>
-        </div>
+        {tabs.map((key) => {
+          const active = key === activeKey;
+          return (
+            <div
+              key={key}
+              className={clsx(styles.tab, active && styles.tabActive)}
+              onClick={() => onTabClick(key)}
+            >
+              <span className={clsx(styles.tabDot, active && styles.tabDotActive)} />
+              {key}
+              <span
+                className={styles.tabClose}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onTabClose(key);
+                }}
+              >
+                ×
+              </span>
+            </div>
+          );
+        })}
       </div>
 
       <div className={styles.toggleWrap}>

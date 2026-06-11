@@ -20,9 +20,12 @@ export default function IDEShell() {
       />
       <div className={styles.main}>
         <TabBar
+          tabs={ide.state.tabs}
           activeKey={ide.state.activeKey}
           view={ide.state.view}
           setView={ide.setView}
+          onTabClick={ide.openDoc}
+          onTabClose={ide.closeTab}
         />
         <div className={styles.body}>
           {/* content, Terminal, StatusBar — coming next */}

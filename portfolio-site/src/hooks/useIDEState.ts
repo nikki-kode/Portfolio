@@ -13,6 +13,7 @@ export type TermLine = {
 
 export type IDEState = {
   activeKey: string;
+  tabs: string[];
   view: View;
   activeSection: string;
   open: Record<string, boolean>;
@@ -23,8 +24,11 @@ export type IDEState = {
   histIdx: number;
 };
 
+const MAX_TABS = 4;
+
 type Action =
   | { type: "OPEN_DOC"; key: string }
+  | { type: "CLOSE_TAB"; key: string }
   | { type: "SET_VIEW"; view: View }
   | { type: "SET_SECTION"; id: string }
   | { type: "TOGGLE_FOLDER"; name: string }
@@ -36,7 +40,8 @@ type Action =
   | { type: "HIST_DOWN" };
 
 const initial: IDEState = {
-  activeKey: "project-alpha.md",
+  activeKey: "about.md",
+  tabs: ["about.md"],
   view: "preview",
   activeSection: "overview",
   open: { projects: true, "ux-research": false },
@@ -55,8 +60,30 @@ const initial: IDEState = {
 
 function reducer(state: IDEState, action: Action): IDEState {
   switch (action.type) {
-    case "OPEN_DOC":
-      return { ...state, activeKey: action.key, view: "preview", activeSection: "overview" };
+    case "OPEN_DOC": {
+      if (state.tabs.includes(action.key)) {
+        return { ...state, activeKey: action.key, view: "preview", activeSection: "overview" };
+      }
+      const trimmed = state.tabs.length >= MAX_TABS ? state.tabs.slice(1) : state.tabs;
+      return {
+        ...state,
+        activeKey: action.key,
+        tabs: [...trimmed, action.key],
+        view: "preview",
+        activeSection: "overview",
+      };
+    }
+    case "CLOSE_TAB": {
+      if (state.tabs.length === 1) return state; // keep at least one tab
+      const idx = state.tabs.indexOf(action.key);
+      if (idx === -1) return state;
+      const next = state.tabs.filter((t) => t !== action.key);
+      const nextActive =
+        state.activeKey === action.key
+          ? next[Math.min(idx, next.length - 1)]
+          : state.activeKey;
+      return { ...state, tabs: next, activeKey: nextActive! };
+    }
     case "SET_VIEW":
       return { ...state, view: action.view };
     case "SET_SECTION":
@@ -81,7 +108,12 @@ function reducer(state: IDEState, action: Action): IDEState {
         termInput: "",
       };
       if (action.navTo) {
-        return { ...nextState, activeKey: action.navTo, view: "preview", activeSection: "overview" };
+        const key = action.navTo;
+        if (nextState.tabs.includes(key)) {
+          return { ...nextState, activeKey: key, view: "preview", activeSection: "overview" };
+        }
+        const trimmed = nextState.tabs.length >= MAX_TABS ? nextState.tabs.slice(1) : nextState.tabs;
+        return { ...nextState, activeKey: key, tabs: [...trimmed, key], view: "preview", activeSection: "overview" };
       }
       return nextState;
     }
@@ -185,6 +217,7 @@ export function useIDEState() {
   const [state, dispatch] = useReducer(reducer, initial);
 
   const openDoc = useCallback((key: string) => dispatch({ type: "OPEN_DOC", key }), []);
+  const closeTab = useCallback((key: string) => dispatch({ type: "CLOSE_TAB", key }), []);
   const setView = useCallback((view: View) => dispatch({ type: "SET_VIEW", view }), []);
   const setSection = useCallback((id: string) => dispatch({ type: "SET_SECTION", id }), []);
   const toggleFolder = useCallback(
@@ -208,6 +241,7 @@ export function useIDEState() {
   return {
     state,
     openDoc,
+    closeTab,
     setView,
     setSection,
     toggleFolder,
