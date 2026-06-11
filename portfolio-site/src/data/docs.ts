@@ -166,7 +166,7 @@ export const docs: Record<string, Doc> = {
   "contact.md": {
     type: "contact",
     rows: [
-      { label: "email", value: "nikki@nikkikode.com", action: "copy" },
+      { label: "email", value: "nikki@nikkikode.dev", action: "copy" },
       { label: "github", value: "github.com/nikkikode", action: "↗" },
       { label: "linkedin", value: "linkedin.com/in/nikkikode", action: "↗" },
       { label: "resume", value: "resume.pdf", action: "↓" },
