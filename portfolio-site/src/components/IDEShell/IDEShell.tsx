@@ -3,6 +3,7 @@
 import { useIDEState } from "@/hooks/useIDEState";
 import ActivityBar from "@/components/ActivityBar/ActivityBar";
 import FileTree from "@/components/FileTree/FileTree";
+import TabBar from "@/components/TabBar/TabBar";
 import styles from "./IDEShell.module.css";
 
 export default function IDEShell() {
@@ -18,8 +19,13 @@ export default function IDEShell() {
         toggleFolder={ide.toggleFolder}
       />
       <div className={styles.main}>
+        <TabBar
+          activeKey={ide.state.activeKey}
+          view={ide.state.view}
+          setView={ide.setView}
+        />
         <div className={styles.body}>
-          {/* TabBar, content, Terminal, StatusBar — coming next */}
+          {/* content, Terminal, StatusBar — coming next */}
         </div>
       </div>
     </div>
