@@ -1,0 +1,86 @@
+.scroll {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--editor-bg);
+}
+
+.inner {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 48px 40px 90px;
+}
+
+.heading {
+  margin: 0 0 8px;
+  color: var(--text-heading);
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.intro {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 28px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 15px 18px;
+  border: 1px solid var(--border-card);
+  border-radius: 11px;
+  background: var(--card-bg);
+  margin-bottom: 11px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.row:hover {
+  border-color: var(--border-subtle);
+  background: var(--active-row-bg);
+}
+
+.label {
+  color: var(--accent);
+  font-size: 12px;
+  width: 64px;
+  flex: none;
+}
+
+.value {
+  color: var(--text-heading-2);
+  font-size: 14px;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tag {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--green);
+  border: 1px solid var(--green);
+  border-radius: 20px;
+  padding: 2px 7px;
+  flex: none;
+  opacity: 0.8;
+}
+
+.action {
+  color: var(--text-dimmest);
+  font-size: 13px;
+  flex: none;
+  transition: color 0.15s;
+}
+
+.row:hover .action {
+  color: var(--text-dim);
+}
+
+.copied {
+  color: var(--green);
+}

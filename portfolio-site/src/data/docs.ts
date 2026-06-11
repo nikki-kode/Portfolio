@@ -24,7 +24,7 @@ export type AboutDoc = {
 
 export type ContactDoc = {
   type: "contact";
-  rows: { label: string; value: string; action: string }[];
+  rows: { label: string; value: string; action: string; tag?: string }[];
 };
 
 export type StubDoc = { type: "stub" };
@@ -166,9 +166,9 @@ export const docs: Record<string, Doc> = {
   "contact.md": {
     type: "contact",
     rows: [
-      { label: "email", value: "nikki@nikkikode.dev", action: "copy" },
-      { label: "github", value: "github.com/nikkikode", action: "↗" },
-      { label: "linkedin", value: "linkedin.com/in/nikkikode", action: "↗" },
+      { label: "email", value: "nikki.kode@gmail.com", action: "copy", tag: "Fastest!" },
+      { label: "github", value: "github.com/nikki-kode", action: "↗" },
+      { label: "linkedin", value: "linkedin.com/in/nikki-kode", action: "↗" },
       { label: "resume", value: "resume.pdf", action: "↓" },
     ],
   },
