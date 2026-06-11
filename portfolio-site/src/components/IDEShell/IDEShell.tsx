@@ -2,6 +2,7 @@
 
 import { useIDEState } from "@/hooks/useIDEState";
 import ActivityBar from "@/components/ActivityBar/ActivityBar";
+import FileTree from "@/components/FileTree/FileTree";
 import styles from "./IDEShell.module.css";
 
 export default function IDEShell() {
@@ -10,9 +11,15 @@ export default function IDEShell() {
   return (
     <div className={styles.root}>
       <ActivityBar />
+      <FileTree
+        activeKey={ide.state.activeKey}
+        open={ide.state.open}
+        openDoc={ide.openDoc}
+        toggleFolder={ide.toggleFolder}
+      />
       <div className={styles.main}>
         <div className={styles.body}>
-          {/* FileTree, TabBar, content, Terminal, StatusBar — coming next */}
+          {/* TabBar, content, Terminal, StatusBar — coming next */}
         </div>
       </div>
     </div>

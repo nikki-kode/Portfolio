@@ -36,10 +36,10 @@ type Action =
   | { type: "HIST_DOWN" };
 
 const initial: IDEState = {
-  activeKey: "project-aurora.md",
+  activeKey: "project-alpha.md",
   view: "preview",
   activeSection: "overview",
-  open: { projects: true, "ux-research": false, blog: false },
+  open: { projects: true, "ux-research": false },
   termOpen: false,
   termInput: "",
   termLines: [
@@ -134,10 +134,10 @@ function buildCommandOutput(cmd: string): { lines: TermLine[]; navTo: string | n
       );
       break;
     case "ls":
-      push("about.md   projects/   ux-research/   blog/   resume.pdf   contact.md", "#cdd2da");
+      push("about.md   projects/   ux-research/   resume.pdf   contact.md", "#cdd2da");
       break;
     case "projects":
-      push("project-aurora.md   project-ledger.md   project-atlas.md", "#cdd2da");
+      push("project-alpha.md   project-bravo.md   project-charlie.md", "#cdd2da");
       push("open any with: open <name>", "#565d6b");
       break;
     case "whoami":
@@ -149,7 +149,7 @@ function buildCommandOutput(cmd: string): { lines: TermLine[]; navTo: string | n
       push(`opening ${verb}.md …`, "#565d6b");
       break;
     case "research":
-      push("ux-research/ — usability-study.md, field-interviews.md (drafts)", "#cdd2da");
+      push("ux-research/ — capstone.md, ixdf.md, usability-study.md (drafts)", "#cdd2da");
       break;
     case "resume":
       push("resume.pdf — wire this up to your real CV file ✦", "#cdd2da");

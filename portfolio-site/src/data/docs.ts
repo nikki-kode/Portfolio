@@ -35,7 +35,7 @@ export const SECTIONS = ["overview", "problem", "research", "design", "outcome",
 export type SectionId = (typeof SECTIONS)[number];
 
 export const docs: Record<string, Doc> = {
-  "project-aurora.md": {
+  "project-alpha.md": {
     type: "project",
     title: "Aurora",
     platform: "Web app",
@@ -73,7 +73,7 @@ export const docs: Record<string, Doc> = {
     gallery: ["Token architecture", "Component library", "Dark mode"],
   },
 
-  "project-ledger.md": {
+  "project-bravo.md": {
     type: "project",
     title: "Ledger",
     platform: "Internal web tool",
@@ -111,7 +111,7 @@ export const docs: Record<string, Doc> = {
     gallery: ["Diff view", "Guided close", "Audit trail"],
   },
 
-  "project-atlas.md": {
+  "project-charlie.md": {
     type: "project",
     title: "Atlas",
     platform: "iOS",
@@ -175,10 +175,9 @@ export const docs: Record<string, Doc> = {
 };
 
 export const fileMeta: Record<string, "stub"> = {
+  "capstone.md": "stub",
+  "ixdf.md": "stub",
   "usability-study.md": "stub",
-  "field-interviews.md": "stub",
-  "building-this-site.md": "stub",
-  "on-design-systems.md": "stub",
 };
 
 export function getDoc(key: string): Doc {
@@ -189,12 +188,14 @@ export function resolveFile(arg: string): string | null {
   if (!arg) return null;
   const a = arg.toLowerCase().replace(/\.md$/, "").replace(/\//g, "");
   const map: Record<string, string> = {
-    aurora: "project-aurora.md",
-    "project-aurora": "project-aurora.md",
-    ledger: "project-ledger.md",
-    "project-ledger": "project-ledger.md",
-    atlas: "project-atlas.md",
-    "project-atlas": "project-atlas.md",
+    alpha: "project-alpha.md",
+    "project-alpha": "project-alpha.md",
+    bravo: "project-bravo.md",
+    "project-bravo": "project-bravo.md",
+    charlie: "project-charlie.md",
+    "project-charlie": "project-charlie.md",
+    capstone: "capstone.md",
+    ixdf: "ixdf.md",
     about: "about.md",
     me: "about.md",
     contact: "contact.md",
