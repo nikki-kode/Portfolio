@@ -12,7 +12,7 @@ export default function Home() {
         fontSize: "13px",
       }}
     >
-      nikkikode.com — scaffolding complete, IDE shell coming next
+      nikkikode.dev — scaffolding complete, IDE shell coming next
     </div>
   );
 }
