@@ -1,0 +1,57 @@
+.bar {
+  height: var(--statusbar-height);
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 14px;
+  background: var(--terminal-bg);
+  border-top: 1px solid var(--border-dark);
+  font-size: 11px;
+  color: var(--text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.branch {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-meta);
+}
+
+.branchIcon {
+  color: var(--accent);
+}
+
+.right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.termToggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.1s;
+}
+
+.termToggle:hover {
+  color: var(--text-meta);
+}
+
+.termToggleActive {
+  color: var(--accent);
+}
+
+.termToggleActive:hover {
+  color: var(--accent);
+}
+
+.hint {
+  color: var(--text-dimmest);
+}

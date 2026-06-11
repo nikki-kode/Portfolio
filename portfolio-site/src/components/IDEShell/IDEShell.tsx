@@ -4,6 +4,7 @@ import { useIDEState } from "@/hooks/useIDEState";
 import ActivityBar from "@/components/ActivityBar/ActivityBar";
 import FileTree from "@/components/FileTree/FileTree";
 import TabBar from "@/components/TabBar/TabBar";
+import StatusBar from "@/components/StatusBar/StatusBar";
 import styles from "./IDEShell.module.css";
 
 export default function IDEShell() {
@@ -28,8 +29,13 @@ export default function IDEShell() {
           onTabClose={ide.closeTab}
         />
         <div className={styles.body}>
-          {/* content, Terminal, StatusBar — coming next */}
+          {/* content, Terminal — coming next */}
         </div>
+        <StatusBar
+          activeKey={ide.state.activeKey}
+          termOpen={ide.state.termOpen}
+          toggleTerm={ide.toggleTerm}
+        />
       </div>
     </div>
   );
