@@ -157,7 +157,7 @@
               <image-slot id="about-avatar" shape="circle" fit="cover" placeholder="You" style="display:block;width:78px;height:78px;flex:none;color:rgba(230,235,240,.5)"></image-slot>
               <div>
                 <h1 style="margin:0;color:#f4f6f9;font-size:27px;font-weight:700;letter-spacing:-.01em;font-family:ui-monospace,Menlo,monospace">Your Name</h1>
-                <div style="color:#f5a97f;font-size:13px;margin-top:6px">software engineer · ux designer · ux researcher</div>
+                <div style="color:#f5a97f;font-size:13px;margin-top:6px">Software Engineer · UX Designer/Researcher · Musician</div>
               </div>
             </div>
             <sc-for list="{{ aboutParas }}" as="p" hint-placeholder-count="3"><p style="color:#b4bcc8;font-size:14.5px;line-height:1.8;margin:0 0 16px">{{ p }}</p></sc-for>
@@ -466,7 +466,7 @@ class Component extends DCLogic {
     }
     else if (verb === 'ls') { push('about.md   projects/   ux-research/   blog/   resume.pdf   contact.md', '#cdd2da'); }
     else if (verb === 'projects') { push('project-aurora.md   project-ledger.md   project-atlas.md', '#cdd2da'); push("open any with: open <name>", '#565d6b'); }
-    else if (verb === 'whoami') { push('Your Name — software engineer · ux designer · ux researcher', '#cdd2da'); }
+    else if (verb === 'whoami') { push('Your Name — Software Engineer · UX Designer/Researcher · Musician', '#cdd2da'); }
     else if (verb === 'about' || verb === 'contact') { navTo = verb + '.md'; push('opening ' + verb + '.md …', '#565d6b'); }
     else if (verb === 'research') { push('ux-research/ — usability-study.md, field-interviews.md (drafts)', '#cdd2da'); }
     else if (verb === 'resume') { push('resume.pdf — wire this up to your real CV file ✦', '#cdd2da'); }

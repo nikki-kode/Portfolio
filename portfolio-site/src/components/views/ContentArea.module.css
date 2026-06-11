@@ -1,0 +1,48 @@
+.area {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+  min-width: 0;
+}
+
+/* Source pane */
+.sourcePaneHalf {
+  width: 50%;
+  overflow-y: auto;
+  background: var(--source-bg);
+  border-right: 1px solid var(--border-dark);
+  min-width: 0;
+}
+
+.sourcePaneFull {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--source-bg);
+  min-width: 0;
+}
+
+.sourceInner {
+  padding: 22px 26px;
+  max-width: 760px;
+}
+
+.sourceLine {
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+/* Preview pane */
+.previewPaneHalf {
+  width: 50%;
+  display: flex;
+  min-width: 0;
+  background: var(--editor-bg);
+}
+
+.previewPaneFull {
+  flex: 1;
+  display: flex;
+  min-width: 0;
+  background: var(--editor-bg);
+}

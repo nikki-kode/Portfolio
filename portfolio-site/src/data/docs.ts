@@ -152,14 +152,14 @@ export const docs: Record<string, Doc> = {
   "about.md": {
     type: "about",
     paras: [
-      "I'm a generalist happiest in the seam between engineering and design — close enough to the code to build it, close enough to the research to know it's the right thing to build.",
-      "I've shipped design systems, internal tools, and research-led product work. I care about accessibility, fast feedback loops, and writing things down so the next person moves quicker.",
-      "I move comfortably between a terminal, a Figma file, and a room full of users — and I like roles that refuse to put those in separate buildings.",
+      "Placeholder paragraph one.",
+      "Placeholder paragraph two.",
+      "Placeholder paragraph three.",
     ],
     now: [
-      "open to: SWE · UX Design · UX Research roles",
-      "building: this site (you're looking at it)",
-      "lately: reading about design tokens and tiny CLIs",
+      "item one here",
+      "item two here",
+      "item three here",
     ],
   },
 

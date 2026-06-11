@@ -169,7 +169,7 @@ function buildCommandOutput(cmd: string): { lines: TermLine[]; navTo: string | n
       push("open any with: open <name>", "#565d6b");
       break;
     case "whoami":
-      push("Nikki Kode — software engineer · ux designer · ux researcher", "#cdd2da");
+      push("Nikki Kode — Software Engineer · UX Designer/Researcher · Musician", "#cdd2da");
       break;
     case "about":
     case "contact":
