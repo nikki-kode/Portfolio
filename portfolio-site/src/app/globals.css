@@ -1,0 +1,80 @@
+/* Design tokens — all colour/spacing values from the design handoff */
+:root {
+  /* Colours */
+  --accent:          #f5a97f;
+  --editor-bg:       #1e2128;
+  --activitybar-bg:  #121419;
+  --terminal-bg:     #15171c;
+  --filetree-bg:     #181b21;
+  --rail-bg:         #191c22;
+  --source-bg:       #1b1e24;
+  --card-bg:         #23262d;
+  --active-row-bg:   #262b33;
+  --border-dark:     #0d0f13;
+  --border-subtle:   #343a44;
+  --border-card:     #2a2f38;
+  --text-heading:    #f4f6f9;
+  --text-heading-2:  #e8ebf0;
+  --text-body:       #b4bcc8;
+  --text-body-2:     #aab1bd;
+  --text-muted:      #9aa1ad;
+  --text-dim:        #7b828f;
+  --text-dimmest:    #565d6b;
+  --text-labels:     #5b6270;
+  --text-meta:       #cdd2da;
+  --green:           #5ba85f;
+  --purple:          #cba6f7;
+  --error:           #e0655b;
+  --gutter:          #454b55;
+
+  /* Layout dimensions */
+  --activitybar-width: 48px;
+  --filetree-width:    236px;
+  --rail-width:        248px;
+  --tabbar-height:     40px;
+  --terminal-height:   198px;
+  --statusbar-height:  28px;
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--editor-bg);
+  color: var(--text-body-2);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar          { width: 11px; height: 11px; }
+::-webkit-scrollbar-thumb    { background: var(--border-subtle); border-radius: 6px; border: 3px solid transparent; background-clip: content-box; }
+::-webkit-scrollbar-thumb:hover { background: var(--gutter); background-clip: content-box; }
+::-webkit-scrollbar-track    { background: transparent; }
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}

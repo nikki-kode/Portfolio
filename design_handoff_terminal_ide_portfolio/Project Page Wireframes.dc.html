@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+  </style>
+</helmet>
+
+<div style="min-height:100%;background:#e9e7e2;padding:30px 28px 64px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#292524">
+
+  <!-- HEADER -->
+  <div style="max-width:1100px;margin:0 auto 8px">
+    <div style="line-height:1.3">
+      <h1 style="margin:0;font:700 19px ui-monospace,Menlo,monospace;letter-spacing:-.01em;white-space:nowrap;display:inline-block;vertical-align:baseline">project-page<span style="color:#f5a97f">/</span>wireframes</h1>
+      <span style="font:600 21px Caveat,cursive;color:#8a827a;margin-left:14px;white-space:nowrap">— 3 ways a case study reads inside the editor</span>
+    </div>
+    <p style="margin:10px 0 0;font:500 12.5px ui-monospace,Menlo,monospace;color:#8a827a;max-width:700px;line-height:1.6">Same IDE + preview shell (file tree, tabs, terminal) &mdash; exploring how much editor chrome vs. reading space the project case study wants. Sample file: <span style="color:#57534e">projects/project-aurora.md</span>.</p>
+    {{ tabBar }}
+  </div>
+
+  <div style="margin-top:26px">
+
+    <!-- ============================ V1 · SPLIT (IN-EDITOR) ============================ -->
+    <sc-if value="{{ d1 }}" hint-placeholder-val="{{ true }}">
+    <div style="position:relative;width:1040px;max-width:100%;margin:0 auto">
+      <div style="border-radius:12px;overflow:hidden;border:1px solid #cfccc4;box-shadow:0 30px 70px -34px rgba(40,38,35,.55);background:#23262d">
+        <div style="height:40px;display:flex;align-items:center;gap:14px;padding:0 14px;background:#15171c;border-bottom:1px solid #0d0f13">
+          <div style="display:flex;gap:7px"><span style="width:11px;height:11px;border-radius:50%;background:#e0655b"></span><span style="width:11px;height:11px;border-radius:50%;background:#dba93f"></span><span style="width:11px;height:11px;border-radius:50%;background:#5ba85f"></span></div>
+          <div style="flex:1;display:flex;justify-content:center"><div style="padding:5px 16px;border-radius:7px;background:#23262d;color:#7b828f;font:500 12px ui-monospace,Menlo,monospace">yourname.dev/projects/aurora</div></div>
+          <div style="width:54px"></div>
+        </div>
+        <div style="height:560px;display:flex;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">
+          <div style="width:46px;background:#121419;border-right:1px solid #0d0f13;display:flex;flex-direction:column;align-items:center;gap:13px;padding-top:14px">
+            <div style="width:24px;height:24px;border-radius:6px;background:#2c313a;border-left:2px solid #f5a97f"></div>
+            <div style="width:24px;height:24px;border-radius:6px;background:#1d2027"></div>
+            <div style="width:24px;height:24px;border-radius:6px;background:#1d2027"></div>
+          </div>
+          <div style="width:214px;background:#181b21;border-right:1px solid #0d0f13;padding:13px 10px;color:#8b93a1;font-size:12.5px;line-height:1">
+            <div style="font-size:10px;letter-spacing:.13em;color:#565d6b;margin:2px 6px 12px">EXPLORER</div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;color:#aab1bd"><span style="color:#565d6b;font-size:10px">▾</span>projects</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:4px 7px 4px 24px;border-radius:6px;background:#262b33;color:#e8ebf0;box-shadow:inset 2px 0 0 #f5a97f"><span style="width:8px;height:10px;border-radius:2px;background:#f5a97f"></span>project-aurora.md</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:4px 7px 4px 24px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>project-ledger.md</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:4px 7px 4px 24px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>design-system.md</div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;color:#aab1bd"><span style="color:#565d6b;font-size:10px">▸</span>ux-research</div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;color:#aab1bd"><span style="color:#565d6b;font-size:10px">▸</span>blog</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 7px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>about.md</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+            <div style="height:36px;display:flex;align-items:center;justify-content:space-between;background:#121419;border-bottom:1px solid #0d0f13;padding-right:12px">
+              <div style="display:flex;height:100%">
+                <div style="display:flex;align-items:center;gap:9px;padding:0 13px;background:#23262d;color:#e8ebf0;font-size:12px;border-top:2px solid #f5a97f;border-right:1px solid #0d0f13"><span style="width:8px;height:10px;border-radius:2px;background:#f5a97f"></span>project-aurora.md<span style="color:#565d6b;margin-left:4px">×</span></div>
+                <div style="display:flex;align-items:center;gap:9px;padding:0 13px;color:#6b7280;font-size:12px;border-right:1px solid #0d0f13"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>about.md</div>
+              </div>
+              <div style="display:flex;gap:4px;background:#23262d;border:1px solid #343a44;border-radius:7px;padding:2px;font-size:11px"><span style="padding:3px 9px;border-radius:5px;color:#7b828f">&lt;/&gt;</span><span style="padding:3px 9px;border-radius:5px;background:#f5a97f;color:#1a1d23;font-weight:600">Split</span><span style="padding:3px 9px;border-radius:5px;color:#7b828f">Preview</span></div>
+            </div>
+            <div style="flex:1;display:flex;min-height:0">
+              <!-- source -->
+              <div style="width:50%;display:flex;background:#23262d;border-right:1px solid #0d0f13;min-width:0">
+                <div style="padding:14px 0;width:38px;text-align:right;color:#454b55;font-size:12px;line-height:21px;user-select:none">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12</div>
+                <div style="flex:1;padding:14px 12px;font-size:12.5px;line-height:21px;color:#aab1bd;min-width:0">
+                  <div style="display:flex;align-items:center;height:21px"><span style="color:#f5a97f">#</span>&nbsp;<span style="color:#e8ebf0">Aurora</span></div>
+                  <div style="display:flex;align-items:center;height:21px"><span style="color:#5ba85f">&gt; design system + component library</span></div>
+                  <div style="height:21px"></div>
+                  <div style="display:flex;align-items:center;height:21px"><span style="color:#cba6f7">role:</span>&nbsp;<span>lead eng + design</span></div>
+                  <div style="display:flex;align-items:center;height:21px"><span style="color:#cba6f7">year:</span>&nbsp;<span>2024</span></div>
+                  <div style="height:21px"></div>
+                  <div style="display:flex;align-items:center;height:21px"><span style="color:#f5a97f">##</span>&nbsp;<span style="color:#cdd2da">The problem</span></div>
+                  <div style="display:flex;align-items:center;height:21px"><div style="height:8px;border-radius:3px;background:#363c46;width:90%"></div></div>
+                  <div style="display:flex;align-items:center;height:21px"><div style="height:8px;border-radius:3px;background:#363c46;width:64%"></div></div>
+                  <div style="height:21px"></div>
+                  <div style="display:flex;align-items:center;height:21px"><span style="color:#f5a97f">##</span>&nbsp;<span style="color:#cdd2da">Process</span></div>
+                  <div style="display:flex;align-items:center;gap:8px;height:21px"><span style="color:#7b828f">-</span><div style="height:8px;border-radius:3px;background:#363c46;width:58%"></div></div>
+                </div>
+              </div>
+              <!-- preview (narrow, scrollable) -->
+              <div style="width:50%;background:#1e2128;padding:18px 20px;overflow:hidden;min-width:0">
+                <div style="color:#f5a97f;font-size:11px;margin-bottom:12px">‹ projects/</div>
+                <div style="color:#f4f6f9;font-size:21px;font-weight:700;letter-spacing:-.01em">Aurora</div>
+                <div style="color:#9aa1ad;font-size:12px;margin:5px 0 13px">A design system &amp; component library for a fintech suite.</div>
+                <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px"><span style="padding:3px 9px;border-radius:20px;background:#262b33;border:1px solid #343a44;color:#9aa1ad;font-size:10.5px">Lead eng + design</span><span style="padding:3px 9px;border-radius:20px;background:#262b33;border:1px solid #343a44;color:#9aa1ad;font-size:10.5px">2024</span><span style="padding:3px 9px;border-radius:20px;background:#262b33;border:1px solid #343a44;color:#9aa1ad;font-size:10.5px">Web</span></div>
+                <div style="height:120px;border-radius:8px;background:repeating-linear-gradient(135deg,#262b33,#262b33 8px,#222730 8px,#222730 16px);border:1px solid #343a44;display:flex;align-items:center;justify-content:center;color:#5b6270;font-size:11px;margin-bottom:16px">hero &mdash; product shot</div>
+                <div style="color:#cdd2da;font-size:13px;font-weight:600;margin-bottom:9px">The problem</div>
+                <div style="height:8px;border-radius:3px;background:#2c313a;width:94%;margin-bottom:7px"></div>
+                <div style="height:8px;border-radius:3px;background:#2c313a;width:80%;margin-bottom:7px"></div>
+                <div style="height:8px;border-radius:3px;background:#2c313a;width:88%;margin-bottom:16px"></div>
+                <div style="height:96px;border-radius:8px;background:repeating-linear-gradient(135deg,#262b33,#262b33 8px,#222730 8px,#222730 16px);border:1px solid #343a44;display:flex;align-items:center;justify-content:center;color:#5b6270;font-size:11px">process &mdash; flow diagram</div>
+              </div>
+            </div>
+            <div style="height:96px;border-top:1px solid #0d0f13;background:#1a1d23;display:flex;flex-direction:column">
+              <div style="height:28px;display:flex;align-items:center;gap:18px;padding:0 14px;border-bottom:1px solid #0d0f13;font-size:10.5px;letter-spacing:.1em;color:#565d6b"><span style="color:#cdd2da;box-shadow:inset 0 -1px 0 #f5a97f;padding:8px 0">TERMINAL</span><span>PROBLEMS</span></div>
+              <div style="flex:1;padding:8px 14px;font-size:12.5px;line-height:1.6;color:#aab1bd"><div><span style="color:#5ba85f">visitor@site</span> <span style="color:#7b828f">~</span> <span style="color:#f5a97f">%</span> open project-aurora <span style="display:inline-block;width:8px;height:14px;background:#f5a97f;vertical-align:-2px;animation:blink 1s step-end infinite"></span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="position:absolute;top:330px;left:88px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">1</div>
+      <div style="position:absolute;top:54px;left:300px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">2</div>
+      <div style="position:absolute;top:230px;left:360px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">3</div>
+      <div style="position:absolute;top:200px;left:720px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">4</div>
+    </div>
+    <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width:1040px;margin:24px auto 0;display:flex;flex-wrap:wrap;gap:16px 24px;justify-content:center">
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:220px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">1</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Tree shows where you are &mdash; inside projects/</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:220px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">2</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Each project is its own .md tab</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:220px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">3</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Source = the case-study writeup, frontmatter &amp; all</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:220px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">4</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Preview renders it &mdash; but it&rsquo;s narrow; imagery feels cramped</span></div>
+    </div>
+    </sc-if>
+    </sc-if>
+
+    <!-- ============================ V2 · READING MODE ============================ -->
+    <sc-if value="{{ d2 }}">
+    <div style="position:relative;width:1040px;max-width:100%;margin:0 auto">
+      <div style="border-radius:12px;overflow:hidden;border:1px solid #cfccc4;box-shadow:0 30px 70px -34px rgba(40,38,35,.55);background:#23262d">
+        <div style="height:40px;display:flex;align-items:center;gap:14px;padding:0 14px;background:#15171c;border-bottom:1px solid #0d0f13">
+          <div style="display:flex;gap:7px"><span style="width:11px;height:11px;border-radius:50%;background:#e0655b"></span><span style="width:11px;height:11px;border-radius:50%;background:#dba93f"></span><span style="width:11px;height:11px;border-radius:50%;background:#5ba85f"></span></div>
+          <div style="flex:1;display:flex;justify-content:center"><div style="padding:5px 16px;border-radius:7px;background:#23262d;color:#7b828f;font:500 12px ui-monospace,Menlo,monospace">yourname.dev/projects/aurora</div></div>
+          <div style="width:54px"></div>
+        </div>
+        <div style="height:560px;display:flex;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">
+          <div style="width:46px;background:#121419;border-right:1px solid #0d0f13;display:flex;flex-direction:column;align-items:center;gap:13px;padding-top:14px">
+            <div style="width:24px;height:24px;border-radius:6px;background:#2c313a;border-left:2px solid #f5a97f"></div>
+            <div style="width:24px;height:24px;border-radius:6px;background:#1d2027"></div>
+            <div style="width:24px;height:24px;border-radius:6px;background:#1d2027"></div>
+          </div>
+          <div style="width:188px;background:#181b21;border-right:1px solid #0d0f13;padding:13px 10px;color:#8b93a1;font-size:12.5px;line-height:1">
+            <div style="font-size:10px;letter-spacing:.13em;color:#565d6b;margin:2px 6px 12px">EXPLORER</div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;color:#aab1bd"><span style="color:#565d6b;font-size:10px">▾</span>projects</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:4px 7px 4px 22px;border-radius:6px;background:#262b33;color:#e8ebf0;box-shadow:inset 2px 0 0 #f5a97f"><span style="width:8px;height:10px;border-radius:2px;background:#f5a97f"></span>project-aurora.md</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:4px 7px 4px 22px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>project-ledger.md</div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;color:#aab1bd"><span style="color:#565d6b;font-size:10px">▸</span>ux-research</div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;color:#aab1bd"><span style="color:#565d6b;font-size:10px">▸</span>blog</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+            <div style="height:36px;display:flex;align-items:center;justify-content:space-between;background:#121419;border-bottom:1px solid #0d0f13;padding-right:12px">
+              <div style="display:flex;align-items:center;gap:9px;padding:0 13px;height:100%;background:#23262d;color:#e8ebf0;font-size:12px;border-top:2px solid #f5a97f;border-right:1px solid #0d0f13"><span style="width:8px;height:10px;border-radius:2px;background:#f5a97f"></span>project-aurora.md</div>
+              <div style="display:flex;gap:4px;background:#23262d;border:1px solid #343a44;border-radius:7px;padding:2px;font-size:11px"><span style="padding:3px 9px;border-radius:5px;color:#7b828f">&lt;/&gt;</span><span style="padding:3px 9px;border-radius:5px;color:#7b828f">Split</span><span style="padding:3px 9px;border-radius:5px;background:#f5a97f;color:#1a1d23;font-weight:600">Preview</span></div>
+            </div>
+            <div style="flex:1;position:relative;background:#1e2128;overflow:hidden">
+              <div style="max-width:600px;margin:0 auto;padding:26px 20px 60px">
+                <div style="color:#f5a97f;font-size:11.5px;margin-bottom:14px">‹ projects/</div>
+                <div style="color:#f4f6f9;font-size:30px;font-weight:700;letter-spacing:-.02em">Aurora</div>
+                <div style="color:#9aa1ad;font-size:13.5px;margin:8px 0 20px;line-height:1.5">A design system &amp; component library that unified six fintech products onto one accessible, themeable foundation.</div>
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:16px 0;border-top:1px solid #2a2f38;border-bottom:1px solid #2a2f38;margin-bottom:22px">
+                  <div><div style="color:#5b6270;font-size:9.5px;letter-spacing:.1em;margin-bottom:5px">ROLE</div><div style="color:#cdd2da;font-size:12px">Lead eng + design</div></div>
+                  <div><div style="color:#5b6270;font-size:9.5px;letter-spacing:.1em;margin-bottom:5px">TIMELINE</div><div style="color:#cdd2da;font-size:12px">2024 · 5 mo</div></div>
+                  <div><div style="color:#5b6270;font-size:9.5px;letter-spacing:.1em;margin-bottom:5px">PLATFORM</div><div style="color:#cdd2da;font-size:12px">Web app</div></div>
+                  <div><div style="color:#5b6270;font-size:9.5px;letter-spacing:.1em;margin-bottom:5px">TEAM</div><div style="color:#cdd2da;font-size:12px">4 people</div></div>
+                </div>
+                <div style="height:200px;border-radius:10px;background:repeating-linear-gradient(135deg,#262b33,#262b33 9px,#222730 9px,#222730 18px);border:1px solid #343a44;display:flex;align-items:center;justify-content:center;color:#5b6270;font-size:12px;margin-bottom:26px">hero &mdash; product shot (1600&times;900)</div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:11px"><span style="width:6px;height:14px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:15px;font-weight:700">Overview</span></div>
+                <div style="height:9px;border-radius:3px;background:#2c313a;width:96%;margin-bottom:9px"></div>
+                <div style="height:9px;border-radius:3px;background:#2c313a;width:90%;margin-bottom:9px"></div>
+                <div style="height:9px;border-radius:3px;background:#2c313a;width:60%;margin-bottom:26px"></div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:11px"><span style="width:6px;height:14px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:15px;font-weight:700">The problem &amp; process</span></div>
+                <div style="display:flex;gap:14px;margin-bottom:26px"><div style="flex:1"><div style="height:130px;border-radius:9px;background:repeating-linear-gradient(135deg,#262b33,#262b33 9px,#222730 9px,#222730 18px);border:1px solid #343a44;display:flex;align-items:center;justify-content:center;color:#5b6270;font-size:11px;margin-bottom:8px">before &mdash; legacy UI</div></div><div style="flex:1"><div style="height:130px;border-radius:9px;background:repeating-linear-gradient(135deg,#262b33,#262b33 9px,#222730 9px,#222730 18px);border:1px solid #343a44;display:flex;align-items:center;justify-content:center;color:#5b6270;font-size:11px;margin-bottom:8px">after &mdash; redesign</div></div></div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px"><span style="width:6px;height:14px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:15px;font-weight:700">Outcome</span></div>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+                  <div style="border:1px solid #2a2f38;border-radius:9px;padding:14px"><div style="color:#f5a97f;font-size:24px;font-weight:700">00%</div><div style="height:7px;border-radius:3px;background:#2c313a;width:80%;margin-top:9px"></div></div>
+                  <div style="border:1px solid #2a2f38;border-radius:9px;padding:14px"><div style="color:#f5a97f;font-size:24px;font-weight:700">00</div><div style="height:7px;border-radius:3px;background:#2c313a;width:70%;margin-top:9px"></div></div>
+                  <div style="border:1px solid #2a2f38;border-radius:9px;padding:14px"><div style="color:#f5a97f;font-size:24px;font-weight:700">00&times;</div><div style="height:7px;border-radius:3px;background:#2c313a;width:74%;margin-top:9px"></div></div>
+                </div>
+              </div>
+              <div style="position:absolute;top:14px;right:6px;width:5px;height:120px;border-radius:3px;background:#343a44"></div>
+            </div>
+            <div style="height:26px;display:flex;align-items:center;gap:14px;padding:0 14px;background:#15171c;border-top:1px solid #0d0f13;font-size:11px;color:#565d6b"><span style="color:#f5a97f">●</span><span>project-aurora.md</span><span>markdown</span><span style="margin-left:auto">⌘K · type &lsquo;help&rsquo;</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="position:absolute;top:54px;left:760px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">1</div>
+      <div style="position:absolute;top:215px;left:300px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">2</div>
+      <div style="position:absolute;top:320px;left:700px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">3</div>
+      <div style="position:absolute;top:540px;left:330px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">4</div>
+    </div>
+    <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width:1040px;margin:24px auto 0;display:flex;flex-wrap:wrap;gap:16px 24px;justify-content:center">
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:220px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">1</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Preview-only &mdash; full width for a proper read</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:220px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">2</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Meta strip: role, timeline, platform, team at a glance</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:220px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">3</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Captioned slots show exactly where real screens drop in</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:220px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">4</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Terminal collapses to a thin status bar to free up space</span></div>
+    </div>
+    </sc-if>
+    </sc-if>
+
+    <!-- ============================ V3 · OUTLINE RAIL ============================ -->
+    <sc-if value="{{ d3 }}">
+    <div style="position:relative;width:1040px;max-width:100%;margin:0 auto">
+      <div style="border-radius:12px;overflow:hidden;border:1px solid #cfccc4;box-shadow:0 30px 70px -34px rgba(40,38,35,.55);background:#23262d">
+        <div style="height:40px;display:flex;align-items:center;gap:14px;padding:0 14px;background:#15171c;border-bottom:1px solid #0d0f13">
+          <div style="display:flex;gap:7px"><span style="width:11px;height:11px;border-radius:50%;background:#e0655b"></span><span style="width:11px;height:11px;border-radius:50%;background:#dba93f"></span><span style="width:11px;height:11px;border-radius:50%;background:#5ba85f"></span></div>
+          <div style="flex:1;display:flex;justify-content:center"><div style="padding:5px 16px;border-radius:7px;background:#23262d;color:#7b828f;font:500 12px ui-monospace,Menlo,monospace">yourname.dev/projects/aurora</div></div>
+          <div style="width:54px"></div>
+        </div>
+        <div style="height:560px;display:flex;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">
+          <div style="width:46px;background:#121419;border-right:1px solid #0d0f13;display:flex;flex-direction:column;align-items:center;gap:13px;padding-top:14px">
+            <div style="width:24px;height:24px;border-radius:6px;background:#2c313a;border-left:2px solid #f5a97f"></div>
+            <div style="width:24px;height:24px;border-radius:6px;background:#1d2027"></div>
+          </div>
+          <div style="width:170px;background:#181b21;border-right:1px solid #0d0f13;padding:13px 10px;color:#8b93a1;font-size:12.5px;line-height:1">
+            <div style="font-size:10px;letter-spacing:.13em;color:#565d6b;margin:2px 6px 12px">EXPLORER</div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;color:#aab1bd"><span style="color:#565d6b;font-size:10px">▾</span>projects</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:4px 7px 4px 22px;border-radius:6px;background:#262b33;color:#e8ebf0;box-shadow:inset 2px 0 0 #f5a97f"><span style="width:8px;height:10px;border-radius:2px;background:#f5a97f"></span>project-aurora.md</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:4px 7px 4px 22px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>project-ledger.md</div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;color:#aab1bd"><span style="color:#565d6b;font-size:10px">▸</span>ux-research</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+            <div style="height:36px;display:flex;align-items:center;justify-content:space-between;background:#121419;border-bottom:1px solid #0d0f13;padding-right:12px">
+              <div style="display:flex;align-items:center;gap:9px;padding:0 13px;height:100%;background:#23262d;color:#e8ebf0;font-size:12px;border-top:2px solid #f5a97f;border-right:1px solid #0d0f13"><span style="width:8px;height:10px;border-radius:2px;background:#f5a97f"></span>project-aurora.md</div>
+              <div style="display:flex;gap:4px;background:#23262d;border:1px solid #343a44;border-radius:7px;padding:2px;font-size:11px"><span style="padding:3px 9px;border-radius:5px;color:#7b828f">Split</span><span style="padding:3px 9px;border-radius:5px;background:#f5a97f;color:#1a1d23;font-weight:600">Preview</span></div>
+            </div>
+            <div style="flex:1;display:flex;min-height:0">
+              <!-- content -->
+              <div style="flex:1;background:#1e2128;overflow:hidden;position:relative;min-width:0">
+                <div style="padding:24px 26px 60px;max-width:520px">
+                  <div style="color:#f5a97f;font-size:11.5px;margin-bottom:12px">‹ projects/</div>
+                  <div style="color:#f4f6f9;font-size:27px;font-weight:700;letter-spacing:-.02em">Aurora</div>
+                  <div style="color:#9aa1ad;font-size:13px;margin:7px 0 18px;line-height:1.5">A design system &amp; component library for a fintech suite.</div>
+                  <div style="height:170px;border-radius:10px;background:repeating-linear-gradient(135deg,#262b33,#262b33 9px,#222730 9px,#222730 18px);border:1px solid #343a44;display:flex;align-items:center;justify-content:center;color:#5b6270;font-size:12px;margin-bottom:24px">hero &mdash; product shot</div>
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:11px"><span style="width:6px;height:14px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:15px;font-weight:700">Research</span></div>
+                  <div style="height:9px;border-radius:3px;background:#2c313a;width:94%;margin-bottom:9px"></div>
+                  <div style="height:9px;border-radius:3px;background:#2c313a;width:72%;margin-bottom:18px"></div>
+                  <div style="border-left:3px solid #f5a97f;padding:4px 0 4px 14px;margin-bottom:22px"><div style="color:#cdd2da;font-size:14px;font-style:italic;line-height:1.5">&ldquo;Pull-quote &mdash; a key insight or user verbatim from the research phase.&rdquo;</div><div style="color:#5b6270;font-size:11px;margin-top:7px">&mdash; participant, usability study</div></div>
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:11px"><span style="width:6px;height:14px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:15px;font-weight:700">Design</span></div>
+                  <div style="height:9px;border-radius:3px;background:#2c313a;width:90%;margin-bottom:9px"></div>
+                  <div style="height:9px;border-radius:3px;background:#2c313a;width:64%"></div>
+                </div>
+                <div style="position:absolute;top:14px;right:6px;width:5px;height:110px;border-radius:3px;background:#343a44"></div>
+              </div>
+              <!-- right rail -->
+              <div style="width:200px;background:#191c22;border-left:1px solid #0d0f13;padding:20px 16px;flex:none">
+                <div style="font-size:9.5px;letter-spacing:.12em;color:#565d6b;margin-bottom:12px">ON THIS PAGE</div>
+                <div style="display:flex;flex-direction:column;gap:9px;font-size:12px;margin-bottom:22px">
+                  <span style="color:#7b828f">Overview</span>
+                  <span style="color:#7b828f">Problem</span>
+                  <span style="color:#f5a97f;box-shadow:inset 2px 0 0 #f5a97f;padding-left:9px;margin-left:-9px">Research</span>
+                  <span style="color:#7b828f">Design</span>
+                  <span style="color:#7b828f">Outcome</span>
+                  <span style="color:#7b828f">Gallery</span>
+                </div>
+                <div style="height:1px;background:#2a2f38;margin-bottom:18px"></div>
+                <div style="font-size:9.5px;letter-spacing:.12em;color:#565d6b;margin-bottom:12px">DETAILS</div>
+                <div style="display:flex;flex-direction:column;gap:13px">
+                  <div><div style="color:#5b6270;font-size:9.5px;margin-bottom:4px">ROLE</div><div style="color:#cdd2da;font-size:11.5px">Lead eng + design</div></div>
+                  <div><div style="color:#5b6270;font-size:9.5px;margin-bottom:4px">TIMELINE</div><div style="color:#cdd2da;font-size:11.5px">2024 · 5 months</div></div>
+                  <div><div style="color:#5b6270;font-size:9.5px;margin-bottom:4px">TOOLS</div><div style="color:#cdd2da;font-size:11.5px">Figma · React · TS</div></div>
+                  <div style="display:flex;align-items:center;gap:6px;color:#f5a97f;font-size:11.5px;margin-top:2px">Live site <span>↗</span></div>
+                </div>
+              </div>
+            </div>
+            <div style="height:26px;display:flex;align-items:center;gap:14px;padding:0 14px;background:#15171c;border-top:1px solid #0d0f13;font-size:11px;color:#565d6b"><span style="color:#f5a97f">●</span><span>project-aurora.md</span><span style="margin-left:auto">⌘K · type &lsquo;help&rsquo;</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="position:absolute;top:130px;left:840px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">1</div>
+      <div style="position:absolute;top:380px;left:840px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">2</div>
+      <div style="position:absolute;top:360px;left:340px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">3</div>
+    </div>
+    <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width:1040px;margin:24px auto 0;display:flex;flex-wrap:wrap;gap:16px 24px;justify-content:center">
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:240px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">1</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Sticky outline jumps between sections &mdash; good for long studies</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:240px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">2</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Meta card (role, tools, live link) always in view</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:240px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">3</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Pull-quote block carries the UX-research voice</span></div>
+    </div>
+    </sc-if>
+    </sc-if>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:880},&quot;showNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { tab: 1 };
+  renderVals() {
+    const tab = this.state.tab;
+    const accent = '#f5a97f';
+    const self = this;
+    const mk = function (n) { return function () { self.setState({ tab: n }); }; };
+    const tabs = [
+      [1, '01', 'Split (in-editor)'],
+      [2, '02', 'Reading mode'],
+      [3, '03', 'Outline rail'],
+    ];
+    const tabBar = React.createElement('div',
+      { style: { display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '18px' } },
+      tabs.map(function (t) {
+        const n = t[0], num = t[1], label = t[2], active = (tab === n);
+        return React.createElement('button', {
+          key: n,
+          onClick: mk(n),
+          style: {
+            display: 'flex', alignItems: 'center', gap: '9px',
+            font: '500 13px ui-monospace, SFMono-Regular, Menlo, monospace',
+            padding: '9px 15px', borderRadius: '9px', cursor: 'pointer',
+            border: '1px solid ' + (active ? accent : '#d8d4cc'),
+            background: active ? '#23262d' : '#faf8f5',
+            color: active ? '#e8ebf0' : '#57534e',
+            boxShadow: active ? '0 3px 0 -1px ' + accent : '0 1px 2px rgba(0,0,0,.04)',
+            transition: 'all .14s ease',
+          },
+        },
+          React.createElement('span', { style: { color: active ? accent : '#a8a29e', fontWeight: 700, fontVariantNumeric: 'tabular-nums' } }, num),
+          label);
+      })
+    );
+    return {
+      tabBar,
+      showNotes: this.props.showNotes ?? true,
+      d1: tab === 1, d2: tab === 2, d3: tab === 3,
+    };
+  }
+}
+</script>
+</body>
+</html>

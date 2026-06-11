@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+  </style>
+</helmet>
+
+<div style="min-height:100%;background:#e9e7e2;padding:30px 28px 64px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#292524">
+
+  <!-- ===== HEADER ===== -->
+  <div style="max-width:1100px;margin:0 auto 8px">
+    <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
+      <h1 style="margin:0;font:700 19px ui-monospace,Menlo,monospace;letter-spacing:-.01em">portfolio<span style="color:#f5a97f">/</span>wireframes</h1>
+      <span style="font:600 20px Caveat,cursive;color:#8a827a;white-space:nowrap">— 6 directions for a terminal-style site</span>
+    </div>
+    <p style="margin:7px 0 0;font:500 12.5px ui-monospace,Menlo,monospace;color:#8a827a;max-width:680px;line-height:1.6">Dark editor · hybrid IDE + command bar · stylized, not a literal clone. Pick a tab to explore — the numbered notes call out the key interactions of each direction.</p>
+    {{ tabBar }}
+  </div>
+
+  <!-- ===== CANVAS ===== -->
+  <div style="margin-top:26px">
+
+    <!-- ============================ D6 · IDE + PREVIEW (BLEND) ============================ -->
+    <sc-if value="{{ d6 }}" hint-placeholder-val="{{ true }}">
+    <div style="position:relative;width:1040px;max-width:100%;margin:0 auto">
+      <div style="border-radius:12px;overflow:hidden;border:1px solid #cfccc4;box-shadow:0 30px 70px -34px rgba(40,38,35,.55);background:#23262d">
+        <div style="height:40px;display:flex;align-items:center;gap:14px;padding:0 14px;background:#15171c;border-bottom:1px solid #0d0f13">
+          <div style="display:flex;gap:7px"><span style="width:11px;height:11px;border-radius:50%;background:#e0655b"></span><span style="width:11px;height:11px;border-radius:50%;background:#dba93f"></span><span style="width:11px;height:11px;border-radius:50%;background:#5ba85f"></span></div>
+          <div style="flex:1;display:flex;justify-content:center"><div style="padding:5px 16px;border-radius:7px;background:#23262d;color:#7b828f;font:500 12px ui-monospace,Menlo,monospace">yourname.dev</div></div>
+          <div style="width:54px"></div>
+        </div>
+        <div style="height:560px;display:flex;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">
+          <!-- activity bar -->
+          <div style="width:46px;background:#121419;border-right:1px solid #0d0f13;display:flex;flex-direction:column;align-items:center;gap:13px;padding-top:14px">
+            <div style="width:24px;height:24px;border-radius:6px;background:#2c313a;border-left:2px solid #f5a97f"></div>
+            <div style="width:24px;height:24px;border-radius:6px;background:#1d2027"></div>
+            <div style="width:24px;height:24px;border-radius:6px;background:#1d2027"></div>
+            <div style="width:24px;height:24px;border-radius:6px;background:#1d2027"></div>
+          </div>
+          <!-- tree -->
+          <div style="width:214px;background:#181b21;border-right:1px solid #0d0f13;padding:13px 10px;color:#8b93a1;font-size:12.5px;line-height:1">
+            <div style="font-size:10px;letter-spacing:.13em;color:#565d6b;margin:2px 6px 12px">EXPLORER</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 7px;border-radius:6px;margin-bottom:1px;background:#262b33;color:#e8ebf0;box-shadow:inset 2px 0 0 #f5a97f"><span style="width:8px;height:10px;border-radius:2px;background:#f5a97f"></span>about.md</div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;color:#aab1bd"><span style="color:#565d6b;font-size:10px">▾</span>projects</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:4px 7px 4px 24px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>project-aurora.md</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:4px 7px 4px 24px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>project-ledger.md</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:4px 7px 4px 24px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>design-system.md</div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;color:#aab1bd"><span style="color:#565d6b;font-size:10px">▾</span>ux-research</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:4px 7px 4px 24px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>usability-study.md</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:4px 7px 4px 24px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>field-interviews.md</div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;color:#aab1bd"><span style="color:#565d6b;font-size:10px">▸</span>blog</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 7px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#e0655b"></span>resume.pdf</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 7px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>contact.md</div>
+          </div>
+          <!-- editor column -->
+          <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+            <!-- tab strip + split toggle -->
+            <div style="height:36px;display:flex;align-items:center;justify-content:space-between;background:#121419;border-bottom:1px solid #0d0f13;padding-right:12px">
+              <div style="display:flex;height:100%">
+                <div style="display:flex;align-items:center;gap:9px;padding:0 15px;background:#23262d;color:#e8ebf0;font-size:12.5px;border-top:2px solid #f5a97f;border-right:1px solid #0d0f13"><span style="width:8px;height:10px;border-radius:2px;background:#f5a97f"></span>about.md<span style="color:#565d6b;margin-left:4px">×</span></div>
+                <div style="display:flex;align-items:center;gap:9px;padding:0 15px;color:#6b7280;font-size:12.5px;border-top:2px solid transparent;border-right:1px solid #0d0f13"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>contact.md</div>
+              </div>
+              <div style="display:flex;gap:4px;background:#23262d;border:1px solid #343a44;border-radius:7px;padding:2px;font-size:11px">
+                <span style="padding:3px 9px;border-radius:5px;color:#7b828f">&lt;/&gt;</span>
+                <span style="padding:3px 9px;border-radius:5px;background:#f5a97f;color:#1a1d23;font-weight:600">Split</span>
+                <span style="padding:3px 9px;border-radius:5px;color:#7b828f">Preview</span>
+              </div>
+            </div>
+            <!-- split: source | preview -->
+            <div style="flex:1;display:flex;min-height:0">
+              <!-- source -->
+              <div style="width:50%;display:flex;background:#23262d;border-right:1px solid #0d0f13;min-width:0">
+                <div style="padding:14px 0;width:40px;text-align:right;color:#454b55;font-size:12px;line-height:22px;user-select:none">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10</div>
+                <div style="flex:1;padding:14px 12px;font-size:12.5px;line-height:22px;color:#aab1bd;min-width:0">
+                  <div style="display:flex;align-items:center;height:22px"><span style="color:#f5a97f">#</span>&nbsp;<span style="color:#e8ebf0">Your Name</span></div>
+                  <div style="display:flex;align-items:center;height:22px"><span style="color:#5ba85f">&gt; swe · ux · research</span></div>
+                  <div style="height:22px"></div>
+                  <div style="display:flex;align-items:center;height:22px"><div style="height:8px;border-radius:3px;background:#363c46;width:92%"></div></div>
+                  <div style="display:flex;align-items:center;height:22px"><div style="height:8px;border-radius:3px;background:#363c46;width:70%"></div></div>
+                  <div style="height:22px"></div>
+                  <div style="display:flex;align-items:center;height:22px"><span style="color:#f5a97f">##</span>&nbsp;<span style="color:#cdd2da">Selected work</span></div>
+                  <div style="display:flex;align-items:center;gap:9px;height:22px"><span style="color:#7b828f">-</span><div style="height:8px;border-radius:3px;background:#363c46;width:64%"></div></div>
+                  <div style="display:flex;align-items:center;gap:9px;height:22px"><span style="color:#7b828f">-</span><div style="height:8px;border-radius:3px;background:#363c46;width:56%"></div></div>
+                </div>
+              </div>
+              <!-- preview -->
+              <div style="width:50%;background:#1e2128;padding:22px 22px;overflow:hidden;min-width:0">
+                <div style="display:flex;align-items:center;gap:13px;margin-bottom:16px">
+                  <div style="width:48px;height:48px;border-radius:50%;background:repeating-linear-gradient(45deg,#2c313a,#2c313a 5px,#262b33 5px,#262b33 10px);border:1px solid #343a44;flex:none"></div>
+                  <div><div style="color:#f4f6f9;font-size:17px;font-weight:700;letter-spacing:-.01em">Your Name</div><div style="color:#f5a97f;font-size:11px;margin-top:3px">swe · ux designer · researcher</div></div>
+                </div>
+                <div style="height:8px;border-radius:3px;background:#2c313a;width:96%;margin-bottom:9px"></div>
+                <div style="height:8px;border-radius:3px;background:#2c313a;width:72%;margin-bottom:18px"></div>
+                <div style="color:#cdd2da;font-size:13px;font-weight:600;margin-bottom:11px">Selected work</div>
+                <div style="display:flex;gap:11px">
+                  <div style="flex:1"><div style="height:58px;border-radius:7px;background:repeating-linear-gradient(45deg,#2c313a,#2c313a 6px,#262b33 6px,#262b33 12px);border:1px solid #343a44;margin-bottom:8px"></div><div style="height:7px;border-radius:3px;background:#2c313a;width:74%"></div></div>
+                  <div style="flex:1"><div style="height:58px;border-radius:7px;background:repeating-linear-gradient(45deg,#2c313a,#2c313a 6px,#262b33 6px,#262b33 12px);border:1px solid #343a44;margin-bottom:8px"></div><div style="height:7px;border-radius:3px;background:#2c313a;width:62%"></div></div>
+                </div>
+              </div>
+            </div>
+            <!-- docked terminal (full width of editor column) -->
+            <div style="height:138px;border-top:1px solid #0d0f13;background:#1a1d23;display:flex;flex-direction:column">
+              <div style="height:30px;display:flex;align-items:center;gap:18px;padding:0 14px;border-bottom:1px solid #0d0f13;font-size:10.5px;letter-spacing:.1em;color:#565d6b"><span style="color:#cdd2da;box-shadow:inset 0 -1px 0 #f5a97f;padding:9px 0">TERMINAL</span><span>PROBLEMS</span><span>OUTPUT</span></div>
+              <div style="flex:1;padding:9px 14px;font-size:12.5px;line-height:1.65;color:#aab1bd">
+                <div><span style="color:#5ba85f">visitor@site</span> <span style="color:#7b828f">~</span> <span style="color:#f5a97f">%</span> help</div>
+                <div style="display:flex;flex-wrap:wrap;gap:5px 16px;margin-top:2px;color:#cdd2da"><span>about</span><span>projects</span><span>research</span><span>resume</span><span>blog</span><span>contact</span><span>theme</span><span>clear</span></div>
+                <div style="margin-top:4px"><span style="color:#5ba85f">visitor@site</span> <span style="color:#7b828f">~</span> <span style="color:#f5a97f">%</span> <span style="display:inline-block;width:8px;height:14px;background:#f5a97f;vertical-align:-2px;animation:blink 1s step-end infinite"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="position:absolute;top:300px;left:88px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">1</div>
+      <div style="position:absolute;top:54px;left:300px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">2</div>
+      <div style="position:absolute;top:250px;left:430px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">3</div>
+      <div style="position:absolute;top:140px;left:760px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">4</div>
+      <div style="position:absolute;top:480px;left:300px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">5</div>
+    </div>
+    <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width:1040px;margin:24px auto 0;display:flex;flex-wrap:wrap;gap:16px 24px;justify-content:center">
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:210px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">1</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">File tree = your sections, as files &amp; folders</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:210px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">2</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Tabs open multiple docs, like a real editor</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:210px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">3</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Left: raw markdown source (the engineer view)</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:210px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">4</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Right: live rendered preview (for everyone else)</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:210px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">5</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Docked terminal &mdash; &lsquo;help&rsquo; lists every command</span></div>
+    </div>
+    </sc-if>
+    </sc-if>
+
+    <!-- ============================ D1 · CLASSIC IDE ============================ -->
+    <sc-if value="{{ d1 }}">
+    <div style="position:relative;width:1040px;max-width:100%;margin:0 auto">
+      <div style="border-radius:12px;overflow:hidden;border:1px solid #cfccc4;box-shadow:0 30px 70px -34px rgba(40,38,35,.55);background:#23262d">
+        <div style="height:40px;display:flex;align-items:center;gap:14px;padding:0 14px;background:#15171c;border-bottom:1px solid #0d0f13">
+          <div style="display:flex;gap:7px">
+            <span style="width:11px;height:11px;border-radius:50%;background:#e0655b"></span>
+            <span style="width:11px;height:11px;border-radius:50%;background:#dba93f"></span>
+            <span style="width:11px;height:11px;border-radius:50%;background:#5ba85f"></span>
+          </div>
+          <div style="flex:1;display:flex;justify-content:center"><div style="padding:5px 16px;border-radius:7px;background:#23262d;color:#7b828f;font:500 12px ui-monospace,Menlo,monospace">yourname.dev</div></div>
+          <div style="width:54px"></div>
+        </div>
+        <div style="height:560px;display:flex;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">
+          <!-- activity bar -->
+          <div style="width:46px;background:#121419;border-right:1px solid #0d0f13;display:flex;flex-direction:column;align-items:center;gap:13px;padding-top:14px">
+            <div style="width:24px;height:24px;border-radius:6px;background:#2c313a;border-left:2px solid #f5a97f"></div>
+            <div style="width:24px;height:24px;border-radius:6px;background:#1d2027"></div>
+            <div style="width:24px;height:24px;border-radius:6px;background:#1d2027"></div>
+            <div style="width:24px;height:24px;border-radius:6px;background:#1d2027"></div>
+          </div>
+          <!-- tree -->
+          <div style="width:214px;background:#181b21;border-right:1px solid #0d0f13;padding:13px 10px;color:#8b93a1;font-size:12.5px;line-height:1">
+            <div style="font-size:10px;letter-spacing:.13em;color:#565d6b;margin:2px 6px 12px">EXPLORER</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 7px;border-radius:6px;margin-bottom:1px;background:#262b33;color:#e8ebf0;box-shadow:inset 2px 0 0 #f5a97f"><span style="width:8px;height:10px;border-radius:2px;background:#f5a97f"></span>about.md</div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;color:#aab1bd"><span style="color:#565d6b;font-size:10px">▾</span>projects</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:4px 7px 4px 24px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>project-aurora.md</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:4px 7px 4px 24px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>project-ledger.md</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:4px 7px 4px 24px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>design-system.md</div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;color:#aab1bd"><span style="color:#565d6b;font-size:10px">▾</span>ux-research</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:4px 7px 4px 24px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>usability-study.md</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:4px 7px 4px 24px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>field-interviews.md</div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;color:#aab1bd"><span style="color:#565d6b;font-size:10px">▸</span>blog</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 7px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#e0655b"></span>resume.pdf</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 7px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>contact.md</div>
+          </div>
+          <!-- editor column -->
+          <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+            <div style="height:36px;display:flex;background:#121419;border-bottom:1px solid #0d0f13">
+              <div style="display:flex;align-items:center;gap:9px;padding:0 15px;background:#23262d;color:#e8ebf0;font-size:12.5px;border-top:2px solid #f5a97f;border-right:1px solid #0d0f13"><span style="width:8px;height:10px;border-radius:2px;background:#f5a97f"></span>about.md<span style="color:#565d6b;margin-left:4px">×</span></div>
+              <div style="display:flex;align-items:center;gap:9px;padding:0 15px;color:#6b7280;font-size:12.5px;border-top:2px solid transparent;border-right:1px solid #0d0f13"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>contact.md</div>
+            </div>
+            <div style="flex:1;display:flex;background:#23262d;overflow:hidden">
+              <div style="padding:14px 0;width:44px;text-align:right;color:#454b55;font-size:12px;line-height:22px;user-select:none">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12</div>
+              <div style="flex:1;padding:14px 18px 14px 14px;font-size:13px;line-height:22px;color:#aab1bd;min-width:0">
+                <div style="display:flex;align-items:center;height:22px"><span style="color:#f5a97f">#</span>&nbsp;<span style="color:#e8ebf0">Hey, I&rsquo;m Your Name</span></div>
+                <div style="height:22px"></div>
+                <div style="display:flex;align-items:center;height:22px"><span style="color:#5ba85f">// software engineer · ux designer · ux researcher</span></div>
+                <div style="height:22px"></div>
+                <div style="display:flex;align-items:center;height:22px"><div style="height:8px;border-radius:3px;background:#363c46;width:92%"></div></div>
+                <div style="display:flex;align-items:center;height:22px"><div style="height:8px;border-radius:3px;background:#363c46;width:84%"></div></div>
+                <div style="display:flex;align-items:center;height:22px"><div style="height:8px;border-radius:3px;background:#363c46;width:58%"></div></div>
+                <div style="height:22px"></div>
+                <div style="display:flex;align-items:center;height:22px"><span style="color:#f5a97f">##</span>&nbsp;<span style="color:#cdd2da">Selected work</span></div>
+                <div style="display:flex;align-items:center;gap:10px;height:22px"><span style="color:#7b828f">-</span><div style="height:8px;border-radius:3px;background:#363c46;width:70%"></div></div>
+                <div style="display:flex;align-items:center;gap:10px;height:22px"><span style="color:#7b828f">-</span><div style="height:8px;border-radius:3px;background:#363c46;width:62%"></div></div>
+                <div style="display:flex;align-items:center;gap:10px;height:22px"><span style="color:#7b828f">-</span><div style="height:8px;border-radius:3px;background:#363c46;width:54%"></div></div>
+              </div>
+            </div>
+            <div style="height:150px;border-top:1px solid #0d0f13;background:#1a1d23;display:flex;flex-direction:column">
+              <div style="height:30px;display:flex;align-items:center;gap:18px;padding:0 14px;border-bottom:1px solid #0d0f13;font-size:10.5px;letter-spacing:.1em;color:#565d6b"><span style="color:#cdd2da;box-shadow:inset 0 -1px 0 #f5a97f;padding:9px 0">TERMINAL</span><span>PROBLEMS</span><span>OUTPUT</span></div>
+              <div style="flex:1;padding:10px 14px;font-size:12.5px;line-height:1.7;color:#aab1bd">
+                <div><span style="color:#5ba85f">visitor@site</span> <span style="color:#7b828f">~</span> <span style="color:#f5a97f">%</span> help</div>
+                <div style="color:#7b828f">Available commands —</div>
+                <div style="display:flex;flex-wrap:wrap;gap:5px 16px;margin-top:3px;color:#cdd2da"><span>about</span><span>projects</span><span>research</span><span>resume</span><span>blog</span><span>contact</span><span>theme</span><span>clear</span></div>
+                <div style="margin-top:5px"><span style="color:#5ba85f">visitor@site</span> <span style="color:#7b828f">~</span> <span style="color:#f5a97f">%</span> <span style="display:inline-block;width:8px;height:14px;background:#f5a97f;vertical-align:-2px;animation:blink 1s step-end infinite"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="position:absolute;top:300px;left:88px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">1</div>
+      <div style="position:absolute;top:54px;left:300px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">2</div>
+      <div style="position:absolute;top:230px;left:620px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">3</div>
+      <div style="position:absolute;top:498px;left:300px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">4</div>
+    </div>
+    <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width:1040px;margin:24px auto 0;display:flex;flex-wrap:wrap;gap:16px 26px;justify-content:center">
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:230px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">1</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">File tree = your sections, as files &amp; folders</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:230px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">2</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Tabs open multiple docs, like a real editor</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:230px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">3</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Content reads as markdown source, line numbers &amp; all</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:230px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">4</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Docked terminal &mdash; type &lsquo;help&rsquo; for the command list</span></div>
+    </div>
+    </sc-if>
+    </sc-if>
+
+    <!-- ============================ D2 · TERMINAL CLI ============================ -->
+    <sc-if value="{{ d2 }}">
+    <div style="position:relative;width:1040px;max-width:100%;margin:0 auto">
+      <div style="border-radius:12px;overflow:hidden;border:1px solid #cfccc4;box-shadow:0 30px 70px -34px rgba(40,38,35,.55);background:#1a1d23">
+        <div style="height:40px;display:flex;align-items:center;gap:14px;padding:0 14px;background:#15171c;border-bottom:1px solid #0d0f13">
+          <div style="display:flex;gap:7px"><span style="width:11px;height:11px;border-radius:50%;background:#e0655b"></span><span style="width:11px;height:11px;border-radius:50%;background:#dba93f"></span><span style="width:11px;height:11px;border-radius:50%;background:#5ba85f"></span></div>
+          <div style="flex:1;display:flex;justify-content:center"><div style="padding:5px 16px;border-radius:7px;background:#23262d;color:#7b828f;font:500 12px ui-monospace,Menlo,monospace">visitor@portfolio: ~  —  zsh</div></div>
+          <div style="width:54px"></div>
+        </div>
+        <div style="height:560px;position:relative;background:#1a1d23;padding:28px 34px;color:#aab1bd;font-size:13.5px;line-height:1.85;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">
+          <div style="color:#454b55;font-size:11px;letter-spacing:.06em;margin-bottom:20px">Last login: today on ttys001 &mdash; welcome to ~/portfolio</div>
+          <div><span style="color:#5ba85f">visitor@portfolio</span> <span style="color:#7b828f">~</span> <span style="color:#f5a97f">%</span> whoami</div>
+          <div style="color:#e8ebf0;margin:2px 0 16px;padding-left:1px">Your Name &mdash; software engineer, ux designer &amp; researcher.</div>
+          <div><span style="color:#5ba85f">visitor@portfolio</span> <span style="color:#7b828f">~</span> <span style="color:#f5a97f">%</span> help</div>
+          <div style="color:#7b828f;margin:2px 0 8px">Navigate by typing a command:</div>
+          <div style="display:grid;grid-template-columns:130px 1fr;gap:6px 18px;max-width:560px">
+            <span style="color:#f5a97f">about</span><span style="color:#9aa1ad">who I am &amp; how I work</span>
+            <span style="color:#f5a97f">projects</span><span style="color:#9aa1ad">things I&rsquo;ve shipped &nbsp;<span style="color:#565d6b">(cd projects/)</span></span>
+            <span style="color:#f5a97f">research</span><span style="color:#9aa1ad">ux studies &amp; write-ups</span>
+            <span style="color:#f5a97f">resume</span><span style="color:#9aa1ad">download CV &nbsp;<span style="color:#565d6b">(.pdf)</span></span>
+            <span style="color:#f5a97f">blog</span><span style="color:#9aa1ad">notes &amp; essays</span>
+            <span style="color:#f5a97f">contact</span><span style="color:#9aa1ad">email · github · linkedin</span>
+          </div>
+          <div style="margin-top:16px"><span style="color:#5ba85f">visitor@portfolio</span> <span style="color:#7b828f">~</span> <span style="color:#f5a97f">%</span> <span style="color:#cdd2da">proj</span><span style="display:inline-block;width:8px;height:15px;background:#f5a97f;vertical-align:-3px;animation:blink 1s step-end infinite"></span><span style="color:#454b55;margin-left:10px">⇥ projects/</span></div>
+          <div style="position:absolute;left:34px;bottom:22px;color:#565d6b;font-size:11.5px">Tab&nbsp;⇥ autocompletes · ↑ for history · type &lsquo;help&rsquo; anytime · &lsquo;gui&rsquo; for a visual mode</div>
+        </div>
+      </div>
+      <div style="position:absolute;top:286px;left:250px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">1</div>
+      <div style="position:absolute;top:430px;left:150px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">2</div>
+      <div style="position:absolute;top:528px;left:600px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">3</div>
+    </div>
+    <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width:1040px;margin:24px auto 0;display:flex;flex-wrap:wrap;gap:16px 26px;justify-content:center">
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:250px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">1</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">The site IS the terminal &mdash; &lsquo;help&rsquo; is the whole navigation</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:250px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">2</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Live prompt + cursor invites typing; output renders inline</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:250px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">3</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Tab-complete &amp; history for power users; &lsquo;gui&rsquo; escape hatch for everyone else</span></div>
+    </div>
+    </sc-if>
+    </sc-if>
+
+    <!-- ============================ D3 · SOURCE + PREVIEW ============================ -->
+    <sc-if value="{{ d3 }}">
+    <div style="position:relative;width:1040px;max-width:100%;margin:0 auto">
+      <div style="border-radius:12px;overflow:hidden;border:1px solid #cfccc4;box-shadow:0 30px 70px -34px rgba(40,38,35,.55);background:#23262d">
+        <div style="height:40px;display:flex;align-items:center;gap:14px;padding:0 14px;background:#15171c;border-bottom:1px solid #0d0f13">
+          <div style="display:flex;gap:7px"><span style="width:11px;height:11px;border-radius:50%;background:#e0655b"></span><span style="width:11px;height:11px;border-radius:50%;background:#dba93f"></span><span style="width:11px;height:11px;border-radius:50%;background:#5ba85f"></span></div>
+          <div style="flex:1;display:flex;justify-content:center"><div style="padding:5px 16px;border-radius:7px;background:#23262d;color:#7b828f;font:500 12px ui-monospace,Menlo,monospace">yourname.dev</div></div>
+          <div style="width:54px"></div>
+        </div>
+        <div style="height:560px;display:flex;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">
+          <!-- tree -->
+          <div style="width:178px;background:#181b21;border-right:1px solid #0d0f13;padding:13px 10px;color:#8b93a1;font-size:12.5px;line-height:1">
+            <div style="font-size:10px;letter-spacing:.13em;color:#565d6b;margin:2px 6px 12px">EXPLORER</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 7px;border-radius:6px;margin-bottom:1px;background:#262b33;color:#e8ebf0;box-shadow:inset 2px 0 0 #f5a97f"><span style="width:8px;height:10px;border-radius:2px;background:#f5a97f"></span>about.md</div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;color:#aab1bd"><span style="color:#565d6b;font-size:10px">▸</span>projects</div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;color:#aab1bd"><span style="color:#565d6b;font-size:10px">▸</span>ux-research</div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;color:#aab1bd"><span style="color:#565d6b;font-size:10px">▸</span>blog</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 7px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#e0655b"></span>resume.pdf</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 7px;color:#8b93a1"><span style="width:8px;height:10px;border-radius:2px;background:#555b66"></span>contact.md</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+            <!-- omnibox -->
+            <div style="height:46px;display:flex;align-items:center;justify-content:center;background:#1a1d23;border-bottom:1px solid #0d0f13">
+              <div style="display:flex;align-items:center;gap:10px;width:380px;padding:7px 13px;border-radius:8px;background:#23262d;border:1px solid #343a44;color:#7b828f;font-size:12.5px"><span style="padding:1px 6px;border-radius:4px;background:#2e333c;color:#9aa1ad;font-size:11px">⌘K</span>Search files or run a command&hellip;</div>
+            </div>
+            <!-- tab + toggle -->
+            <div style="height:34px;display:flex;align-items:center;justify-content:space-between;background:#121419;border-bottom:1px solid #0d0f13;padding-right:12px">
+              <div style="display:flex;align-items:center;gap:9px;padding:0 15px;height:100%;background:#23262d;color:#e8ebf0;font-size:12.5px;border-top:2px solid #f5a97f;border-right:1px solid #0d0f13"><span style="width:8px;height:10px;border-radius:2px;background:#f5a97f"></span>about.md</div>
+              <div style="display:flex;gap:4px;background:#23262d;border:1px solid #343a44;border-radius:7px;padding:2px;font-size:11px">
+                <span style="padding:3px 10px;border-radius:5px;color:#7b828f">&lt;/&gt; Source</span>
+                <span style="padding:3px 10px;border-radius:5px;background:#f5a97f;color:#1a1d23;font-weight:600">Preview</span>
+              </div>
+            </div>
+            <!-- split -->
+            <div style="flex:1;display:flex;min-height:0">
+              <!-- source -->
+              <div style="width:50%;display:flex;background:#23262d;border-right:1px solid #0d0f13">
+                <div style="padding:14px 0;width:38px;text-align:right;color:#454b55;font-size:11.5px;line-height:21px;user-select:none">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+                <div style="flex:1;padding:14px 14px;font-size:12.5px;line-height:21px;color:#aab1bd;min-width:0">
+                  <div style="display:flex;align-items:center;height:21px"><span style="color:#f5a97f">#</span>&nbsp;<span style="color:#e8ebf0">Your Name</span></div>
+                  <div style="display:flex;align-items:center;height:21px"><span style="color:#5ba85f">&gt; swe · ux · research</span></div>
+                  <div style="height:21px"></div>
+                  <div style="display:flex;align-items:center;height:21px"><div style="height:7px;border-radius:3px;background:#363c46;width:90%"></div></div>
+                  <div style="display:flex;align-items:center;height:21px"><div style="height:7px;border-radius:3px;background:#363c46;width:70%"></div></div>
+                  <div style="height:21px"></div>
+                  <div style="display:flex;align-items:center;height:21px"><span style="color:#f5a97f">##</span>&nbsp;<span style="color:#cdd2da">Work</span></div>
+                  <div style="display:flex;align-items:center;gap:8px;height:21px"><span style="color:#7b828f">-</span><div style="height:7px;border-radius:3px;background:#363c46;width:60%"></div></div>
+                  <div style="display:flex;align-items:center;gap:8px;height:21px"><span style="color:#7b828f">-</span><div style="height:7px;border-radius:3px;background:#363c46;width:52%"></div></div>
+                </div>
+              </div>
+              <!-- preview -->
+              <div style="width:50%;background:#1e2128;padding:22px 24px;overflow:hidden">
+                <div style="display:flex;align-items:center;gap:13px;margin-bottom:16px">
+                  <div style="width:50px;height:50px;border-radius:50%;background:repeating-linear-gradient(45deg,#2c313a,#2c313a 5px,#262b33 5px,#262b33 10px);border:1px solid #343a44"></div>
+                  <div><div style="color:#f4f6f9;font-size:18px;font-weight:700;letter-spacing:-.01em">Your Name</div><div style="color:#f5a97f;font-size:11.5px;margin-top:3px">swe · ux designer · researcher</div></div>
+                </div>
+                <div style="height:8px;border-radius:3px;background:#2c313a;width:96%;margin-bottom:9px"></div>
+                <div style="height:8px;border-radius:3px;background:#2c313a;width:88%;margin-bottom:9px"></div>
+                <div style="height:8px;border-radius:3px;background:#2c313a;width:64%;margin-bottom:20px"></div>
+                <div style="color:#cdd2da;font-size:13px;font-weight:600;margin-bottom:12px">Work</div>
+                <div style="display:flex;gap:12px">
+                  <div style="flex:1"><div style="height:64px;border-radius:7px;background:repeating-linear-gradient(45deg,#2c313a,#2c313a 6px,#262b33 6px,#262b33 12px);border:1px solid #343a44;margin-bottom:8px"></div><div style="height:7px;border-radius:3px;background:#2c313a;width:70%"></div></div>
+                  <div style="flex:1"><div style="height:64px;border-radius:7px;background:repeating-linear-gradient(45deg,#2c313a,#2c313a 6px,#262b33 6px,#262b33 12px);border:1px solid #343a44;margin-bottom:8px"></div><div style="height:7px;border-radius:3px;background:#2c313a;width:60%"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="position:absolute;top:60px;left:520px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">1</div>
+      <div style="position:absolute;top:300px;left:300px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">2</div>
+      <div style="position:absolute;top:300px;left:760px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">3</div>
+    </div>
+    <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width:1040px;margin:24px auto 0;display:flex;flex-wrap:wrap;gap:16px 26px;justify-content:center">
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:250px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">1</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">⌘K command bar &mdash; jump to any file or action</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:250px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">2</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Left = the raw markdown source (for the engineers)</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:250px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">3</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Right = clean rendered preview (for everyone else)</span></div>
+    </div>
+    </sc-if>
+    </sc-if>
+
+    <!-- ============================ D4 · COMMAND PALETTE ============================ -->
+    <sc-if value="{{ d4 }}">
+    <div style="position:relative;width:1040px;max-width:100%;margin:0 auto">
+      <div style="border-radius:12px;overflow:hidden;border:1px solid #cfccc4;box-shadow:0 30px 70px -34px rgba(40,38,35,.55);background:#23262d">
+        <div style="height:40px;display:flex;align-items:center;gap:14px;padding:0 14px;background:#15171c;border-bottom:1px solid #0d0f13">
+          <div style="display:flex;gap:7px"><span style="width:11px;height:11px;border-radius:50%;background:#e0655b"></span><span style="width:11px;height:11px;border-radius:50%;background:#dba93f"></span><span style="width:11px;height:11px;border-radius:50%;background:#5ba85f"></span></div>
+          <div style="flex:1;display:flex;justify-content:center"><div style="padding:5px 16px;border-radius:7px;background:#23262d;color:#7b828f;font:500 12px ui-monospace,Menlo,monospace">yourname.dev</div></div>
+          <div style="width:54px"></div>
+        </div>
+        <div style="height:560px;position:relative;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">
+          <!-- dimmed backdrop -->
+          <div style="position:absolute;inset:0;display:flex;opacity:.32;filter:saturate(.6)">
+            <div style="width:200px;background:#181b21;border-right:1px solid #0d0f13"></div>
+            <div style="flex:1;background:#23262d"></div>
+          </div>
+          <div style="position:absolute;inset:0;background:rgba(12,13,17,.55)"></div>
+          <!-- palette -->
+          <div style="position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;padding-top:64px">
+            <div style="width:560px;background:#1f232b;border:1px solid #3a414c;border-radius:13px;box-shadow:0 36px 90px rgba(0,0,0,.6);overflow:hidden">
+              <div style="display:flex;align-items:center;gap:11px;padding:16px 18px;border-bottom:1px solid #2a2f38"><span style="color:#f5a97f;font-size:16px">›</span><span style="color:#7b828f;font-size:14px">Type a command or search&hellip;</span><span style="display:inline-block;width:8px;height:16px;background:#f5a97f;animation:blink 1s step-end infinite"></span></div>
+              <div style="padding:6px">
+                <div style="display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:8px;background:#2a3340;box-shadow:inset 2px 0 0 #f5a97f"><span style="width:18px;height:18px;border-radius:4px;background:#f5a97f33;border:1px solid #f5a97f55"></span><span style="flex:1;color:#f4f6f9;font-size:13px">Open <span style="color:#f5a97f">about.md</span></span><span style="color:#7b828f;font-size:11px">Go to · ⏎</span></div>
+                <div style="display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:8px"><span style="width:18px;height:18px;border-radius:4px;background:#2c313a"></span><span style="flex:1;color:#cdd2da;font-size:13px">Browse <span style="color:#9aa1ad">projects/</span></span><span style="color:#565d6b;font-size:11px">Folder</span></div>
+                <div style="display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:8px"><span style="width:18px;height:18px;border-radius:4px;background:#2c313a"></span><span style="flex:1;color:#cdd2da;font-size:13px">View <span style="color:#9aa1ad">ux-research/</span></span><span style="color:#565d6b;font-size:11px">Folder</span></div>
+                <div style="display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:8px"><span style="width:18px;height:18px;border-radius:4px;background:#2c313a"></span><span style="flex:1;color:#cdd2da;font-size:13px">Download <span style="color:#9aa1ad">resume.pdf</span></span><span style="color:#565d6b;font-size:11px">Action</span></div>
+                <div style="display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:8px"><span style="width:18px;height:18px;border-radius:4px;background:#2c313a"></span><span style="flex:1;color:#cdd2da;font-size:13px">Copy <span style="color:#9aa1ad">email address</span></span><span style="color:#565d6b;font-size:11px">Contact</span></div>
+                <div style="display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:8px"><span style="width:18px;height:18px;border-radius:4px;background:#2c313a"></span><span style="flex:1;color:#cdd2da;font-size:13px">Read <span style="color:#9aa1ad">the blog</span></span><span style="color:#565d6b;font-size:11px">Folder</span></div>
+              </div>
+              <div style="display:flex;gap:18px;padding:11px 18px;border-top:1px solid #2a2f38;color:#565d6b;font-size:11px"><span>↑↓ navigate</span><span>⏎ open</span><span>esc dismiss</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="position:absolute;top:120px;left:300px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">1</div>
+      <div style="position:absolute;top:250px;left:720px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">2</div>
+      <div style="position:absolute;top:440px;left:300px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">3</div>
+    </div>
+    <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width:1040px;margin:24px auto 0;display:flex;flex-wrap:wrap;gap:16px 26px;justify-content:center">
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:250px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">1</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Hit ⌘K from any page to summon the palette</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:250px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">2</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Fuzzy-find any file or action &mdash; keyboard-first nav</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:250px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">3</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Instantly familiar to engineers; still clickable for others</span></div>
+    </div>
+    </sc-if>
+    </sc-if>
+
+    <!-- ============================ D5 · TILED DASHBOARD ============================ -->
+    <sc-if value="{{ d5 }}">
+    <div style="position:relative;width:1040px;max-width:100%;margin:0 auto">
+      <div style="border-radius:12px;overflow:hidden;border:1px solid #cfccc4;box-shadow:0 30px 70px -34px rgba(40,38,35,.55);background:#15171c">
+        <div style="height:40px;display:flex;align-items:center;gap:14px;padding:0 14px;background:#15171c;border-bottom:1px solid #0d0f13">
+          <div style="display:flex;gap:7px"><span style="width:11px;height:11px;border-radius:50%;background:#e0655b"></span><span style="width:11px;height:11px;border-radius:50%;background:#dba93f"></span><span style="width:11px;height:11px;border-radius:50%;background:#5ba85f"></span></div>
+          <div style="flex:1;display:flex;justify-content:center"><div style="padding:5px 16px;border-radius:7px;background:#23262d;color:#7b828f;font:500 12px ui-monospace,Menlo,monospace">yourname.dev — workspace</div></div>
+          <div style="width:54px"></div>
+        </div>
+        <div style="height:560px;display:flex;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">
+          <div style="width:46px;background:#121419;border-right:1px solid #0d0f13;display:flex;flex-direction:column;align-items:center;gap:13px;padding-top:14px">
+            <div style="width:24px;height:24px;border-radius:6px;background:#2c313a;border-left:2px solid #f5a97f"></div>
+            <div style="width:24px;height:24px;border-radius:6px;background:#1d2027"></div>
+            <div style="width:24px;height:24px;border-radius:6px;background:#1d2027"></div>
+          </div>
+          <div style="flex:1;display:grid;grid-template-columns:1.05fr 1fr;grid-template-rows:148px 196px 1fr;gap:9px;padding:9px;min-width:0">
+            <!-- about pane -->
+            <div style="background:#1f232b;border:1px solid #2a2f38;border-radius:8px;overflow:hidden;display:flex;flex-direction:column">
+              <div style="display:flex;align-items:center;gap:7px;padding:7px 11px;border-bottom:1px solid #2a2f38;font-size:10px;letter-spacing:.1em;color:#7b828f"><span style="width:6px;height:6px;border-radius:50%;background:#f5a97f"></span>ABOUT.MD</div>
+              <div style="flex:1;padding:12px;display:flex;gap:12px;align-items:flex-start">
+                <div style="width:42px;height:42px;border-radius:50%;background:repeating-linear-gradient(45deg,#2c313a,#2c313a 5px,#262b33 5px,#262b33 10px);border:1px solid #343a44;flex:none"></div>
+                <div style="flex:1;min-width:0"><div style="color:#f4f6f9;font-size:14px;font-weight:700">Your Name</div><div style="color:#f5a97f;font-size:10.5px;margin:3px 0 9px">swe · ux · research</div><div style="height:6px;border-radius:3px;background:#2c313a;width:90%;margin-bottom:6px"></div><div style="height:6px;border-radius:3px;background:#2c313a;width:66%"></div></div>
+              </div>
+            </div>
+            <!-- now pane -->
+            <div style="background:#1f232b;border:1px solid #2a2f38;border-radius:8px;overflow:hidden;display:flex;flex-direction:column">
+              <div style="display:flex;align-items:center;gap:7px;padding:7px 11px;border-bottom:1px solid #2a2f38;font-size:10px;letter-spacing:.1em;color:#7b828f"><span style="width:6px;height:6px;border-radius:50%;background:#f5a97f"></span>NOW —</div>
+              <div style="flex:1;padding:12px;font-size:11.5px;line-height:1.5">
+                <div style="color:#9aa1ad;margin-bottom:8px"><span style="color:#5ba85f">●</span> open to: <span style="color:#cdd2da">SWE · UX Design · UX Research</span></div>
+                <div style="color:#9aa1ad;margin-bottom:8px">location: <span style="color:#cdd2da">somewhere, earth</span></div>
+                <div style="color:#9aa1ad;display:flex;align-items:center;gap:8px">building: <div style="height:6px;border-radius:3px;background:#2c313a;width:42%"></div></div>
+              </div>
+            </div>
+            <!-- projects pane span 2 -->
+            <div style="grid-column:1 / span 2;background:#1f232b;border:1px solid #2a2f38;border-radius:8px;overflow:hidden;display:flex;flex-direction:column">
+              <div style="display:flex;align-items:center;gap:7px;padding:7px 11px;border-bottom:1px solid #2a2f38;font-size:10px;letter-spacing:.1em;color:#7b828f"><span style="width:6px;height:6px;border-radius:50%;background:#f5a97f"></span>PROJECTS/</div>
+              <div style="flex:1;padding:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:11px">
+                <div style="display:flex;flex-direction:column"><div style="flex:1;border-radius:6px;background:repeating-linear-gradient(45deg,#2c313a,#2c313a 6px,#262b33 6px,#262b33 12px);border:1px solid #343a44;margin-bottom:7px"></div><div style="height:6px;border-radius:3px;background:#2c313a;width:80%;margin-bottom:5px"></div><div style="height:5px;border-radius:3px;background:#2c313a;width:50%"></div></div>
+                <div style="display:flex;flex-direction:column"><div style="flex:1;border-radius:6px;background:repeating-linear-gradient(45deg,#2c313a,#2c313a 6px,#262b33 6px,#262b33 12px);border:1px solid #343a44;margin-bottom:7px"></div><div style="height:6px;border-radius:3px;background:#2c313a;width:74%;margin-bottom:5px"></div><div style="height:5px;border-radius:3px;background:#2c313a;width:46%"></div></div>
+                <div style="display:flex;flex-direction:column"><div style="flex:1;border-radius:6px;background:repeating-linear-gradient(45deg,#2c313a,#2c313a 6px,#262b33 6px,#262b33 12px);border:1px solid #343a44;margin-bottom:7px"></div><div style="height:6px;border-radius:3px;background:#2c313a;width:82%;margin-bottom:5px"></div><div style="height:5px;border-radius:3px;background:#2c313a;width:54%"></div></div>
+                <div style="display:flex;flex-direction:column"><div style="flex:1;border-radius:6px;background:repeating-linear-gradient(45deg,#2c313a,#2c313a 6px,#262b33 6px,#262b33 12px);border:1px solid #343a44;margin-bottom:7px"></div><div style="height:6px;border-radius:3px;background:#2c313a;width:70%;margin-bottom:5px"></div><div style="height:5px;border-radius:3px;background:#2c313a;width:48%"></div></div>
+              </div>
+            </div>
+            <!-- ux research pane -->
+            <div style="background:#1f232b;border:1px solid #2a2f38;border-radius:8px;overflow:hidden;display:flex;flex-direction:column">
+              <div style="display:flex;align-items:center;gap:7px;padding:7px 11px;border-bottom:1px solid #2a2f38;font-size:10px;letter-spacing:.1em;color:#7b828f"><span style="width:6px;height:6px;border-radius:50%;background:#f5a97f"></span>UX-RESEARCH/</div>
+              <div style="flex:1;padding:11px;font-size:11.5px">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:9px"><span style="width:7px;height:9px;border-radius:2px;background:#555b66"></span><div style="height:6px;border-radius:3px;background:#2c313a;width:62%"></div></div>
+                <div style="display:flex;align-items:center;gap:8px"><span style="width:7px;height:9px;border-radius:2px;background:#555b66"></span><div style="height:6px;border-radius:3px;background:#2c313a;width:54%"></div></div>
+              </div>
+            </div>
+            <!-- terminal pane -->
+            <div style="background:#1a1d23;border:1px solid #2a2f38;border-radius:8px;overflow:hidden;display:flex;flex-direction:column">
+              <div style="display:flex;align-items:center;gap:7px;padding:7px 11px;border-bottom:1px solid #2a2f38;font-size:10px;letter-spacing:.1em;color:#7b828f"><span style="width:6px;height:6px;border-radius:50%;background:#f5a97f"></span>TERMINAL</div>
+              <div style="flex:1;padding:11px;font-size:11.5px;line-height:1.6;color:#9aa1ad">
+                <div><span style="color:#5ba85f">~</span> <span style="color:#f5a97f">%</span> help</div>
+                <div><span style="color:#5ba85f">~</span> <span style="color:#f5a97f">%</span> <span style="display:inline-block;width:7px;height:13px;background:#f5a97f;vertical-align:-2px;animation:blink 1s step-end infinite"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="position:absolute;top:120px;left:130px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">1</div>
+      <div style="position:absolute;top:300px;left:500px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">2</div>
+      <div style="position:absolute;top:476px;left:780px;width:26px;height:26px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 13px ui-monospace,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.45);z-index:5">3</div>
+    </div>
+    <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width:1040px;margin:24px auto 0;display:flex;flex-wrap:wrap;gap:16px 26px;justify-content:center">
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:250px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">1</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Tiling layout &mdash; about, status, work &amp; terminal all at once</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:250px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">2</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Projects as a card grid, front and center</span></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;max-width:250px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#f5a97f;color:#1a1d23;font:700 12px ui-monospace,monospace;display:flex;align-items:center;justify-content:center">3</span><span style="font:600 18px Caveat,cursive;color:#57534e;line-height:1.2">Persistent terminal pane keeps the command bar handy</span></div>
+    </div>
+    </sc-if>
+    </sc-if>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:940},&quot;showNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { tab: 6 };
+  renderVals() {
+    const tab = this.state.tab;
+    const accent = '#f5a97f';
+    const self = this;
+    const mk = function (n) { return function () { self.setState({ tab: n }); }; };
+    const tabs = [
+      [6, '01', 'IDE + Preview'],
+      [1, '02', 'Classic IDE'],
+      [3, '03', 'Source + Preview'],
+      [2, '04', 'Terminal CLI'],
+      [4, '05', 'Command Palette'],
+      [5, '06', 'Tiled Dashboard'],
+    ];
+    const tabBar = React.createElement('div',
+      { style: { display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '18px' } },
+      tabs.map(function (t) {
+        const n = t[0], num = t[1], label = t[2], active = (tab === n);
+        return React.createElement('button', {
+          key: n,
+          onClick: mk(n),
+          style: {
+            display: 'flex', alignItems: 'center', gap: '9px',
+            font: '500 13px ui-monospace, SFMono-Regular, Menlo, monospace',
+            padding: '9px 15px', borderRadius: '9px', cursor: 'pointer',
+            border: '1px solid ' + (active ? accent : '#d8d4cc'),
+            background: active ? '#23262d' : '#faf8f5',
+            color: active ? '#e8ebf0' : '#57534e',
+            boxShadow: active ? '0 3px 0 -1px ' + accent : '0 1px 2px rgba(0,0,0,.04)',
+            transition: 'all .14s ease',
+          },
+        },
+          React.createElement('span', { style: { color: active ? accent : '#a8a29e', fontWeight: 700, fontVariantNumeric: 'tabular-nums' } }, num),
+          label);
+      })
+    );
+    return {
+      tabBar,
+      showNotes: this.props.showNotes ?? true,
+      d1: tab === 1, d2: tab === 2, d3: tab === 3, d4: tab === 4, d5: tab === 5, d6: tab === 6,
+    };
+  }
+}
+</script>
+</body>
+</html>
