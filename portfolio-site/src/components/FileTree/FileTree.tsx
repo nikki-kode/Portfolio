@@ -9,7 +9,7 @@ type Props = {
 };
 
 type FileEntry = { kind: "file"; key: string; label: string; depth: number; dotColor?: string };
-type FolderEntry = { kind: "folder"; name: string; label: string; isOpen: boolean };
+type FolderEntry = { kind: "folder"; name: string; label: string; isOpen: boolean; indexKey?: string };
 type TreeEntry = FileEntry | FolderEntry;
 
 function buildTree(open: Record<string, boolean>): TreeEntry[] {
@@ -17,7 +17,7 @@ function buildTree(open: Record<string, boolean>): TreeEntry[] {
 
   rows.push({ kind: "file", key: "about.md", label: "about.md", depth: 0 });
 
-  rows.push({ kind: "folder", name: "projects", label: "projects", isOpen: !!open.projects });
+  rows.push({ kind: "folder", name: "projects", label: "projects", isOpen: !!open.projects, indexKey: "projects/" });
   if (open.projects) {
     rows.push({ kind: "file", key: "project-alpha.md", label: "project-alpha.md", depth: 1 });
     rows.push({ kind: "file", key: "project-bravo.md", label: "project-bravo.md", depth: 1 });
@@ -48,13 +48,19 @@ export default function FileTree({ activeKey, open, openDoc, toggleFolder }: Pro
         {rows.map((entry) => {
           if (entry.kind === "folder") {
             return (
-              <div
-                key={entry.name}
-                className={styles.row}
-                onClick={() => toggleFolder(entry.name)}
-              >
-                <span className={styles.caret}>{entry.isOpen ? "▾" : "▸"}</span>
-                <span className={styles.label}>{entry.label}</span>
+              <div key={entry.name} className={styles.row}>
+                <span
+                  className={styles.caret}
+                  onClick={() => toggleFolder(entry.name)}
+                >
+                  {entry.isOpen ? "▾" : "▸"}
+                </span>
+                <span
+                  className={styles.label}
+                  onClick={() => entry.indexKey ? openDoc(entry.indexKey) : toggleFolder(entry.name)}
+                >
+                  {entry.label}
+                </span>
               </div>
             );
           }

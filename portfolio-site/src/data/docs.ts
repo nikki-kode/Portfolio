@@ -28,16 +28,19 @@ export type ContactDoc = {
 };
 
 export type StubDoc = { type: "stub" };
+export type ProjectsIndexDoc = { type: "projects-index" };
 
-export type Doc = ProjectDoc | AboutDoc | ContactDoc | StubDoc;
+export type Doc = ProjectDoc | AboutDoc | ContactDoc | StubDoc | ProjectsIndexDoc;
 
 export const SECTIONS = ["overview", "problem", "research", "design", "outcome", "gallery"] as const;
 export type SectionId = (typeof SECTIONS)[number];
 
 export const docs: Record<string, Doc> = {
+  "projects/": { type: "projects-index" },
+
   "project-alpha.md": {
     type: "project",
-    title: "Aurora",
+    title: "Aurora (example page)",
     platform: "Web app",
     tagline:
       "A design system & component library that unified six fintech products onto one accessible, themeable foundation.",
@@ -73,7 +76,9 @@ export const docs: Record<string, Doc> = {
     gallery: ["Token architecture", "Component library", "Dark mode"],
   },
 
-  "project-bravo.md": {
+  // project-bravo.md and project-charlie.md intentionally absent — resolves to stub
+
+  "project-bravo-UNUSED.md": {
     type: "project",
     title: "Ledger",
     platform: "Internal web tool",
@@ -111,7 +116,7 @@ export const docs: Record<string, Doc> = {
     gallery: ["Diff view", "Guided close", "Audit trail"],
   },
 
-  "project-charlie.md": {
+  "project-charlie-UNUSED.md": {
     type: "project",
     title: "Atlas",
     platform: "iOS",
@@ -188,6 +193,7 @@ export function resolveFile(arg: string): string | null {
   if (!arg) return null;
   const a = arg.toLowerCase().replace(/\.md$/, "").replace(/\//g, "");
   const map: Record<string, string> = {
+    projects: "projects/",
     alpha: "project-alpha.md",
     "project-alpha": "project-alpha.md",
     bravo: "project-bravo.md",

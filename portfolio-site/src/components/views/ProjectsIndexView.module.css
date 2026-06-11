@@ -1,0 +1,112 @@
+.scroll {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--editor-bg);
+}
+
+.inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 40px 90px;
+}
+
+.heading {
+  margin: 0 0 6px;
+  color: var(--text-heading);
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.sub {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin: 0 0 32px;
+}
+
+.card {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 18px 20px;
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  background: var(--card-bg);
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.card:hover {
+  border-color: var(--border-subtle);
+  background: var(--active-row-bg);
+}
+
+.cardStub {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.cardStub:hover {
+  border-color: var(--border-card);
+  background: var(--card-bg);
+}
+
+.cardDot {
+  width: 8px;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--accent);
+  flex: none;
+  margin-top: 4px;
+}
+
+.cardDotStub {
+  background: var(--text-dimmest);
+}
+
+.cardBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.cardTitle {
+  color: var(--text-heading-2);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.cardTagline {
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cardMeta {
+  color: var(--text-dimmest);
+  font-size: 11.5px;
+  margin-top: 8px;
+}
+
+.draftBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: #2a2520;
+  border: 1px solid #4a3b2c;
+  color: var(--accent);
+  font-size: 10px;
+  margin-left: 8px;
+}
+
+.arrow {
+  color: var(--text-dimmest);
+  font-size: 14px;
+  flex: none;
+  align-self: center;
+}

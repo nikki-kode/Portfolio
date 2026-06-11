@@ -36,6 +36,7 @@ export default function IDEShell() {
             view={ide.state.view}
             activeSection={ide.state.activeSection}
             setSection={ide.setSection}
+            openDoc={ide.openDoc}
           />
         </div>
         {ide.state.termOpen && (

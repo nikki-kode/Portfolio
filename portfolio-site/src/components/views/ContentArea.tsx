@@ -2,6 +2,8 @@ import { getDoc } from "@/data/docs";
 import type { View } from "@/hooks/useIDEState";
 import AboutView from "./AboutView";
 import ContactView from "./ContactView";
+import ProjectView from "./ProjectView";
+import ProjectsIndexView from "./ProjectsIndexView";
 import StubView from "./StubView";
 import styles from "./ContentArea.module.css";
 
@@ -10,6 +12,7 @@ type Props = {
   view: View;
   activeSection: string;
   setSection: (id: string) => void;
+  openDoc: (key: string) => void;
 };
 
 function buildSourceLines(doc: ReturnType<typeof getDoc>) {
@@ -61,7 +64,7 @@ function buildSourceLines(doc: ReturnType<typeof getDoc>) {
   return lines;
 }
 
-export default function ContentArea({ activeKey, view, activeSection, setSection }: Props) {
+export default function ContentArea({ activeKey, view, activeSection, setSection, openDoc }: Props) {
   const doc = getDoc(activeKey);
   const showSource = view === "code" || view === "split";
   const showPreview = view === "preview" || view === "split";
@@ -90,11 +93,15 @@ export default function ContentArea({ activeKey, view, activeSection, setSection
           {doc.type === "about" && <AboutView doc={doc} />}
           {doc.type === "contact" && <ContactView doc={doc} />}
           {doc.type === "stub" && <StubView filename={activeKey} />}
+          {doc.type === "projects-index" && <ProjectsIndexView openDoc={openDoc} />}
           {doc.type === "project" && (
-            <div style={{ padding: "40px", color: "var(--text-dimmest)", fontSize: "13px" }}>
-              {/* project view — coming next */}
-              {activeKey}
-            </div>
+            <ProjectView
+              doc={doc}
+              view={view}
+              activeSection={activeSection}
+              setSection={setSection}
+              onBack={() => openDoc("projects/")}
+            />
           )}
         </div>
       )}

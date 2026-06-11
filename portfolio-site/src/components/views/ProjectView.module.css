@@ -1,0 +1,260 @@
+.pane {
+  flex: 1;
+  display: flex;
+  min-width: 0;
+}
+
+/* ── Scroll column ── */
+.scroll {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+  min-width: 0;
+  background: var(--editor-bg);
+}
+
+.inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 34px 40px 90px;
+}
+
+.backLink {
+  color: var(--accent);
+  font-size: 12px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  display: inline-block;
+  transition: opacity 0.1s;
+}
+
+.backLink:hover { opacity: 0.75; }
+
+.title {
+  margin: 0;
+  color: var(--text-heading);
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  color: var(--text-muted);
+  font-size: 14.5px;
+  line-height: 1.6;
+  margin: 12px 0 22px;
+  max-width: 580px;
+}
+
+/* ── Hero ── */
+.hero {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: var(--card-bg);
+  margin-bottom: 34px;
+}
+
+/* ── Sections ── */
+.section {
+  margin-bottom: 38px;
+  scroll-margin-top: 20px;
+}
+
+.sectionHeading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.accentBar {
+  width: 6px;
+  height: 16px;
+  border-radius: 2px;
+  background: var(--accent);
+  flex: none;
+}
+
+.sectionTitle {
+  color: var(--text-heading);
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.para {
+  color: var(--text-body);
+  font-size: 14px;
+  line-height: 1.75;
+  margin: 0 0 14px;
+  max-width: 600px;
+}
+
+/* ── Problem before/after ── */
+.beforeAfter {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.imageCaption {
+  color: var(--text-labels);
+  font-size: 11.5px;
+  margin-top: 8px;
+}
+
+/* ── Pull quote ── */
+.pullQuote {
+  border-left: 3px solid var(--accent);
+  padding: 6px 0 6px 18px;
+  margin: 20px 0 4px;
+  max-width: 560px;
+}
+
+.quoteText {
+  color: #d6dbe3;
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.quoteAttrib {
+  color: #6b7280;
+  font-size: 12px;
+  margin-top: 9px;
+}
+
+/* ── Image slots ── */
+.imageSlot {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: var(--card-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gutter);
+  font-size: 12px;
+}
+
+.designImage {
+  margin-top: 18px;
+}
+
+/* ── Outcome stats ── */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.statCard {
+  border: 1px solid var(--border-card);
+  border-radius: 11px;
+  padding: 16px;
+  background: var(--card-bg);
+}
+
+.statValue {
+  color: var(--accent);
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.statLabel {
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.4;
+  margin-top: 8px;
+}
+
+/* ── Gallery ── */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+/* ── Outline rail ── */
+.rail {
+  width: var(--rail-width);
+  flex: none;
+  background: var(--rail-bg);
+  border-left: 1px solid var(--border-dark);
+  padding: 26px 18px;
+  overflow-y: auto;
+}
+
+.railLabel {
+  font-size: 10px;
+  letter-spacing: 0.13em;
+  color: var(--text-dimmest);
+  margin-bottom: 14px;
+}
+
+.toc {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 26px;
+}
+
+.tocItem {
+  font-size: 12.5px;
+  padding: 6px 0 6px 11px;
+  margin-left: -11px;
+  cursor: pointer;
+  color: var(--text-dim);
+  transition: color 0.1s;
+}
+
+.tocItem:hover { color: var(--text-muted); }
+
+.tocItemActive {
+  color: var(--accent);
+  font-weight: 600;
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+.tocItemActive:hover { color: var(--accent); }
+
+.divider {
+  height: 1px;
+  background: var(--border-card);
+  margin-bottom: 20px;
+}
+
+.detailsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detailField {}
+
+.detailKey {
+  color: var(--text-labels);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  margin-bottom: 5px;
+}
+
+.detailValue {
+  color: var(--text-meta);
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+
+.liveLink {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--accent);
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: opacity 0.1s;
+}
+
+.liveLink:hover { opacity: 0.75; }
