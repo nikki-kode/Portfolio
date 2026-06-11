@@ -1,3 +1,6 @@
+"use client";
+
+import { useRef, useLayoutEffect } from "react";
 import clsx from "clsx";
 import type { View } from "@/hooks/useIDEState";
 import styles from "./TabBar.module.css";
@@ -18,9 +21,19 @@ const VIEWS: { value: View; label: string }[] = [
 ];
 
 export default function TabBar({ tabs, activeKey, view, setView, onTabClick, onTabClose }: Props) {
+  const tabsRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const el = tabsRef.current;
+    if (!el || tabs.length <= 1) return;
+    if (el.scrollWidth > el.clientWidth) {
+      onTabClose(tabs[0]);
+    }
+  }, [tabs, onTabClose]);
+
   return (
     <div className={styles.bar}>
-      <div className={styles.tabs}>
+      <div ref={tabsRef} className={styles.tabs}>
         {tabs.map((key) => {
           const active = key === activeKey;
           return (

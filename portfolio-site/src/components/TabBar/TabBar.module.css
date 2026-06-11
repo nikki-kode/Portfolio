@@ -11,6 +11,9 @@
 .tabs {
   display: flex;
   align-items: stretch;
+  flex: 1;
+  overflow: hidden;
+  min-width: 0;
 }
 
 .tab {

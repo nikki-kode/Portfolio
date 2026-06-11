@@ -24,8 +24,6 @@ export type IDEState = {
   histIdx: number;
 };
 
-const MAX_TABS = 4;
-
 type Action =
   | { type: "OPEN_DOC"; key: string }
   | { type: "CLOSE_TAB"; key: string }
@@ -64,11 +62,10 @@ function reducer(state: IDEState, action: Action): IDEState {
       if (state.tabs.includes(action.key)) {
         return { ...state, activeKey: action.key, view: "preview", activeSection: "overview" };
       }
-      const trimmed = state.tabs.length >= MAX_TABS ? state.tabs.slice(1) : state.tabs;
       return {
         ...state,
         activeKey: action.key,
-        tabs: [...trimmed, action.key],
+        tabs: [...state.tabs, action.key],
         view: "preview",
         activeSection: "overview",
       };
@@ -112,8 +109,7 @@ function reducer(state: IDEState, action: Action): IDEState {
         if (nextState.tabs.includes(key)) {
           return { ...nextState, activeKey: key, view: "preview", activeSection: "overview" };
         }
-        const trimmed = nextState.tabs.length >= MAX_TABS ? nextState.tabs.slice(1) : nextState.tabs;
-        return { ...nextState, activeKey: key, tabs: [...trimmed, key], view: "preview", activeSection: "overview" };
+        return { ...nextState, activeKey: key, tabs: [...nextState.tabs, key], view: "preview", activeSection: "overview" };
       }
       return nextState;
     }
