@@ -1,9 +1,23 @@
-# Handoff: Terminal / IDE Portfolio — Project Case-Study Page
+# Handoff: Terminal / IDE Portfolio — Full Site
 
 ## Overview
-A personal portfolio website for someone applying to **software-engineering, UX-design, and UX-research** roles. The entire site is styled as a **code editor / terminal**: a left file-tree (`about.md`, `projects/`, `ux-research/`, `blog/`, `resume.pdf`, `contact.md`), editor tabs, a `Source / Split / Preview` toggle, a docked **typeable terminal**, and a status bar.
+A personal portfolio website for someone applying to **software-engineering, UX-design, and UX-research** roles. The entire site is styled as a **code editor / terminal**: a left file-tree (`about.md`, `projects/`, `ux-research/`, `music/`, `resume.pdf`, `contact.md`), editor tabs, a `Source / Split / Preview` toggle, a docked **typeable terminal**, and a status bar.
 
-This handoff covers the **hero deliverable: the project case-study page**, rendered in the "outline rail" layout (a long-form rendered case study with a sticky right-hand table-of-contents + meta card). The same IDE shell is intended to host every other section (about, contact, projects index) in later passes.
+The IDE shell is persistent chrome; the editor body swaps between **nine distinct page/document views** depending on the open file. This handoff documents **all of them**:
+
+| # | View | Opened by | type |
+|---|---|---|---|
+| 2 | **Project case study** | `project-aurora.md`, `project-ledger.md` | `project` |
+| 3 | **Source / Split / Code views** | the view toggle on any doc | — |
+| 4 | **Research writeup** | `project-atlas.md` (+ `ux-research/` files) | `research` |
+| 5 | **Projects index** | `projects/` folder | `index` |
+| 6 | **Music index** ("Compositions") | `music/` folder | `music` |
+| 7 | **Track detail** | `nocturne-in-blue.md`, `tidewater.md`, `signal-lost.md` | `track` |
+| 8 | **about.md** | `about.md` | `about` |
+| 9 | **contact.md** | `contact.md` | `contact` |
+| 10 | **Draft / stub** | any not-yet-written file | `stub` |
+
+The case study (#2) is the most polished view and was designed first; the others share its IDE shell, type scale, and token set. A **logo / brand variant** of the whole site also ships — see *Logo variant* below.
 
 ## About the Design Files
 The files in this bundle are **design references created in HTML** — prototypes showing the intended look and behavior. They are **not production code to copy directly**.
@@ -38,7 +52,7 @@ Full-viewport (`100vh`), dark, monospace. Horizontal flex of three regions; the 
 
 **Activity bar** — width `48px`, bg `#121419`, right border `1px #0d0f13`. Four icon tiles (`30×30`, radius `7px`). Active tile: bg `#23262d`, `2px` left border `#f5a97f`, icon `#f5a97f`; inactive icon `#565d6b`. Last tile pinned to bottom (`margin-top:auto`). Icons used as glyphs: ⌘ ⊞ ⌥ ⚙ (replace with real icons — e.g. Lucide — in production).
 
-**File tree** — width `236px`, bg `#181b21`, right border `1px #0d0f13`. Header label `EXPLORER — YOURNAME.DEV`, `10px`, letter-spacing `.14em`, color `#565d6b`, padding `15px 16px 10px`. Scrollable row list. Footer pinned bottom: `7px` green dot `#5ba85f` + "open to work", `11px`, `#565d6b`, top border `1px #0d0f13`.
+**File tree** — width `236px`, bg `#181b21`, right border `1px #0d0f13`. Header label `EXPLORER — YOURNAME.DEV`, `10px`, letter-spacing `.14em`, color `#565d6b`, padding `15px 16px 10px`. Scrollable row list of files and folders: `about.md`, `projects/` (→ `project-aurora.md`, `project-ledger.md`, `project-atlas.md`), `ux-research/` (draft leaves), `music/` (→ `nocturne-in-blue.md`, `tidewater.md`, `signal-lost.md` — each tinted purple `#cba6f7`), `resume.pdf`, `contact.md`. Footer pinned bottom: `7px` green dot `#5ba85f` + "open to work", `11px`, `#565d6b`, top border `1px #0d0f13`.
 - **File row**: flex, gap `8px`, padding `5px 7px` (+ `depth*16px` left indent), radius `6px`, font `12.5px`. A `12px` caret spacer, an `8×10px` rounded-`2px` file-type "dot", then the filename (ellipsis-truncated). Default text `#8b93a1`, dot `#555b66`. `resume.pdf` dot is `#e0655b`. **Active file**: text `#e8ebf0`, bg `#262b33`, `box-shadow: inset 2px 0 0 #f5a97f`, dot `#f5a97f`.
 - **Folder row**: caret `▸` (closed) / `▾` (open) at `10px` `#565d6b`; label `#aab1bd`. Click toggles expand/collapse.
 
@@ -79,13 +93,60 @@ Body = horizontal flex: **content scroll column** (`flex:1`, `overflow-y:auto`, 
 - **Split view**: source pane (`50%`, right border `1px #0d0f13`) + preview pane (`50%`). The outline rail is **hidden** in split (and source) view — only shown in Preview.
 - **Code view**: source pane only, full width.
 
-### 4. about.md (lighter doc — refine in next pass)
+### 4. Research writeup (`type: 'research'` — e.g. `project-atlas.md`)
+Same outline-rail layout as the case study, but a research-report content model. Content column `max-width:720px`. H1 `32px`, subtitle `14.5px` `#9aa1ad` (max-width `600px`). Breadcrumb `~/ux-research`, `12px` `#565d6b`. Sections (each `data-section`, `margin-bottom:38px`):
+- **`background`** "Background", **`method`** "Method" — body paragraphs (`14px/1.75` `#b4bcc8`, max-width `600px`).
+- **`findings`** "Key findings" — a stack (gap `12px`) of numbered finding cards: border `1px #2a2f38`, radius `12px`, bg `#23262d`, padding `16px 18px`; a tabular-nums `#f5a97f` `14px/700` number + a `14px/600` `#f4f6f9` title and `13px` `#9aa1ad` body.
+- **`verbatims`** "VERBATIMS" (`10px` `.12em` `#565d6b` label) — pull-quotes: `border-left:3px solid #f5a97f`, padding `4px 0 4px 18px`; `15px` italic `#d6dbe3` quote + `12px` `#6b7280` `— ` attribution.
+- **`recommendations`** "Recommendations" — `→`-bulleted (`#5ba85f`) `14px` `#cdd2da` rows.
+- **`impact`** "Impact" — the same 3-col stat-card grid as the case study's Outcome.
+The outline rail's TOC + DETAILS card behave identically (sections: Background, Method, Key findings, Verbatims, Recommendations, Impact).
+
+### 5. Projects index (`projects/` folder → `type: 'index'`)
+Opened by clicking the `projects/` folder (not just expanding it). Content column `max-width:760px`, padding `34px 40px 90px`. **Outline rail is hidden** for this view.
+- Breadcrumb `~/projects` (`12px` `#565d6b`); H1 "Projects" `30px/700` with an inline `13px` `#565d6b` `“N case studies”` count; intro paragraph `14px` `#9aa1ad` (max-width `540px`).
+- **Filter tabs**: a wrapping flex row (gap `8px`) of discipline pills (All / Engineering / Design / Research). Active pill: bg `#f5a97f`, text `#1a1d23`; inactive: bg `#23262d`, border `1px #343a44`, text `#9aa1ad`. Clicking filters the grid by `tags`.
+- **Project cards**: a 2-col grid (gap `16px`). Each card (border `1px #2a2f38`, radius `13px`, bg `#23262d`, clickable) = a `152px` cover **thumbnail image slot** (id `<file-slug>-thumb`) over a `16px 17px 18px` body: a `kind` badge (the amber pill, `10.5px`) + `year` (`11.5px` `#565d6b`), an `18px/700` title, a `12.5px` `#9aa1ad` blurb, and a `12px` `#f5a97f` “Read case study →”. Click opens that case study.
+
+### 6. Music index — “Compositions” (`music/` folder → `type: 'music'`)
+This is the **music page**. Opened by clicking the `music/` folder. Content column `max-width:720px`. **Outline rail hidden.** This view introduces the **purple accent `#cba6f7`** (used for all music/track UI in place of the amber `#f5a97f`).
+- Breadcrumb `~/music`; H1 "Compositions" `30px/700` + inline `13px` `#565d6b` “selected pieces”; intro paragraph `14px` `#9aa1ad` (max-width `560px`).
+- **Track rows**: a vertical stack (gap `12px`). Each row (border `1px #2a2f38`, radius `13px`, bg `#23262d`, padding `14px 16px`, clickable → opens track detail) contains:
+  - a `38px` circular **play/pause button** (`▶` / `❚❚`); when that track is playing, border + glyph go purple `#cba6f7` on `rgba(203,166,247,.15)`, else `#3a3344` on `#1e2128`. Clicking the button toggles playback **without** navigating.
+  - a `148px` title block: title (`#e8ebf0`, purple when playing) + a `11.5px` `#7b828f` meta line `“genre · key · duration”`.
+  - a flexible **waveform**: ~44 thin bars (`2px` min-width, radius `2px`), heights from a deterministic per-key pseudo-random function; bars tint purple `#cba6f7` when playing, else `#3a3344`.
+
+### 7. Track detail (`type: 'track'` — e.g. `nocturne-in-blue.md`)
+Opened from a music row or the tree leaves under `music/`. Content column `max-width:640px`. **Outline rail hidden.** Fully purple-accented.
+- Back link `‹ music/` (`12px` `#cba6f7`).
+- **Header**: a `52px` circular play/pause button + H1 title (`28px/700`) and a `12.5px` `#cba6f7` `“genre · year”` line.
+- **Big waveform**: ~80 bars, `64px` tall, gap `3px`; below it a `0:00` / duration row (`11px` `#565d6b`).
+- **Meta grid**: 3 cols (KEY / DURATION / YEAR), framed top+bottom by `1px #2a2f38`; `9.5px` `.1em` `#5b6270` labels + `12.5px` `#cdd2da` values.
+- **Description** paragraphs (`14px/1.75` `#b4bcc8`).
+- **INSTRUMENTATION** (`10px` `.12em` `#565d6b` label): wrapping chips — `5px 11px`, radius `7px`, bg `#23262d`, border `1px #343a44`, `12px` `#cdd2da`.
+- **Links**: wrapping pill buttons — border `1px #4a3b5c`, bg `rgba(203,166,247,.1)`, `#cba6f7` `12.5px`, trailing `↗` (e.g. "Listen on …", "Score (PDF)").
+Sample tracks: **Nocturne in Blue** (solo piano, D♭ minor, 4:12), **Tidewater** (string quartet, A major, 6:38), **Signal Lost** (electronic, 3:55). Waveforms are generated, not real audio — wire the play buttons to a real `<audio>` element / streaming embed in production.
+
+### 8. about.md (lighter doc — refine in next pass)
 Centered `max-width:600px`, padding `48px 40px 90px`. Header: a circular `78px` avatar image slot + name (`27px`/`700` `#f4f6f9`) and role line (`13px` `#f5a97f`). Body paragraphs `14.5px` line-height `1.8` `#b4bcc8`. A "CURRENTLY" card (border `1px #2a2f38`, radius `12px`, bg `#23262d`, padding `18px 20px`) with `▹`-bulleted (`#5ba85f`) `13.5px` `#cdd2da` rows.
 
-### 5. contact.md (lighter doc — refine in next pass)
+### 9. contact.md (lighter doc — refine in next pass)
 Centered `max-width:560px`. H1 "Get in touch" + intro `#9aa1ad`. Rows: flex cards (border `1px #2a2f38`, radius `11px`, bg `#23262d`, padding `15px 18px`, margin-bottom `11px`) — a `64px` `#f5a97f` `12px` label, a `14px` `#e8ebf0` value, and a trailing action glyph (`copy` / `↗` / `↓`) in `#565d6b`.
 
-### 6. Draft / stub state (ux-research & blog leaf files)
+### Logo / brand variant (`Project Page (Logo).dc.html`)
+An alternative of the case-study page with **three logo drop-slots** added in the spots where a personal-brand mark belongs in an IDE chrome. Everything else is identical to the base page. Each slot is a square `image-slot` (drag-drop / click-to-browse, persisted) and, while empty, renders as a clean **dashed orange drop-box** (the `image-slot` empty-state glyph is suppressed because the slots are too small for it — see note below).
+
+1. **Activity-bar identity mark** — replaces the top `⌘` tile. `30×30`, radius `7px`, bg `#23262d`, `2px` left border `#f5a97f`. This is the app-icon position (à la a VS Code workspace icon). Use a **square / transparent-PNG** mark.
+2. **Sidebar brand lockup** — a header row above the `EXPLORER` label: a `30×30` radius-`6px` mark slot + a text wordmark (`yourname` `#e8ebf0` / `.dev` `#f5a97f`, `13px`/`700`) with a `9px` `.13em` `#565d6b` `PORTFOLIO` kicker. Row padding `14px 14px 13px`, bottom border `1px #0d0f13`. (The original `EXPLORER — YOURNAME.DEV` label is split: the workspace name moves into this lockup and the label becomes just `EXPLORER`.)
+3. **Contact sign-off mark** — at the bottom of `contact.md`, a business-card row (top border `1px #2a2f38`, margin-top `40px`): a `46×46` radius-`10px` mark slot + `Your Name` (`15px`/`700` `#e8ebf0`) and a `11.5px` `#565d6b` tagline.
+
+**Implementation notes for production:**
+- These are the same `image-slot` placeholders as the content images — in the real codebase, replace with a single `<Logo>` component (an `<img>`/inline-SVG) reused in all three spots, not three separate assets. A square mark covers slots 1–2; slot 3 can reuse the same mark.
+- Slot ids: `logo-mark` (activity bar), `logo-sidebar` (sidebar), `logo-signoff` (contact).
+- The empty-state suppression is a prototype-only hack (a `::part(empty){ color: transparent }` rule + a visible `::part(ring)` in `rgba(245,169,127,.5–.65)`); production just renders the logo directly, so none of this carries over.
+- Pick **one** source of truth for the wordmark — either the text lockup shown here (easy to theme) or a wordmark image — don't ship both.
+
+### 10. Draft / stub state (unwritten `ux-research/` leaf files)
 Centered empty-state: a small `54×64` "file" glyph (border `1px #343a44`, bg `#23262d`, folded corner, `MD` label in `#f5a97f`), the filename (`15px` `#cdd2da`), a pill badge "draft · coming in the next pass" (bg `#2a2520`, border `1px #4a3b2c`, text `#f5a97f`, radius `20px`, `11px`), and a `12.5px` `#6b7280` hint. Intentional — not an error state.
 
 ---
@@ -109,7 +170,8 @@ Single-screen app state (all client-side):
 - `activeKey: string` — open file (e.g. `'project-aurora.md'`).
 - `view: 'preview' | 'split' | 'code'` — default `'preview'`.
 - `activeSection: string` — current TOC section id; driven by scroll-spy and TOC clicks.
-- `open: Record<folderName, boolean>` — file-tree folder expansion (`projects`, `ux-research`, `blog`).
+- `open: Record<folderName, boolean>` — file-tree folder expansion (`projects`, `ux-research`, `music`).
+- `playing: string | null` — key of the currently-playing track (music index / track detail).
 - `termOpen: boolean`, `termInput: string`, `termLines: {isCmd, text, color?}[]`, `history: string[]`, `histIdx: number`.
 
 ### Data Model (already structured — lift directly)
@@ -124,7 +186,9 @@ A `docs` map keyed by filename. Each **project**:
   gallery: string[],                              // 3 captions
 }
 ```
-`about` = `{ type:'about', paras: string[], now: string[] }`. `contact` = `{ type:'contact', rows: {label,value,action}[] }`. Unwritten files fall through to a `stub`. Three sample projects are included: **Aurora** (design system / eng), **Ledger** (product eng), **Atlas** (UX research) — one tuned to each target audience. All copy is realistic **placeholder** — replace with real content.
+`about` = `{ type:'about', paras: string[], now: string[] }`. `contact` = `{ type:'contact', rows: {label,value,action}[] }`. A **research** doc = `{ type:'research', title, subtitle, background: string[], method: string[], findings: {num,title,text}[], verbatims: {text,who}[], recommendations: string[], impact: {stat,label}[] }`. A **track** doc = `{ type:'track', title, year, musKey, duration, genre, instruments: string[], desc: string[], links: string[] }`. The `projects/` and `music/` **folder keys** resolve to synthetic `{type:'index'}` / `{type:'music'}` documents (the index/Compositions pages); their card/row lists are derived by `projectList()` / `musicList()`. Unwritten files fall through to a `stub`. Sample content: three projects — **Aurora** (design system / eng), **Ledger** (product eng), **Atlas** (UX research, rendered as a `research` writeup) — and three tracks (above), one tuned to each target audience. All copy is realistic **placeholder** — replace with real content.
+
+**Playback state**: `playing: string | null` holds the key of the currently-playing track (drives the purple play-button + waveform highlight on both the music index and track detail). Only one track plays at a time.
 
 ## Design Tokens
 
@@ -149,7 +213,7 @@ A `docs` map keyed by filename. Each **project**:
 | Dim text | `#7b828f` |
 | Dimmest / labels | `#565d6b` / `#5b6270` |
 | Success / prompt green | `#5ba85f` |
-| Accent purple (frontmatter keys) | `#cba6f7` |
+| Music / track accent (purple) | `#cba6f7` |
 | Error / red | `#e0655b` |
 | Gutter | `#454b55` |
 
@@ -170,6 +234,7 @@ A `docs` map keyed by filename. Each **project**:
 ## Files
 In this bundle:
 - **`Project Page.dc.html`** — the high-fidelity case-study page (the primary reference). Logic (data model, terminal, scroll-spy, view toggle, tree) is in the `<script>` "Component" class near the bottom; markup/styles are inline above it.
+- **`Project Page (Logo).dc.html`** — the **logo / brand variant** (identical to the above plus the three logo drop-slots described in *Logo / brand variant* above). Use whichever variant matches whether the portfolio has a personal-brand mark.
 - **`image-slot.js`** — image-slot web component (reference only; do not ship).
 - **`support.js`** — the prototyping runtime that renders `.dc.html`. **Reference/preview only — do not port.**
 - **`Project Page Wireframes.dc.html`** — the 3 low-fi layout explorations for this page (Split / Reading mode / Outline rail). Shows why outline-rail was chosen.

@@ -2,6 +2,9 @@ export type ProjectDoc = {
   type: "project";
   title: string;
   tagline: string;
+  kind: string;
+  year: string;
+  tags: string[];
   role: string;
   timeline: string;
   tools: string;
@@ -45,6 +48,9 @@ export const docs: Record<string, Doc> = {
   "project-alpha.md": {
     type: "project",
     title: "Aurora (example page)",
+    kind: "Design system",
+    year: "2024",
+    tags: ["Engineering", "Design"],
     platform: "Web app",
     tagline:
       "A design system & component library that unified six fintech products onto one accessible, themeable foundation.",
@@ -85,6 +91,9 @@ export const docs: Record<string, Doc> = {
   "project-bravo-UNUSED.md": {
     type: "project",
     title: "Ledger",
+    kind: "Internal tool",
+    year: "2023",
+    tags: ["Engineering"],
     platform: "Internal web tool",
     tagline:
       "A reconciliation tool that turned a 3-hour manual month-end close into a 20-minute guided flow.",
@@ -123,6 +132,9 @@ export const docs: Record<string, Doc> = {
   "project-charlie-UNUSED.md": {
     type: "project",
     title: "Atlas",
+    kind: "Mobile · research",
+    year: "2023",
+    tags: ["Research", "Design"],
     platform: "iOS",
     tagline:
       "A wayfinding app for a hospital network — research-led, tested with real patients and visitors.",
