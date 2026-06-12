@@ -24,7 +24,9 @@ export type AboutDoc = {
 
 export type ContactDoc = {
   type: "contact";
-  rows: { label: string; value: string; action: string; tag?: string }[];
+  avail: string;
+  location: string;
+  rows: { label: string; value: string; copyVal?: string; action: string; icon: string; tag?: string }[];
 };
 
 export type StubDoc = { type: "stub" };
@@ -170,11 +172,13 @@ export const docs: Record<string, Doc> = {
 
   "contact.md": {
     type: "contact",
+    avail: "Open to work · usually replies within a day",
+    location: "Pittsburgh, PA · UTC−5",
     rows: [
-      { label: "email", value: "nikki.kode@gmail.com", action: "copy", tag: "Fastest!" },
-      { label: "github", value: "github.com/nikki-kode", action: "↗" },
-      { label: "linkedin", value: "linkedin.com/in/nikki-kode", action: "↗" },
-      { label: "resume", value: "resume.pdf", action: "↓" },
+      { label: "email",    value: "nikki.kode@gmail.com",      copyVal: "nikki.kode@gmail.com", action: "copy", icon: "✉", tag: "Fastest!" },
+      { label: "github",   value: "github.com/nikki-kode",     action: "↗",   icon: "gh" },
+      { label: "linkedin", value: "linkedin.com/in/nikki-kode", action: "↗",  icon: "in" },
+      { label: "resume",   value: "resume.pdf",                 action: "↓",   icon: "↓" },
     ],
   },
 };

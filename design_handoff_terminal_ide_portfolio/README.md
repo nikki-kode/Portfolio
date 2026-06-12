@@ -97,7 +97,7 @@ Centered empty-state: a small `54×64` "file" glyph (border `1px #343a44`, bg `#
 - **Terminal** (toggle via status-bar `▸_ terminal` or the panel's `⌄`): a single-line input with a `~/portfolio %` prompt (prompt path `#5ba85f`, `%` `#f5a97f`). On **Enter**, the typed command echoes as a prompt line and output is appended. **↑/↓** walk command history. Commands:
   - `help` — lists commands.
   - `ls` — lists root files; `projects` — lists the three project files.
-  - `open <name>` (aliases `cat`, `vim`, `cd`) — fuzzy-resolves a name (e.g. `open alpha`) and opens that file.
+  - `open <name>` (aliases `cat`, `vim`, `cd`) — fuzzy-resolves a name (e.g. `open atlas`) and opens that file.
   - `about`, `contact` — open those docs; `research` — lists research drafts; `resume` — hook to CV; `whoami` — identity line; `theme` — placeholder (dark only); `clear` — empties the panel.
   - Unknown input → `zsh: command not found: <x> — type 'help'` in `#e0655b`.
   - Output line colors: normal `#9aa1ad`/`#cdd2da`, hints `#565d6b`, errors `#e0655b`.

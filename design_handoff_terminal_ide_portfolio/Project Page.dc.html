@@ -90,7 +90,7 @@
           <!-- PROJECT DOC -->
           <sc-if value="{{ isProject }}" hint-placeholder-val="{{ true }}">
           <div style="max-width:720px;margin:0 auto;padding:34px 40px 90px">
-            <div style="color:#f5a97f;font-size:12px;margin-bottom:16px;cursor:pointer">‹ projects/</div>
+            <div onClick="{{ goIndex }}" style="color:#f5a97f;font-size:12px;margin-bottom:16px;cursor:pointer;display:inline-block">‹ projects/</div>
             <h1 style="margin:0;color:#f4f6f9;font-size:34px;font-weight:700;letter-spacing:-.02em;font-family:ui-monospace,Menlo,monospace">{{ title }}</h1>
             <p style="color:#9aa1ad;font-size:14.5px;line-height:1.6;margin:12px 0 22px;max-width:580px">{{ tagline }}</p>
 
@@ -152,34 +152,216 @@
 
           <!-- ABOUT DOC -->
           <sc-if value="{{ isAbout }}">
-          <div style="max-width:600px;margin:0 auto;padding:48px 40px 90px">
-            <div style="display:flex;align-items:center;gap:18px;margin-bottom:26px">
-              <image-slot id="about-avatar" shape="circle" fit="cover" placeholder="You" style="display:block;width:78px;height:78px;flex:none;color:rgba(230,235,240,.5)"></image-slot>
+          <div style="max-width:640px;margin:0 auto;padding:48px 40px 90px">
+            <div style="color:#565d6b;font-size:12px;margin-bottom:20px"># about.md</div>
+            <div style="display:flex;align-items:center;gap:20px;margin-bottom:28px">
+              <image-slot id="about-avatar" shape="circle" fit="cover" placeholder="You" style="display:block;width:88px;height:88px;flex:none;color:rgba(230,235,240,.5)"></image-slot>
               <div>
-                <h1 style="margin:0;color:#f4f6f9;font-size:27px;font-weight:700;letter-spacing:-.01em;font-family:ui-monospace,Menlo,monospace">Your Name</h1>
-                <div style="color:#f5a97f;font-size:13px;margin-top:6px">Software Engineer · UX Designer/Researcher · Musician</div>
+                <h1 style="margin:0;color:#f4f6f9;font-size:30px;font-weight:700;letter-spacing:-.02em;font-family:ui-monospace,Menlo,monospace">Your Name</h1>
+                <div style="color:#f5a97f;font-size:13px;margin-top:7px">software engineer · ux designer · ux researcher</div>
+                <div style="color:#6b7280;font-size:12px;margin-top:5px">Somewhere, Earth · UTC−5</div>
               </div>
             </div>
-            <sc-for list="{{ aboutParas }}" as="p" hint-placeholder-count="3"><p style="color:#b4bcc8;font-size:14.5px;line-height:1.8;margin:0 0 16px">{{ p }}</p></sc-for>
-            <div style="margin-top:26px;border:1px solid #2a2f38;border-radius:12px;background:#23262d;padding:18px 20px">
+            <sc-for list="{{ aboutParas }}" as="p" hint-placeholder-count="2"><p style="color:#b4bcc8;font-size:14.5px;line-height:1.8;margin:0 0 16px">{{ p }}</p></sc-for>
+
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:30px">
+              <sc-for list="{{ aboutWhatIDo }}" as="w" hint-placeholder-count="3">
+                <div style="border:1px solid #2a2f38;border-radius:12px;background:#23262d;padding:16px 15px">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span style="width:6px;height:6px;border-radius:50%;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:13px;font-weight:700">{{ w.k }}</span></div>
+                  <div style="color:#9aa1ad;font-size:12px;line-height:1.6">{{ w.d }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="margin-top:28px">
+              <div style="font-size:10px;letter-spacing:.12em;color:#565d6b;margin-bottom:13px">TOOLBOX</div>
+              <div style="display:flex;flex-wrap:wrap;gap:8px">
+                <sc-for list="{{ aboutToolbox }}" as="t" hint-placeholder-count="9"><span style="padding:5px 11px;border-radius:7px;background:#23262d;border:1px solid #343a44;color:#cdd2da;font-size:12px">{{ t }}</span></sc-for>
+              </div>
+            </div>
+
+            <div style="margin-top:28px;border:1px solid #2a2f38;border-radius:12px;background:#23262d;padding:18px 20px">
               <div style="font-size:10px;letter-spacing:.12em;color:#565d6b;margin-bottom:13px">CURRENTLY</div>
               <sc-for list="{{ aboutNow }}" as="n" hint-placeholder-count="3"><div style="display:flex;gap:11px;align-items:baseline;margin-bottom:10px;font-size:13.5px;color:#cdd2da"><span style="color:#5ba85f">▹</span>{{ n }}</div></sc-for>
             </div>
+
+            <div onClick="{{ goContact }}" style="margin-top:24px;display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:9px;background:#f5a97f;color:#1a1d23;font-size:13px;font-weight:600;cursor:pointer">Let’s talk <span>→</span></div>
           </div>
           </sc-if>
 
           <!-- CONTACT DOC -->
           <sc-if value="{{ isContact }}">
           <div style="max-width:560px;margin:0 auto;padding:48px 40px 90px">
-            <h1 style="margin:0 0 8px;color:#f4f6f9;font-size:27px;font-weight:700;letter-spacing:-.01em;font-family:ui-monospace,Menlo,monospace">Get in touch</h1>
-            <p style="color:#9aa1ad;font-size:14px;line-height:1.6;margin:0 0 28px">Open to SWE, UX design, and UX research roles. The fastest way to reach me is email.</p>
+            <div style="color:#565d6b;font-size:12px;margin-bottom:20px"># contact.md</div>
+            <h1 style="margin:0 0 10px;color:#f4f6f9;font-size:30px;font-weight:700;letter-spacing:-.02em;font-family:ui-monospace,Menlo,monospace">Get in touch</h1>
+            <p style="color:#9aa1ad;font-size:14px;line-height:1.65;margin:0 0 18px">Open to SWE, UX design, and UX research roles. The fastest way to reach me is email — click to copy.</p>
+            <div style="display:inline-flex;align-items:center;gap:9px;padding:7px 13px;border-radius:20px;background:rgba(91,168,95,.1);border:1px solid rgba(91,168,95,.35);margin-bottom:26px">
+              <span style="width:7px;height:7px;border-radius:50%;background:#5ba85f"></span><span style="color:#a6e3a1;font-size:12px">{{ contactAvail }}</span>
+            </div>
             <sc-for list="{{ contactRows }}" as="c" hint-placeholder-count="4">
-              <div style="display:flex;align-items:center;gap:16px;padding:15px 18px;border:1px solid #2a2f38;border-radius:11px;background:#23262d;margin-bottom:11px;cursor:pointer">
-                <span style="color:#f5a97f;font-size:12px;width:64px;flex:none">{{ c.label }}</span>
+              <div onClick="{{ c.onClick }}" style="display:flex;align-items:center;gap:15px;padding:15px 18px;border:1px solid #2a2f38;border-radius:11px;background:#23262d;margin-bottom:11px;cursor:pointer">
+                <span style="width:30px;height:30px;flex:none;border-radius:8px;background:#1e2128;border:1px solid #343a44;display:flex;align-items:center;justify-content:center;color:#f5a97f;font-size:12px">{{ c.icon }}</span>
+                <span style="color:#7b828f;font-size:12px;width:62px;flex:none">{{ c.label }}</span>
                 <span style="color:#e8ebf0;font-size:14px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.value }}</span>
-                <span style="color:#565d6b;font-size:13px">{{ c.action }}</span>
+                <span style="{{ c.actionStyle }}">{{ c.action }}</span>
               </div>
             </sc-for>
+            <div style="margin-top:18px;color:#565d6b;font-size:12px;display:flex;align-items:center;gap:8px"><span>⌖</span>{{ contactLocation }}</div>
+          </div>
+          </sc-if>
+
+          <!-- PROJECTS INDEX -->
+          <sc-if value="{{ isIndex }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:760px;margin:0 auto;padding:34px 40px 90px">
+            <div style="color:#565d6b;font-size:12px;margin-bottom:14px">~/projects</div>
+            <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:6px">
+              <h1 style="margin:0;color:#f4f6f9;font-size:30px;font-weight:700;letter-spacing:-.02em;font-family:ui-monospace,Menlo,monospace">Projects</h1>
+              <span style="color:#565d6b;font-size:13px">{{ indexCount }} case studies</span>
+            </div>
+            <p style="color:#9aa1ad;font-size:14px;line-height:1.6;margin:0 0 22px;max-width:540px">Selected work across engineering, design, and research. Filter by discipline, or open any case study.</p>
+
+            <div style="display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap">
+              <sc-for list="{{ filterTabs }}" as="f" hint-placeholder-count="4"><span onClick="{{ f.onClick }}" style="{{ f.style }}">{{ f.label }}</span></sc-for>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <sc-for list="{{ projectCards }}" as="p" hint-placeholder-count="3">
+                <div onClick="{{ p.onClick }}" style="border:1px solid #2a2f38;border-radius:13px;background:#23262d;overflow:hidden;cursor:pointer;display:flex;flex-direction:column">
+                  <div style="border-bottom:1px solid #2a2f38"><image-slot id="{{ p.thumbId }}" shape="rect" fit="cover" placeholder="Thumbnail" style="display:block;width:100%;height:152px;color:rgba(230,235,240,.5)"></image-slot></div>
+                  <div style="padding:16px 17px 18px">
+                    <div style="display:flex;align-items:center;gap:9px;margin-bottom:10px">
+                      <span style="padding:3px 9px;border-radius:20px;background:#2a2520;border:1px solid #4a3b2c;color:#f5a97f;font-size:10.5px">{{ p.kind }}</span>
+                      <span style="color:#565d6b;font-size:11.5px">{{ p.year }}</span>
+                    </div>
+                    <div style="color:#f4f6f9;font-size:18px;font-weight:700;letter-spacing:-.01em;margin-bottom:7px">{{ p.title }}</div>
+                    <div style="color:#9aa1ad;font-size:12.5px;line-height:1.6;margin-bottom:14px">{{ p.blurb }}</div>
+                    <div style="color:#f5a97f;font-size:12px;display:flex;align-items:center;gap:7px">Read case study <span>→</span></div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          </sc-if>
+
+          <!-- RESEARCH WRITEUP -->
+          <sc-if value="{{ isResearch }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:720px;margin:0 auto;padding:34px 40px 90px">
+            <div style="color:#565d6b;font-size:12px;margin-bottom:16px">~/ux-research</div>
+            <h1 style="margin:0;color:#f4f6f9;font-size:32px;font-weight:700;letter-spacing:-.02em;font-family:ui-monospace,Menlo,monospace">{{ rTitle }}</h1>
+            <p style="color:#9aa1ad;font-size:14.5px;line-height:1.6;margin:12px 0 24px;max-width:600px">{{ rSubtitle }}</p>
+
+            <div data-section="background" style="scroll-margin-top:20px;margin-bottom:38px">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><span style="width:6px;height:16px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:17px;font-weight:700">Background</span></div>
+              <sc-for list="{{ rBackground }}" as="p" hint-placeholder-count="2"><p style="color:#b4bcc8;font-size:14px;line-height:1.75;margin:0 0 14px;max-width:600px">{{ p }}</p></sc-for>
+            </div>
+
+            <div data-section="method" style="scroll-margin-top:20px;margin-bottom:38px">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><span style="width:6px;height:16px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:17px;font-weight:700">Method</span></div>
+              <sc-for list="{{ rMethod }}" as="p" hint-placeholder-count="2"><p style="color:#b4bcc8;font-size:14px;line-height:1.75;margin:0 0 14px;max-width:600px">{{ p }}</p></sc-for>
+            </div>
+
+            <div data-section="findings" style="scroll-margin-top:20px;margin-bottom:38px">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px"><span style="width:6px;height:16px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:17px;font-weight:700">Key findings</span></div>
+              <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:26px">
+                <sc-for list="{{ rFindings }}" as="f" hint-placeholder-count="4">
+                  <div style="display:flex;gap:15px;border:1px solid #2a2f38;border-radius:12px;background:#23262d;padding:16px 18px">
+                    <span style="color:#f5a97f;font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;flex:none;margin-top:1px">{{ f.num }}</span>
+                    <div><div style="color:#f4f6f9;font-size:14px;font-weight:600;margin-bottom:6px">{{ f.title }}</div><div style="color:#9aa1ad;font-size:13px;line-height:1.65">{{ f.text }}</div></div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="font-size:10px;letter-spacing:.12em;color:#565d6b;margin-bottom:14px">VERBATIMS</div>
+              <sc-for list="{{ rQuotes }}" as="q" hint-placeholder-count="2">
+                <div style="border-left:3px solid #f5a97f;padding:4px 0 4px 18px;margin-bottom:18px;max-width:580px">
+                  <div style="color:#d6dbe3;font-size:15px;font-style:italic;line-height:1.55">“{{ q.text }}”</div>
+                  <div style="color:#6b7280;font-size:12px;margin-top:8px">— {{ q.who }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div data-section="recommendations" style="scroll-margin-top:20px;margin-bottom:38px">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px"><span style="width:6px;height:16px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:17px;font-weight:700">Recommendations</span></div>
+              <div style="display:flex;flex-direction:column;gap:11px">
+                <sc-for list="{{ rRecs }}" as="r" hint-placeholder-count="4">
+                  <div style="display:flex;gap:12px;align-items:baseline;color:#cdd2da;font-size:14px;line-height:1.6"><span style="color:#5ba85f;flex:none">→</span><span>{{ r }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div data-section="impact" style="scroll-margin-top:20px">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px"><span style="width:6px;height:16px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:17px;font-weight:700">Impact</span></div>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+                <sc-for list="{{ rImpact }}" as="o" hint-placeholder-count="3">
+                  <div style="border:1px solid #2a2f38;border-radius:11px;padding:16px 16px 15px;background:#23262d">
+                    <div style="color:#f5a97f;font-size:22px;font-weight:700;letter-spacing:-.01em">{{ o.stat }}</div>
+                    <div style="color:#9aa1ad;font-size:12px;line-height:1.4;margin-top:8px">{{ o.label }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+          <!-- MUSIC INDEX -->
+          <sc-if value="{{ isMusic }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:720px;margin:0 auto;padding:34px 40px 90px">
+            <div style="color:#565d6b;font-size:12px;margin-bottom:14px">~/music</div>
+            <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:6px">
+              <h1 style="margin:0;color:#f4f6f9;font-size:30px;font-weight:700;letter-spacing:-.02em;font-family:ui-monospace,Menlo,monospace">Compositions</h1>
+              <span style="color:#565d6b;font-size:13px">selected pieces</span>
+            </div>
+            <p style="color:#9aa1ad;font-size:14px;line-height:1.6;margin:0 0 26px;max-width:560px">I compose alongside my design and engineering work — solo piano, chamber, and electronic. A few pieces below; more to come.</p>
+
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <sc-for list="{{ musicRows }}" as="t" hint-placeholder-count="3">
+                <div onClick="{{ t.onClick }}" style="display:flex;align-items:center;gap:16px;border:1px solid #2a2f38;border-radius:13px;background:#23262d;padding:14px 16px;cursor:pointer">
+                  <div onClick="{{ t.onPlay }}" style="{{ t.playStyle }}">{{ t.playIcon }}</div>
+                  <div style="flex:none;width:148px;min-width:0">
+                    <div style="{{ t.titleStyle }}">{{ t.title }}</div>
+                    <div style="color:#7b828f;font-size:11.5px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.meta }}</div>
+                  </div>
+                  <div style="flex:1;display:flex;align-items:center;gap:2px;height:34px;min-width:0">
+                    <sc-for list="{{ t.bars }}" as="b" hint-placeholder-count="44"><div style="{{ b.style }}"></div></sc-for>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          </sc-if>
+
+          <!-- TRACK DETAIL -->
+          <sc-if value="{{ isTrack }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:640px;margin:0 auto;padding:34px 40px 90px">
+            <div onClick="{{ goMusic }}" style="color:#cba6f7;font-size:12px;margin-bottom:20px;cursor:pointer;display:inline-block">‹ music/</div>
+            <div style="display:flex;align-items:center;gap:18px;margin-bottom:8px">
+              <div onClick="{{ onTrackPlay }}" style="{{ tPlayStyle }}">{{ tPlayIcon }}</div>
+              <div>
+                <h1 style="margin:0;color:#f4f6f9;font-size:28px;font-weight:700;letter-spacing:-.02em;font-family:ui-monospace,Menlo,monospace">{{ tTitle }}</h1>
+                <div style="color:#cba6f7;font-size:12.5px;margin-top:6px">{{ tGenre }} · {{ tYear }}</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:3px;height:64px;margin:22px 0 8px">
+              <sc-for list="{{ tBars }}" as="b" hint-placeholder-count="80"><div style="{{ b.style }}"></div></sc-for>
+            </div>
+            <div style="display:flex;justify-content:space-between;color:#565d6b;font-size:11px;margin-bottom:28px"><span>0:00</span><span>{{ tDuration }}</span></div>
+
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:16px 0;border-top:1px solid #2a2f38;border-bottom:1px solid #2a2f38;margin-bottom:24px">
+              <div><div style="color:#5b6270;font-size:9.5px;letter-spacing:.1em;margin-bottom:5px">KEY</div><div style="color:#cdd2da;font-size:12.5px">{{ tKey }}</div></div>
+              <div><div style="color:#5b6270;font-size:9.5px;letter-spacing:.1em;margin-bottom:5px">DURATION</div><div style="color:#cdd2da;font-size:12.5px">{{ tDuration }}</div></div>
+              <div><div style="color:#5b6270;font-size:9.5px;letter-spacing:.1em;margin-bottom:5px">YEAR</div><div style="color:#cdd2da;font-size:12.5px">{{ tYear }}</div></div>
+            </div>
+
+            <sc-for list="{{ tDesc }}" as="p" hint-placeholder-count="2"><p style="color:#b4bcc8;font-size:14px;line-height:1.75;margin:0 0 14px">{{ p }}</p></sc-for>
+
+            <div style="margin-top:22px">
+              <div style="font-size:10px;letter-spacing:.12em;color:#565d6b;margin-bottom:12px">INSTRUMENTATION</div>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px">
+                <sc-for list="{{ tInstruments }}" as="i" hint-placeholder-count="3"><span style="padding:5px 11px;border-radius:7px;background:#23262d;border:1px solid #343a44;color:#cdd2da;font-size:12px">{{ i }}</span></sc-for>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:10px">
+                <sc-for list="{{ tLinks }}" as="l" hint-placeholder-count="2"><span style="display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:9px;border:1px solid #4a3b5c;background:rgba(203,166,247,.1);color:#cba6f7;font-size:12.5px;cursor:pointer">{{ l }} <span>↗</span></span></sc-for>
+              </div>
+            </div>
           </div>
           </sc-if>
 
@@ -210,11 +392,12 @@
           <div style="height:1px;background:#2a2f38;margin-bottom:20px"></div>
           <div style="font-size:10px;letter-spacing:.13em;color:#565d6b;margin-bottom:16px">DETAILS</div>
           <div style="display:flex;flex-direction:column;gap:16px">
-            <div><div style="color:#5b6270;font-size:10px;letter-spacing:.06em;margin-bottom:5px">ROLE</div><div style="color:#cdd2da;font-size:12.5px;line-height:1.4">{{ role }}</div></div>
-            <div><div style="color:#5b6270;font-size:10px;letter-spacing:.06em;margin-bottom:5px">TIMELINE</div><div style="color:#cdd2da;font-size:12.5px;line-height:1.4">{{ timeline }}</div></div>
-            <div><div style="color:#5b6270;font-size:10px;letter-spacing:.06em;margin-bottom:5px">PLATFORM</div><div style="color:#cdd2da;font-size:12.5px;line-height:1.4">{{ platform }}</div></div>
-            <div><div style="color:#5b6270;font-size:10px;letter-spacing:.06em;margin-bottom:5px">TOOLS</div><div style="color:#cdd2da;font-size:12.5px;line-height:1.4">{{ tools }}</div></div>
-            <div style="display:flex;align-items:center;gap:7px;color:#f5a97f;font-size:12.5px;margin-top:2px;cursor:pointer">{{ linkLabel }} <span>↗</span></div>
+            <sc-for list="{{ detailRows }}" as="d" hint-placeholder-count="4">
+              <div><div style="color:#5b6270;font-size:10px;letter-spacing:.06em;margin-bottom:5px">{{ d.label }}</div><div style="color:#cdd2da;font-size:12.5px;line-height:1.4">{{ d.value }}</div></div>
+            </sc-for>
+            <sc-if value="{{ hasDetailLink }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;gap:7px;color:#f5a97f;font-size:12.5px;margin-top:2px;cursor:pointer">{{ detailLink }} <span>↗</span></div>
+            </sc-if>
           </div>
         </div>
         </sc-if>
@@ -257,12 +440,15 @@ class Component extends DCLogic {
     activeKey: 'project-aurora.md',
     view: 'preview',            // preview | split | code
     activeSection: 'overview',
-    open: { projects: true, 'ux-research': false, blog: false },
+    open: { projects: true, 'ux-research': false, music: false },
+    playing: null,
     termOpen: false,
     termInput: '',
     termLines: [{ isCmd: false, text: "portfolio shell — type 'help' to list commands, or click a file in the tree.", color: '#7b828f' }],
     history: [],
     histIdx: -1,
+    filter: 'All',
+    copied: null,
   };
 
   // ---------- data ----------
@@ -272,6 +458,8 @@ class Component extends DCLogic {
     this._docs = {
       'project-aurora.md': proj({
         title: 'Aurora', platform: 'Web app',
+        kind: 'Design system', year: '2024', tags: ['Engineering', 'Design'],
+        blurb: 'Unified six fintech products onto one accessible, themeable component library.',
         tagline: 'A design system & component library that unified six fintech products onto one accessible, themeable foundation.',
         role: 'Lead engineer + design', timeline: '2024 · 5 months',
         tools: 'Figma · React · TypeScript · Storybook', link: 'aurora.example.com',
@@ -297,6 +485,8 @@ class Component extends DCLogic {
       }),
       'project-ledger.md': proj({
         title: 'Ledger', platform: 'Internal web tool',
+        kind: 'Internal tool', year: '2023', tags: ['Engineering'],
+        blurb: 'Turned a 3-hour manual month-end close into a 20-minute guided flow.',
         tagline: 'A reconciliation tool that turned a 3-hour manual month-end close into a 20-minute guided flow.',
         role: 'Product engineer', timeline: '2023 · 4 months',
         tools: 'React · D3 · Node · Postgres', link: '—',
@@ -322,6 +512,8 @@ class Component extends DCLogic {
       }),
       'project-atlas.md': proj({
         title: 'Atlas', platform: 'iOS',
+        kind: 'Mobile · research', year: '2023', tags: ['Research', 'Design'],
+        blurb: 'A research-led hospital wayfinding app, tested with real patients and visitors.',
         tagline: 'A wayfinding app for a hospital network — research-led, tested with real patients and visitors.',
         role: 'UX researcher + designer', timeline: '2023 · 3 months',
         tools: 'Figma · Maze · SwiftUI', link: '—',
@@ -350,32 +542,148 @@ class Component extends DCLogic {
         paras: [
           "I'm a generalist happiest in the seam between engineering and design — close enough to the code to build it, close enough to the research to know it's the right thing to build.",
           "I've shipped design systems, internal tools, and research-led product work. I care about accessibility, fast feedback loops, and writing things down so the next person moves quicker.",
-          'I move comfortably between a terminal, a Figma file, and a room full of users — and I like roles that refuse to put those in separate buildings.',
         ],
+        whatIDo: [
+          { k: 'Engineering', d: 'React, TypeScript, and design-systems work. I like turning fuzzy specs into solid, tested components.' },
+          { k: 'Design', d: 'Interaction and systems design — tokens, flows, and the small details that make a UI feel calm.' },
+          { k: 'Research', d: 'Interviews, usability testing, and synthesis. I make sure we build the right thing before building it well.' },
+        ],
+        toolbox: ['TypeScript', 'React', 'Node', 'Figma', 'Storybook', 'SwiftUI', 'Maze', 'Postgres', 'D3'],
         now: ['open to: SWE · UX Design · UX Research roles', 'building: this site (you’re looking at it)', 'lately: reading about design tokens and tiny CLIs'],
       },
       'contact.md': {
         type: 'contact',
+        avail: 'Open to work · usually replies within a day',
+        location: 'Somewhere, Earth · UTC−5',
         rows: [
-          { label: 'email', value: 'you@\u200byourname.dev', action: 'copy' },
-          { label: 'github', value: 'github.com/yourname', action: '↗' },
-          { label: 'linkedin', value: 'linkedin.com/in/yourname', action: '↗' },
-          { label: 'resume', value: 'resume.pdf', action: '↓' },
+          { label: 'email', value: 'you@\u200byourname.dev', copyVal: 'you@yourname.dev', action: 'copy', icon: '✉' },
+          { label: 'github', value: 'github.com/yourname', action: '↗', icon: '⌥' },
+          { label: 'linkedin', value: 'linkedin.com/in/yourname', action: '↗', icon: 'in' },
+          { label: 'resume', value: 'resume.pdf', action: '↓', icon: '↓' },
         ],
+      },
+
+      'usability-study.md': {
+        type: 'research', title: 'Checkout usability study',
+        subtitle: 'Where a four-step checkout lost people — and the five fixes that brought them back.',
+        method: 'Moderated usability test', participants: '12 participants', timeline: '2024 · 2 weeks', role: 'Lead researcher',
+        background: [
+          'Conversion dropped sharply at checkout, but analytics could only tell us where people left — not why. We ran a moderated study to watch real users complete a purchase and narrate their thinking.',
+          'The goal: find the friction points in the four-step flow and prioritise fixes the team could ship that quarter.',
+        ],
+        methodParas: [
+          'Twelve participants, recruited to match our two primary segments (first-time and returning buyers), each completed three purchase tasks while thinking aloud. Sessions ran 45 minutes, remote and moderated.',
+          'I scored task success, time-on-task, and error counts, and tagged every moment of hesitation or confusion for thematic analysis.',
+        ],
+        findings: [
+          { title: 'The guest-checkout option was invisible', text: '9 of 12 tried to avoid making an account but could not find the guest path — it sat below the fold under a “Sign in” wall.' },
+          { title: 'Shipping cost appeared too late', text: 'Cost only showed on the final step. Seven participants expressed surprise; three abandoned the task entirely at that moment.' },
+          { title: 'The progress bar was not trusted', text: 'Participants could not tell how many steps remained; several assumed the flow was longer than it was and braced to give up.' },
+          { title: 'Form errors were easy to miss', text: 'Inline errors rendered in a low-contrast grey; 5 participants submitted twice before noticing the flagged field.' },
+        ],
+        quotes: [
+          { text: 'Wait — why do I have to make an account just to give you money?', who: 'P4, first-time buyer' },
+          { text: 'If I’d known shipping was that much I would’ve left two screens ago.', who: 'P9, returning buyer' },
+        ],
+        recommendations: [
+          'Surface guest checkout as a primary, equal-weight option at step one.',
+          'Show the full price — including shipping — before the final step.',
+          'Replace the progress bar with a labelled “Step 2 of 4” counter.',
+          'Raise error-state contrast to AA and scroll focus to the first error.',
+        ],
+        impact: [{ stat: '9/12', label: 'missed guest checkout' }, { stat: '+18%', label: 'checkout completion (post-fix A/B)' }, { stat: '5', label: 'prioritised fixes shipped' }],
+      },
+
+      'field-interviews.md': {
+        type: 'research', title: 'Field interviews: home-care nurses',
+        subtitle: 'Shadowing nurses on their rounds to understand how documentation really happens.',
+        method: 'Contextual inquiry', participants: '8 nurses · 3 clinics', timeline: '2023 · 3 weeks', role: 'UX researcher',
+        background: [
+          'Our charting tool was built for a desk. But home-care nurses chart in cars, doorways, and kitchens — so we went to watch how the work actually happens, in context.',
+          'The aim was to map the real documentation journey and find where the software fought the realities of the job.',
+        ],
+        methodParas: [
+          'I shadowed eight nurses across three clinics through full shifts, observing and asking questions in the moment (contextual inquiry), then debriefed each at the end of the day.',
+          'Observations were affinity-mapped into themes; I traced the documentation journey from visit to sign-off.',
+        ],
+        findings: [
+          { title: 'Charting is deferred, then batched', text: 'Nurses rarely charted during a visit — they jotted shorthand on paper and re-entered everything later, doubling the work and risking errors.' },
+          { title: 'Connectivity is never guaranteed', text: 'Half of visits happened in low- or no-signal homes; the tool assumed a live connection and lost data when it dropped.' },
+          { title: 'The phone is the real device', text: 'Despite issued tablets, nurses reached for their phones — one-handed, pocketable, already in hand between visits.' },
+        ],
+        quotes: [
+          { text: 'I chart at 9pm from my couch. By then I’m recreating the day from memory.', who: 'Nurse, suburban route' },
+          { text: 'If it needs two hands and good signal, it’s not coming into the house with me.', who: 'Nurse, rural route' },
+        ],
+        recommendations: [
+          'Design offline-first: capture locally, sync when a connection returns.',
+          'Prioritise a one-handed phone layout over the tablet experience.',
+          'Add quick structured-shorthand capture for use during the visit.',
+        ],
+        impact: [{ stat: '8', label: 'nurses shadowed in-context' }, { stat: '3', label: 'clinics across urban & rural' }, { stat: 'offline-first', label: 'roadmap re-prioritised' }],
+      },
+
+      'nocturne-in-blue.md': {
+        type: 'track', title: 'Nocturne in Blue', year: '2024', musKey: 'D♭ minor', duration: '4:12', genre: 'Solo piano',
+        instruments: ['Piano'],
+        desc: [
+          'A late-night solo-piano piece built on a descending left-hand figure that never quite resolves — the harmonic equivalent of not being able to sleep.',
+          'Written in a single sitting and barely edited since; I wanted to keep the unsteadiness of the first take.',
+        ],
+        links: ['SoundCloud', 'Score (PDF)'],
+      },
+      'tidewater.md': {
+        type: 'track', title: 'Tidewater', year: '2023', musKey: 'A major', duration: '6:38', genre: 'String quartet',
+        instruments: ['Violin I', 'Violin II', 'Viola', 'Cello'],
+        desc: [
+          'A string quartet in three connected sections that ebb and flow like a tide — phrases pass between the instruments and return slightly changed each time.',
+          'The middle section borrows a folk melody my grandmother used to hum.',
+        ],
+        links: ['SoundCloud', 'Score (PDF)'],
+      },
+      'signal-lost.md': {
+        type: 'track', title: 'Signal Lost', year: '2023', musKey: '—', duration: '3:55', genre: 'Electronic',
+        instruments: ['Synths', 'Drum machine', 'Field recordings'],
+        desc: [
+          'An electronic piece assembled from analog-synth takes and field recordings of a train station, slowly degrading into static.',
+          'A study in letting a clean signal fall apart on purpose.',
+        ],
+        links: ['SoundCloud', 'Bandcamp'],
       },
     };
     return this._docs;
   }
 
+  musicList() {
+    const d = this.docs();
+    return ['nocturne-in-blue.md', 'tidewater.md', 'signal-lost.md'].map((k) => ({
+      key: k, title: d[k].title, year: d[k].year, musKey: d[k].musKey, duration: d[k].duration, genre: d[k].genre,
+    }));
+  }
+
+  waveform(key, n) {
+    // deterministic pseudo-waveform bar heights from the key string
+    let seed = 0; for (let i = 0; i < key.length; i++) seed = (seed * 31 + key.charCodeAt(i)) % 9973;
+    const bars = [];
+    for (let i = 0; i < n; i++) { seed = (seed * 1103515245 + 12345) % 2147483648; bars.push(18 + (seed % 82)); }
+    return bars;
+  }
+
   fileMeta() {
     // tree leaf -> behaviour. type 'stub' for not-yet-written files.
-    return {
-      'usability-study.md': 'stub', 'field-interviews.md': 'stub',
-      'building-this-site.md': 'stub', 'on-design-systems.md': 'stub',
-    };
+    return {};
+  }
+
+  projectList() {
+    const d = this.docs();
+    return ['project-aurora.md', 'project-ledger.md', 'project-atlas.md'].map((k) => ({
+      key: k, title: d[k].title, blurb: d[k].blurb, kind: d[k].kind, year: d[k].year, tags: d[k].tags,
+    }));
   }
 
   curDoc() {
+    if (this.state.activeKey === 'projects/') return { type: 'index' };
+    if (this.state.activeKey === 'music/') return { type: 'music' };
     const d = this.docs()[this.state.activeKey];
     if (d) return d;
     return { type: 'stub' };
@@ -383,8 +691,6 @@ class Component extends DCLogic {
 
   // ---------- navigation ----------
   openDoc(key) {
-    const meta = this.fileMeta();
-    const isStub = !this.docs()[key] && meta[key] === 'stub';
     this.setState({ activeKey: key, view: 'preview', activeSection: 'overview' }, () => {
       const el = document.getElementById('pp-scroll');
       if (el) el.scrollTop = 0;
@@ -392,7 +698,28 @@ class Component extends DCLogic {
   }
 
   toggleFolder(name) {
-    this.setState((s) => ({ open: Object.assign({}, s.open, { [name]: !s.open[name] }) }));
+    // clicking the projects folder also opens its index view
+    this.setState((s) => {
+      const open = Object.assign({}, s.open, { [name]: !s.open[name] });
+      const patch = { open: open };
+      if (name === 'projects' && !s.open[name]) { patch.activeKey = 'projects/'; patch.view = 'preview'; }
+      if (name === 'music' && !s.open[name]) { patch.activeKey = 'music/'; patch.view = 'preview'; }
+      return patch;
+    }, () => { const el = document.getElementById('pp-scroll'); if (el) el.scrollTop = 0; });
+  }
+
+  setFilter(f) { this.setState({ filter: f }); }
+
+  togglePlay(key) { this.setState((s) => ({ playing: s.playing === key ? null : key })); }
+
+  copyValue(text, label) {
+    try {
+      const p = navigator.clipboard && navigator.clipboard.writeText(text);
+      if (p && p.catch) p.catch(() => {});
+    } catch (e) {}
+    this.setState({ copied: label });
+    clearTimeout(this._copyT);
+    this._copyT = setTimeout(() => this.setState({ copied: null }), 1600);
   }
 
   setView(v) { this.setState({ view: v }); }
@@ -408,8 +735,10 @@ class Component extends DCLogic {
   onScroll(e) {
     const cont = e.currentTarget;
     const doc = this.curDoc();
-    if (doc.type !== 'project') return;
-    const ids = ['overview', 'problem', 'research', 'design', 'outcome', 'gallery'];
+    if (doc.type !== 'project' && doc.type !== 'research') return;
+    const ids = doc.type === 'research'
+      ? ['background', 'method', 'findings', 'recommendations', 'impact']
+      : ['overview', 'problem', 'research', 'design', 'outcome', 'gallery'];
     const top = cont.scrollTop + 90;
     let cur = ids[0];
     for (const id of ids) {
@@ -439,6 +768,10 @@ class Component extends DCLogic {
       ledger: 'project-ledger.md', 'project-ledger': 'project-ledger.md',
       atlas: 'project-atlas.md', 'project-atlas': 'project-atlas.md',
       about: 'about.md', contact: 'contact.md', me: 'about.md',
+      projects: 'projects/', 'projects/': 'projects/',
+      music: 'music/', 'music/': 'music/', songs: 'music/', compositions: 'music/',
+      research: 'usability-study.md', usability: 'usability-study.md', interviews: 'field-interviews.md',
+      nocturne: 'nocturne-in-blue.md', tidewater: 'tidewater.md', signal: 'signal-lost.md',
     };
     if (map[a]) return map[a];
     const keys = Object.keys(this.docs()).concat(Object.keys(this.fileMeta()));
@@ -458,17 +791,18 @@ class Component extends DCLogic {
     if (cmd === '') { /* nothing */ }
     else if (verb === 'help') {
       push('Available commands —', '#7b828f');
-      [['about', 'who I am & how I work'], ['projects', 'list case studies'], ['open <name>', 'open a file (try: open alpha)'],
-       ['research', 'ux research & writeups'], ['resume', 'grab my CV'], ['contact', 'email · github · linkedin'],
-       ['ls', 'list files here'], ['theme', 'switch theme'], ['clear', 'clear the screen']].forEach((r) => {
+      [['about', 'who I am & how I work'], ['projects', 'list case studies'], ['open <name>', 'open a file (try: open atlas)'],
+       ['research', 'ux research & writeups'], ['music', 'things I’ve composed'], ['resume', 'grab my CV'],
+       ['contact', 'email · github · linkedin'], ['ls', 'list files here'], ['clear', 'clear the screen']].forEach((r) => {
         push('  ' + r[0] + Array(Math.max(1, 16 - r[0].length)).join(' ') + r[1], '#cdd2da');
       });
     }
-    else if (verb === 'ls') { push('about.md   projects/   ux-research/   blog/   resume.pdf   contact.md', '#cdd2da'); }
-    else if (verb === 'projects') { push('project-aurora.md   project-ledger.md   project-atlas.md', '#cdd2da'); push("open any with: open <name>", '#565d6b'); }
-    else if (verb === 'whoami') { push('Your Name — Software Engineer · UX Designer/Researcher · Musician', '#cdd2da'); }
+    else if (verb === 'ls') { push('about.md   projects/   ux-research/   music/   resume.pdf   contact.md', '#cdd2da'); }
+    else if (verb === 'music') { navTo = 'music/'; push('opening music/ …', '#565d6b'); }
+    else if (verb === 'projects') { navTo = 'projects/'; push('project-aurora.md   project-ledger.md   project-atlas.md', '#cdd2da'); push('opening projects/ …', '#565d6b'); }
+    else if (verb === 'whoami') { push('Your Name — software engineer · ux designer · ux researcher', '#cdd2da'); }
     else if (verb === 'about' || verb === 'contact') { navTo = verb + '.md'; push('opening ' + verb + '.md …', '#565d6b'); }
-    else if (verb === 'research') { push('ux-research/ — usability-study.md, field-interviews.md (drafts)', '#cdd2da'); }
+    else if (verb === 'research') { navTo = 'usability-study.md'; push('ux-research/ — usability-study.md, field-interviews.md', '#cdd2da'); push('opening usability-study.md …', '#565d6b'); }
     else if (verb === 'resume') { push('resume.pdf — wire this up to your real CV file ✦', '#cdd2da'); }
     else if (verb === 'theme') { push('theme: dark (the only flavor for now) ✦', '#cdd2da'); }
     else if (verb === 'open' || verb === 'cat' || verb === 'vim' || verb === 'cd') {
@@ -542,6 +876,35 @@ class Component extends DCLogic {
     } else if (doc.type === 'contact') {
       add('# Contact', c.head); add('');
       doc.rows.forEach((r) => { add(r.label + ': ' + r.value, c.fm); });
+    } else if (doc.type === 'index') {
+      add('# projects', c.head); add('');
+      this.projectList().forEach((p) => { add('- [' + p.title + '](' + p.key + ') — ' + p.blurb, c.text); });
+    } else if (doc.type === 'research') {
+      add('---', c.dim);
+      add('method:       ' + doc.method, c.fm);
+      add('participants: ' + doc.participants, c.fm);
+      add('timeline:     ' + doc.timeline, c.fm);
+      add('---', c.dim); add('');
+      add('# ' + doc.title, c.head);
+      add('> ' + doc.subtitle, c.quote); add('');
+      add('## Background', c.head); doc.background.forEach((p) => add(p, c.text)); add('');
+      add('## Method', c.head); doc.methodParas.forEach((p) => add(p, c.text)); add('');
+      add('## Findings', c.head);
+      doc.findings.forEach((f, i) => { add((i + 1) + '. ' + f.title, c.text); add('   ' + f.text, c.text); });
+      add('');
+      add('## Recommendations', c.head); doc.recommendations.forEach((r) => add('- ' + r, c.text));
+    } else if (doc.type === 'music') {
+      add('# music', c.head); add('');
+      this.musicList().forEach((t) => { add('- ' + t.title + '  (' + t.genre + ' · ' + t.duration + ')', c.text); });
+    } else if (doc.type === 'track') {
+      add('---', c.dim);
+      add('year:     ' + doc.year, c.fm);
+      add('key:      ' + doc.musKey, c.fm);
+      add('duration: ' + doc.duration, c.fm);
+      add('---', c.dim); add('');
+      add('# ' + doc.title, c.head);
+      add('> ' + doc.genre, c.quote); add('');
+      doc.desc.forEach((p) => { add(p, c.text); add(''); });
     } else {
       add('# Draft', c.head); add(''); add('coming in the next pass…', c.dim);
     }
@@ -591,9 +954,10 @@ class Component extends DCLogic {
       fileRow('usability-study.md', 'usability-study.md', 1);
       fileRow('field-interviews.md', 'field-interviews.md', 1);
     }
-    if (folderRow('blog', 'blog')) {
-      fileRow('building-this-site.md', 'building-this-site.md', 1);
-      fileRow('on-design-systems.md', 'on-design-systems.md', 1);
+    if (folderRow('music', 'music')) {
+      fileRow('nocturne-in-blue.md', 'nocturne-in-blue.md', 1, '#cba6f7');
+      fileRow('tidewater.md', 'tidewater.md', 1, '#cba6f7');
+      fileRow('signal-lost.md', 'signal-lost.md', 1, '#cba6f7');
     }
     fileRow('resume.pdf', 'resume.pdf', 0, '#e0655b');
     fileRow('contact.md', 'contact.md', 0);
@@ -619,7 +983,11 @@ class Component extends DCLogic {
       color: active ? '#1a1d23' : '#7b828f', fontWeight: active ? 600 : 500,
     });
 
-    const toc = ['overview:Overview', 'problem:The problem', 'research:Research', 'design:Design & build', 'outcome:Outcome', 'gallery:Gallery'].map((pair) => {
+    const isResearch = doc.type === 'research';
+    const tocSpec = isResearch
+      ? ['background:Background', 'method:Method', 'findings:Findings', 'recommendations:Recommendations', 'impact:Impact']
+      : ['overview:Overview', 'problem:The problem', 'research:Research', 'design:Design & build', 'outcome:Outcome', 'gallery:Gallery'];
+    const toc = tocSpec.map((pair) => {
       const id = pair.split(':')[0], label = pair.split(':')[1];
       const active = s.activeSection === id;
       return {
@@ -641,6 +1009,20 @@ class Component extends DCLogic {
       style: { color: l.isCmd ? '#e8ebf0' : (l.color || '#9aa1ad'), whiteSpace: 'pre-wrap' },
     }));
 
+    let detailRows = [], detailLink = null;
+    if (isProject) {
+      detailRows = [
+        { label: 'ROLE', value: doc.role }, { label: 'TIMELINE', value: doc.timeline },
+        { label: 'PLATFORM', value: doc.platform }, { label: 'TOOLS', value: doc.tools },
+      ];
+      detailLink = doc.link && doc.link !== '—' ? doc.link : 'Live site';
+    } else if (isResearch) {
+      detailRows = [
+        { label: 'METHOD', value: doc.method }, { label: 'PARTICIPANTS', value: doc.participants },
+        { label: 'TIMELINE', value: doc.timeline }, { label: 'ROLE', value: doc.role },
+      ];
+    }
+
     const vals = {
       // tree
       treeRows: this.buildTree(),
@@ -657,15 +1039,21 @@ class Component extends DCLogic {
       srcVisible: srcVisible,
       prevPaneStyle: { width: isSplit ? '50%' : '100%', display: 'flex', minWidth: 0, background: '#1e2128' },
       srcPaneStyle: { width: isSplit ? '50%' : '100%', overflowY: 'auto', background: '#1b1e24', borderRight: isSplit ? '1px solid #0d0f13' : '0', minWidth: 0 },
-      railShown: isProject && view === 'preview',
+      railShown: (isProject || isResearch) && view === 'preview',
       onScroll: (e) => this.onScroll(e),
       sourceLines: this.buildSource(doc),
       // doc-type flags
       isProject: isProject,
+      isResearch: isResearch,
       isAbout: doc.type === 'about',
       isContact: doc.type === 'contact',
+      isIndex: doc.type === 'index',
+      isMusic: doc.type === 'music',
+      isTrack: doc.type === 'track',
       isStub: doc.type === 'stub',
       stubName: s.activeKey,
+      goIndex: () => this.openDoc('projects/'),
+      goContact: () => this.openDoc('contact.md'),
       // terminal
       termOpen: s.termOpen,
       toggleTerm: () => this.toggleTerm(),
@@ -675,6 +1063,11 @@ class Component extends DCLogic {
       termInput: s.termInput,
       onTermChange: (e) => this.onTermChange(e),
       onTermKey: (e) => this.onTermKey(e),
+      // rail
+      toc: toc,
+      detailRows: detailRows,
+      detailLink: detailLink,
+      hasDetailLink: !!detailLink,
     };
 
     if (isProject) {
@@ -685,13 +1078,79 @@ class Component extends DCLogic {
         overviewParas: doc.overview, problemParas: doc.problem, researchParas: doc.research, designParas: doc.design,
         quoteText: doc.quote.text, quoteWho: doc.quote.who,
         outcomeStats: doc.outcome,
-        toc: toc,
         heroId: slug + '-hero', pbAId: slug + '-pb-a', pbBId: slug + '-pb-b', desId: slug + '-design',
         galleryItems: doc.gallery.map((cap, i) => ({ id: slug + '-g' + i, caption: cap })),
       });
     }
-    if (doc.type === 'about') { vals.aboutParas = doc.paras; vals.aboutNow = doc.now; }
-    if (doc.type === 'contact') { vals.contactRows = doc.rows; }
+    if (doc.type === 'about') {
+      vals.aboutParas = doc.paras; vals.aboutNow = doc.now;
+      vals.aboutWhatIDo = doc.whatIDo; vals.aboutToolbox = doc.toolbox;
+    }
+    if (doc.type === 'contact') {
+      vals.contactAvail = doc.avail; vals.contactLocation = doc.location;
+      vals.contactRows = doc.rows.map((r) => {
+        const isCopy = r.action === 'copy';
+        const copied = s.copied === r.label;
+        return {
+          label: r.label, value: r.value, icon: r.icon,
+          action: copied ? 'copied ✓' : r.action,
+          actionStyle: { color: copied ? '#5ba85f' : '#565d6b', fontSize: '12px', flex: 'none' },
+          onClick: isCopy ? () => this.copyValue(r.copyVal || r.value, r.label) : () => {},
+        };
+      });
+    }
+    if (doc.type === 'index') {
+      const tabs = ['All', 'Engineering', 'Design', 'Research'];
+      vals.filterTabs = tabs.map((t) => ({
+        label: t,
+        onClick: () => this.setFilter(t),
+        style: {
+          fontSize: '12px', padding: '5px 12px', borderRadius: '7px', cursor: 'pointer',
+          border: '1px solid ' + (s.filter === t ? '#f5a97f' : '#2a2f38'),
+          background: s.filter === t ? 'rgba(245,169,127,.12)' : 'transparent',
+          color: s.filter === t ? '#f5a97f' : '#9aa1ad', fontWeight: s.filter === t ? 600 : 400,
+        },
+      }));
+      const all = this.projectList();
+      const list = s.filter === 'All' ? all : all.filter((p) => p.tags.indexOf(s.filter) >= 0);
+      vals.indexCount = all.length;
+      vals.projectCards = list.map((p) => ({
+        title: p.title, blurb: p.blurb, kind: p.kind, year: p.year,
+        thumbId: p.key.replace(/\.md$/, '') + '-card',
+        onClick: () => this.openDoc(p.key),
+      }));
+    }
+    if (isResearch) {
+      vals.rTitle = doc.title; vals.rSubtitle = doc.subtitle;
+      vals.rBackground = doc.background; vals.rMethod = doc.methodParas;
+      vals.rFindings = doc.findings.map((f, i) => ({ num: String(i + 1).padStart(2, '0'), title: f.title, text: f.text }));
+      vals.rQuotes = doc.quotes; vals.rRecs = doc.recommendations; vals.rImpact = doc.impact;
+    }
+    const barStyle = (h, on) => ({ flex: '1', height: h + '%', minWidth: '2px', borderRadius: '2px', background: on ? '#cba6f7' : '#3a3344' });
+    if (doc.type === 'music') {
+      vals.musicRows = this.musicList().map((t) => {
+        const on = s.playing === t.key;
+        return {
+          title: t.title, meta: t.genre + ' · ' + t.musKey + ' · ' + t.duration, duration: t.duration,
+          playIcon: on ? '❚❚' : '▶',
+          playStyle: { width: '38px', height: '38px', flex: 'none', borderRadius: '50%', border: '1px solid ' + (on ? '#cba6f7' : '#3a3344'), background: on ? 'rgba(203,166,247,.15)' : '#1e2128', color: '#cba6f7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: on ? '10px' : '11px', cursor: 'pointer' },
+          titleStyle: { color: on ? '#e9ddff' : '#f4f6f9', fontSize: '15px', fontWeight: 700 },
+          bars: this.waveform(t.key, 44).map((h) => ({ style: barStyle(h, on) })),
+          onPlay: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.togglePlay(t.key); },
+          onClick: () => this.openDoc(t.key),
+        };
+      });
+    }
+    if (doc.type === 'track') {
+      const on = s.playing === s.activeKey;
+      vals.tTitle = doc.title; vals.tGenre = doc.genre; vals.tYear = doc.year; vals.tKey = doc.musKey; vals.tDuration = doc.duration;
+      vals.tInstruments = doc.instruments; vals.tDesc = doc.desc; vals.tLinks = doc.links;
+      vals.tBars = this.waveform(s.activeKey, 80).map((h) => ({ style: barStyle(h, on) }));
+      vals.tPlayIcon = on ? '❚❚' : '▶';
+      vals.tPlayStyle = { width: '52px', height: '52px', flex: 'none', borderRadius: '50%', border: '1px solid ' + (on ? '#cba6f7' : '#3a3344'), background: on ? 'rgba(203,166,247,.15)' : '#23262d', color: '#cba6f7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: on ? '13px' : '15px', cursor: 'pointer' };
+      vals.onTrackPlay = () => this.togglePlay(s.activeKey);
+      vals.goMusic = () => this.openDoc('music/');
+    }
 
     return vals;
   }

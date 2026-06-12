@@ -5,35 +5,66 @@
 }
 
 .inner {
-  max-width: 560px;
+  max-width: 660px;
   margin: 0 auto;
   padding: 48px 40px 90px;
 }
 
+.breadcrumb {
+  color: var(--text-dimmest);
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
 .heading {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   color: var(--text-heading);
-  font-size: 27px;
+  font-size: 30px;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .intro {
   color: var(--text-muted);
   font-size: 14px;
-  line-height: 1.6;
-  margin: 0 0 28px;
+  line-height: 1.65;
+  margin: 0 0 18px;
 }
 
+.availPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 13px;
+  border-radius: 20px;
+  background: rgba(91, 168, 95, 0.1);
+  border: 1px solid rgba(91, 168, 95, 0.35);
+  margin-bottom: 26px;
+}
+
+.availDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  flex: none;
+}
+
+.availText {
+  color: #a6e3a1;
+  font-size: 12px;
+}
+
+/* Row */
 .row {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 15px 18px;
+  gap: 18px;
+  padding: 19px 22px;
   border: 1px solid var(--border-card);
-  border-radius: 11px;
+  border-radius: 13px;
   background: var(--card-bg);
-  margin-bottom: 11px;
+  margin-bottom: 13px;
   cursor: pointer;
   transition: border-color 0.15s, background 0.15s;
 }
@@ -43,10 +74,30 @@
   background: var(--active-row-bg);
 }
 
-.label {
+.iconBox {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: 9px;
+  background: var(--editor-bg);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--accent);
+  font-size: 13px;
+}
+
+.iconBoxBigGlyph {
+  font-size: 20px;
+  line-height: 1;
+  padding-bottom: 2px;
+}
+
+.label {
+  color: var(--text-dim);
   font-size: 12px;
-  width: 64px;
+  width: 62px;
   flex: none;
 }
 
@@ -72,15 +123,26 @@
 
 .action {
   color: var(--text-dimmest);
-  font-size: 13px;
+  font-size: 12px;
   flex: none;
   transition: color 0.15s;
+  min-width: 40px;
+  text-align: right;
 }
 
-.row:hover .action {
-  color: var(--text-dim);
+.actionLarge {
+  font-size: 18px;
 }
 
-.copied {
+.actionCopied {
   color: var(--green);
+}
+
+.location {
+  margin-top: 18px;
+  color: var(--text-dimmest);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
