@@ -36,14 +36,74 @@ export type ContactDoc = {
 
 export type StubDoc = { type: "stub" };
 export type ProjectsIndexDoc = { type: "projects-index" };
+export type MusicIndexDoc = { type: "music-index" };
+export type TrackDoc = {
+  type: "track";
+  title: string;
+  year: string;
+  musKey: string;
+  duration: string;
+  genre: string;
+  instruments: string[];
+  desc: string[];
+  links: string[];
+};
 
-export type Doc = ProjectDoc | AboutDoc | ContactDoc | StubDoc | ProjectsIndexDoc;
+export type Doc = ProjectDoc | AboutDoc | ContactDoc | StubDoc | ProjectsIndexDoc | MusicIndexDoc | TrackDoc;
 
 export const SECTIONS = ["overview", "problem", "research", "design", "outcome", "gallery"] as const;
 export type SectionId = (typeof SECTIONS)[number];
 
+export const MUSIC_KEYS = ["nocturne-in-blue.md", "tidewater.md", "signal-lost.md"] as const;
+
 export const docs: Record<string, Doc> = {
   "projects/": { type: "projects-index" },
+  "music/": { type: "music-index" },
+
+  "nocturne-in-blue.md": {
+    type: "track",
+    title: "Nocturne in Blue",
+    year: "2024",
+    musKey: "D♭ minor",
+    duration: "4:12",
+    genre: "Solo piano",
+    instruments: ["Piano"],
+    desc: [
+      "A late-night solo-piano piece built on a descending left-hand figure that never quite resolves — the harmonic equivalent of not being able to sleep.",
+      "Written in a single sitting and barely edited since; I wanted to keep the unsteadiness of the first take.",
+    ],
+    links: ["SoundCloud", "Score (PDF)"],
+  },
+
+  "tidewater.md": {
+    type: "track",
+    title: "Tidewater",
+    year: "2023",
+    musKey: "A major",
+    duration: "6:38",
+    genre: "String quartet",
+    instruments: ["Violin I", "Violin II", "Viola", "Cello"],
+    desc: [
+      "A string quartet in three connected sections that ebb and flow like a tide — phrases pass between the instruments and return slightly changed each time.",
+      "The middle section borrows a folk melody my grandmother used to hum.",
+    ],
+    links: ["SoundCloud", "Score (PDF)"],
+  },
+
+  "signal-lost.md": {
+    type: "track",
+    title: "Signal Lost",
+    year: "2023",
+    musKey: "—",
+    duration: "3:55",
+    genre: "Electronic",
+    instruments: ["Synths", "Drum machine", "Field recordings"],
+    desc: [
+      "An electronic piece assembled from analog-synth takes and field recordings of a train station, slowly degrading into static.",
+      "A study in letting a clean signal fall apart on purpose.",
+    ],
+    links: ["SoundCloud", "Bandcamp"],
+  },
 
   "project-alpha.md": {
     type: "project",
@@ -228,6 +288,12 @@ export function resolveFile(arg: string): string | null {
     about: "about.md",
     me: "about.md",
     contact: "contact.md",
+    music: "music/",
+    nocturne: "nocturne-in-blue.md",
+    "nocturne-in-blue": "nocturne-in-blue.md",
+    tidewater: "tidewater.md",
+    signal: "signal-lost.md",
+    "signal-lost": "signal-lost.md",
   };
   if (map[a]) return map[a];
   const keys = [...Object.keys(docs), ...Object.keys(fileMeta)];

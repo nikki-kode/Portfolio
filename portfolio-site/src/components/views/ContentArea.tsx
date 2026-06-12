@@ -4,6 +4,8 @@ import AboutView from "./AboutView";
 import ContactView from "./ContactView";
 import ProjectView from "./ProjectView";
 import ProjectsIndexView from "./ProjectsIndexView";
+import MusicIndexView from "./MusicIndexView";
+import TrackView from "./TrackView";
 import StubView from "./StubView";
 import styles from "./ContentArea.module.css";
 
@@ -13,6 +15,8 @@ type Props = {
   activeSection: string;
   setSection: (id: string) => void;
   openDoc: (key: string) => void;
+  playing: string | null;
+  togglePlaying: (key: string) => void;
 };
 
 function buildSourceLines(doc: ReturnType<typeof getDoc>) {
@@ -56,6 +60,21 @@ function buildSourceLines(doc: ReturnType<typeof getDoc>) {
     add("# Contact", c.head);
     add("", c.text);
     doc.rows.forEach((r) => add(`${r.label}: ${r.value}`, c.fm));
+  } else if (doc.type === "track") {
+    add("---", c.dim);
+    add(`year:     ${doc.year}`, c.fm);
+    add(`key:      ${doc.musKey}`, c.fm);
+    add(`duration: ${doc.duration}`, c.fm);
+    add("---", c.dim);
+    add("", c.text);
+    add(`# ${doc.title}`, c.head);
+    add(`> ${doc.genre}`, c.quote);
+    add("", c.text);
+    doc.desc.forEach((p) => { add(p, c.text); add("", c.text); });
+  } else if (doc.type === "music-index") {
+    add("# music/", c.head);
+    add("", c.text);
+    add("nocturne-in-blue.md   tidewater.md   signal-lost.md", c.fm);
   } else {
     add("# Draft", c.head);
     add("", c.text);
@@ -64,7 +83,7 @@ function buildSourceLines(doc: ReturnType<typeof getDoc>) {
   return lines;
 }
 
-export default function ContentArea({ activeKey, view, activeSection, setSection, openDoc }: Props) {
+export default function ContentArea({ activeKey, view, activeSection, setSection, openDoc, playing, togglePlaying }: Props) {
   const doc = getDoc(activeKey);
   const showSource = view === "code" || view === "split";
   const showPreview = view === "preview" || view === "split";
@@ -94,6 +113,18 @@ export default function ContentArea({ activeKey, view, activeSection, setSection
           {doc.type === "contact" && <ContactView doc={doc} />}
           {doc.type === "stub" && <StubView filename={activeKey} />}
           {doc.type === "projects-index" && <ProjectsIndexView openDoc={openDoc} />}
+          {doc.type === "music-index" && (
+            <MusicIndexView playing={playing} togglePlaying={togglePlaying} openDoc={openDoc} />
+          )}
+          {doc.type === "track" && (
+            <TrackView
+              doc={doc}
+              trackKey={activeKey}
+              playing={playing}
+              togglePlaying={togglePlaying}
+              onBack={() => openDoc("music/")}
+            />
+          )}
           {doc.type === "project" && (
             <ProjectView
               doc={doc}

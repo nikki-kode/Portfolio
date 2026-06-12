@@ -37,6 +37,8 @@ export default function IDEShell() {
             activeSection={ide.state.activeSection}
             setSection={ide.setSection}
             openDoc={ide.openDoc}
+            playing={ide.state.playing}
+            togglePlaying={ide.togglePlaying}
           />
         </div>
         {ide.state.termOpen && (

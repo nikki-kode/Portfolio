@@ -17,6 +17,7 @@ export type IDEState = {
   view: View;
   activeSection: string;
   open: Record<string, boolean>;
+  playing: string | null;
   termOpen: boolean;
   termInput: string;
   termLines: TermLine[];
@@ -30,6 +31,7 @@ type Action =
   | { type: "SET_VIEW"; view: View }
   | { type: "SET_SECTION"; id: string }
   | { type: "TOGGLE_FOLDER"; name: string }
+  | { type: "TOGGLE_PLAYING"; key: string }
   | { type: "TOGGLE_TERM" }
   | { type: "SET_TERM_INPUT"; value: string }
   | { type: "RUN_COMMAND"; cmd: string; lines: TermLine[]; navTo: string | null }
@@ -42,7 +44,8 @@ const initial: IDEState = {
   tabs: ["about.md"],
   view: "preview",
   activeSection: "overview",
-  open: { projects: true, "ux-research": false },
+  open: { projects: true, "ux-research": false, music: false },
+  playing: null,
   termOpen: false,
   termInput: "",
   termLines: [
@@ -87,6 +90,8 @@ function reducer(state: IDEState, action: Action): IDEState {
       return { ...state, activeSection: action.id };
     case "TOGGLE_FOLDER":
       return { ...state, open: { ...state.open, [action.name]: !state.open[action.name] } };
+    case "TOGGLE_PLAYING":
+      return { ...state, playing: state.playing === action.key ? null : action.key };
     case "TOGGLE_TERM":
       return { ...state, termOpen: !state.termOpen };
     case "SET_TERM_INPUT":
@@ -152,6 +157,7 @@ function buildCommandOutput(cmd: string): { lines: TermLine[]; navTo: string | n
         ["projects", "list case studies"],
         ["open <name>", "open a file (try: open alpha)"],
         ["research", "ux research & writeups"],
+        ["music", "compositions & tracks"],
         ["resume", "grab my CV"],
         ["contact", "email · github · linkedin"],
         ["ls", "list files here"],
@@ -162,7 +168,7 @@ function buildCommandOutput(cmd: string): { lines: TermLine[]; navTo: string | n
       );
       break;
     case "ls":
-      push("about.md   projects/   ux-research/   resume.pdf   contact.md", "#cdd2da");
+      push("about.md   projects/   ux-research/   music/   resume.pdf   contact.md", "#cdd2da");
       break;
     case "projects":
       push("project-alpha.md   project-bravo.md   project-charlie.md", "#cdd2da");
@@ -178,6 +184,11 @@ function buildCommandOutput(cmd: string): { lines: TermLine[]; navTo: string | n
       break;
     case "research":
       push("ux-research/ — capstone.md, ixdf.md, usability-study.md (drafts)", "#cdd2da");
+      break;
+    case "music":
+      navTo = "music/";
+      push("music/ — nocturne-in-blue.md, tidewater.md, signal-lost.md", "#cdd2da");
+      push("opening music/ …", "#565d6b");
       break;
     case "resume":
       push("resume.pdf — wire this up to your real CV file ✦", "#cdd2da");
@@ -220,6 +231,10 @@ export function useIDEState() {
     (name: string) => dispatch({ type: "TOGGLE_FOLDER", name }),
     []
   );
+  const togglePlaying = useCallback(
+    (key: string) => dispatch({ type: "TOGGLE_PLAYING", key }),
+    []
+  );
   const toggleTerm = useCallback(() => dispatch({ type: "TOGGLE_TERM" }), []);
   const setTermInput = useCallback(
     (value: string) => dispatch({ type: "SET_TERM_INPUT", value }),
@@ -250,6 +265,7 @@ export function useIDEState() {
     setView,
     setSection,
     toggleFolder,
+    togglePlaying,
     toggleTerm,
     setTermInput,
     clearTerm,
