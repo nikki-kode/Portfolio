@@ -73,6 +73,20 @@ export default function ProjectView({ doc, view, activeSection, setSection, onBa
           <h1 className={styles.title}>{doc.title}</h1>
           <p className={styles.tagline}>{doc.tagline}</p>
 
+          <div className={styles.metaStrip}>
+            {[
+              { k: "ROLE",     v: doc.role },
+              { k: "TIMELINE", v: doc.timeline },
+              { k: "PLATFORM", v: doc.platform },
+              { k: "TOOLS",    v: doc.tools },
+            ].map(({ k, v }) => (
+              <span key={k} className={styles.metaChip}>
+                <span className={styles.metaKey}>{k}</span>
+                {v}
+              </span>
+            ))}
+          </div>
+
           <div className={styles.hero}>
             <ImageSlot height={300} label="hero image" />
           </div>
