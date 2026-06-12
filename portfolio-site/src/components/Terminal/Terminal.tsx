@@ -7,13 +7,14 @@ import styles from "./Terminal.module.css";
 type Props = {
   lines: TermLine[];
   input: string;
+  promptPath: string;
   onInputChange: (value: string) => void;
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onClear: () => void;
   onCollapse: () => void;
 };
 
-export default function Terminal({ lines, input, onInputChange, onKeyDown, onClear, onCollapse }: Props) {
+export default function Terminal({ lines, input, promptPath, onInputChange, onKeyDown, onClear, onCollapse }: Props) {
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -41,7 +42,7 @@ export default function Terminal({ lines, input, onInputChange, onKeyDown, onCle
           <div key={i} className={styles.line}>
             {line.isCmd && (
               <>
-                <span className={styles.prompt}>~/portfolio</span>{" "}
+                <span className={styles.prompt}>{line.path ?? "~/portfolio"}</span>{" "}
                 <span className={styles.promptSep}>%</span>{" "}
               </>
             )}
@@ -50,7 +51,7 @@ export default function Terminal({ lines, input, onInputChange, onKeyDown, onCle
         ))}
 
         <div className={styles.inputRow}>
-          <span className={styles.prompt}>~/portfolio</span>&nbsp;
+          <span className={styles.prompt}>{promptPath}</span>&nbsp;
           <span className={styles.promptSep}>%</span>&nbsp;
           <input
             ref={inputRef}

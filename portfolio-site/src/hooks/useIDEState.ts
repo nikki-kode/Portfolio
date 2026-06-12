@@ -2,6 +2,7 @@
 
 import { useReducer, useCallback } from "react";
 import { resolveFile } from "@/data/docs";
+import { promptPath } from "@/lib/promptPath";
 
 export type View = "preview" | "split" | "code";
 
@@ -9,6 +10,7 @@ export type TermLine = {
   isCmd: boolean;
   text: string;
   color?: string;
+  path?: string;
 };
 
 export type IDEState = {
@@ -100,7 +102,7 @@ function reducer(state: IDEState, action: Action): IDEState {
       const newLines =
         action.cmd === "clear"
           ? []
-          : [...state.termLines, { isCmd: true, text: action.cmd }, ...action.lines];
+          : [...state.termLines, { isCmd: true, text: action.cmd, path: promptPath(state.activeKey) }, ...action.lines];
       const newHistory = action.cmd ? [...state.history, action.cmd] : state.history;
       const nextState: IDEState = {
         ...state,

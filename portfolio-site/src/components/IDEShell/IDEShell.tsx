@@ -1,6 +1,7 @@
 "use client";
 
 import { useIDEState } from "@/hooks/useIDEState";
+import { promptPath } from "@/lib/promptPath";
 import ActivityBar from "@/components/ActivityBar/ActivityBar";
 import FileTree from "@/components/FileTree/FileTree";
 import TabBar from "@/components/TabBar/TabBar";
@@ -45,6 +46,7 @@ export default function IDEShell() {
           <Terminal
             lines={ide.state.termLines}
             input={ide.state.termInput}
+            promptPath={promptPath(ide.state.activeKey)}
             onInputChange={ide.setTermInput}
             onKeyDown={ide.onTermKeyDown}
             onClear={ide.clearTerm}
