@@ -16,7 +16,7 @@ export default function MusicIndexView({ playing, togglePlaying, openDoc }: Prop
     <div className={styles.scroll}>
       <div className={styles.inner}>
         <div className={styles.headingRow}>
-          <h1 className={styles.heading}>Compositions</h1>
+          <h1 className={styles.heading}>music/</h1>
           <span className={styles.sub}>selected pieces</span>
         </div>
         <p className={styles.intro}>

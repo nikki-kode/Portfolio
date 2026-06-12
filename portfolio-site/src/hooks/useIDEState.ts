@@ -187,7 +187,7 @@ function buildCommandOutput(cmd: string): { lines: TermLine[]; navTo: string | n
       break;
     case "music":
       navTo = "music/";
-      push("music/ — nocturne-in-blue.md, tidewater.md, signal-lost.md", "#cdd2da");
+      push("music/ — nocturne-in-blue.mp3, tidewater.mp3, signal-lost.mp3", "#cdd2da");
       push("opening music/ …", "#565d6b");
       break;
     case "resume":

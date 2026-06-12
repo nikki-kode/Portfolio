@@ -3,6 +3,7 @@
 import { useRef, useLayoutEffect } from "react";
 import clsx from "clsx";
 import type { View } from "@/hooks/useIDEState";
+import { fileColor } from "@/lib/fileColor";
 import styles from "./TabBar.module.css";
 
 type Props = {
@@ -36,13 +37,18 @@ export default function TabBar({ tabs, activeKey, view, setView, onTabClick, onT
       <div ref={tabsRef} className={styles.tabs}>
         {tabs.map((key) => {
           const active = key === activeKey;
+          const color = active ? fileColor(key) : undefined;
           return (
             <div
               key={key}
               className={clsx(styles.tab, active && styles.tabActive)}
+              style={active ? { borderTopColor: color } : undefined}
               onClick={() => onTabClick(key)}
             >
-              <span className={clsx(styles.tabDot, active && styles.tabDotActive)} />
+              <span
+                className={clsx(styles.tabDot, active && styles.tabDotActive)}
+                style={active ? { background: color } : undefined}
+              />
               {key}
               <span
                 className={styles.tabClose}

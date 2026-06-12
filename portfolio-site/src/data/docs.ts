@@ -54,13 +54,13 @@ export type Doc = ProjectDoc | AboutDoc | ContactDoc | StubDoc | ProjectsIndexDo
 export const SECTIONS = ["overview", "problem", "research", "design", "outcome", "gallery"] as const;
 export type SectionId = (typeof SECTIONS)[number];
 
-export const MUSIC_KEYS = ["nocturne-in-blue.md", "tidewater.md", "signal-lost.md"] as const;
+export const MUSIC_KEYS = ["nocturne-in-blue.mp3", "tidewater.mp3", "signal-lost.mp3"] as const;
 
 export const docs: Record<string, Doc> = {
   "projects/": { type: "projects-index" },
   "music/": { type: "music-index" },
 
-  "nocturne-in-blue.md": {
+  "nocturne-in-blue.mp3": {
     type: "track",
     title: "Nocturne in Blue",
     year: "2024",
@@ -75,7 +75,7 @@ export const docs: Record<string, Doc> = {
     links: ["SoundCloud", "Score (PDF)"],
   },
 
-  "tidewater.md": {
+  "tidewater.mp3": {
     type: "track",
     title: "Tidewater",
     year: "2023",
@@ -90,7 +90,7 @@ export const docs: Record<string, Doc> = {
     links: ["SoundCloud", "Score (PDF)"],
   },
 
-  "signal-lost.md": {
+  "signal-lost.mp3": {
     type: "track",
     title: "Signal Lost",
     year: "2023",
@@ -289,11 +289,11 @@ export function resolveFile(arg: string): string | null {
     me: "about.md",
     contact: "contact.md",
     music: "music/",
-    nocturne: "nocturne-in-blue.md",
-    "nocturne-in-blue": "nocturne-in-blue.md",
-    tidewater: "tidewater.md",
-    signal: "signal-lost.md",
-    "signal-lost": "signal-lost.md",
+    nocturne: "nocturne-in-blue.mp3",
+    "nocturne-in-blue": "nocturne-in-blue.mp3",
+    tidewater: "tidewater.mp3",
+    signal: "signal-lost.mp3",
+    "signal-lost": "signal-lost.mp3",
   };
   if (map[a]) return map[a];
   const keys = [...Object.keys(docs), ...Object.keys(fileMeta)];

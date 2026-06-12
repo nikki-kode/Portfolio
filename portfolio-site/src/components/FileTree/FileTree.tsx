@@ -33,9 +33,9 @@ function buildTree(open: Record<string, boolean>): TreeEntry[] {
 
   rows.push({ kind: "folder", name: "music", label: "music", isOpen: !!open.music, indexKey: "music/" });
   if (open.music) {
-    rows.push({ kind: "file", key: "nocturne-in-blue.md", label: "nocturne-in-blue.md", depth: 1, dotColor: "#cba6f7" });
-    rows.push({ kind: "file", key: "tidewater.md", label: "tidewater.md", depth: 1, dotColor: "#cba6f7" });
-    rows.push({ kind: "file", key: "signal-lost.md", label: "signal-lost.md", depth: 1, dotColor: "#cba6f7" });
+    rows.push({ kind: "file", key: "nocturne-in-blue.mp3", label: "nocturne-in-blue.mp3", depth: 1, dotColor: "#cba6f7" });
+    rows.push({ kind: "file", key: "tidewater.mp3", label: "tidewater.mp3", depth: 1, dotColor: "#cba6f7" });
+    rows.push({ kind: "file", key: "signal-lost.mp3", label: "signal-lost.mp3", depth: 1, dotColor: "#cba6f7" });
   }
 
   rows.push({ kind: "file", key: "resume.pdf", label: "resume.pdf", depth: 0, dotColor: "#e0655b" });
