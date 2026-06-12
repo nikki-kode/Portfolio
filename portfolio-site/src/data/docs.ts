@@ -62,7 +62,7 @@ export const docs: Record<string, Doc> = {
 
   "nocturne-in-blue.mp3": {
     type: "track",
-    title: "Nocturne in Blue",
+    title: "Nocturne in Blue (example)",
     year: "2024",
     musKey: "D♭ minor",
     duration: "4:12",
@@ -77,7 +77,7 @@ export const docs: Record<string, Doc> = {
 
   "tidewater.mp3": {
     type: "track",
-    title: "Tidewater",
+    title: "Tidewater (example)",
     year: "2023",
     musKey: "A major",
     duration: "6:38",
@@ -92,7 +92,7 @@ export const docs: Record<string, Doc> = {
 
   "signal-lost.mp3": {
     type: "track",
-    title: "Signal Lost",
+    title: "Signal Lost (example)",
     year: "2023",
     musKey: "—",
     duration: "3:55",

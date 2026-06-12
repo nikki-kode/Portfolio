@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { fileColor } from "@/lib/fileColor";
 import styles from "./FileTree.module.css";
 
 type Props = {
@@ -79,7 +80,10 @@ export default function FileTree({ activeKey, open, openDoc, toggleFolder }: Pro
             <div
               key={entry.key}
               className={clsx(styles.row, active && styles.rowActive)}
-              style={{ paddingLeft: 7 + entry.depth * 16 }}
+              style={{
+                paddingLeft: 7 + entry.depth * 16,
+                ...(active && { boxShadow: `inset 2px 0 0 ${fileColor(entry.key)}` }),
+              }}
               onClick={() => openDoc(entry.key)}
             >
               <span className={styles.caret} />
