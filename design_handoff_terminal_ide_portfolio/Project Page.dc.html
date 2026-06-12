@@ -41,6 +41,7 @@
           <span style="{{ row.caretStyle }}">{{ row.caret }}</span>
           <span style="{{ row.dotStyle }}"></span>
           <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ row.label }}</span>
+          <span onClick="{{ row.onIndex }}" style="{{ row.indexStyle }}" title="Open overview page">{{ row.indexLabel }} <span style="font-size:10px">→</span></span>
         </div>
       </sc-for>
     </div>
@@ -930,22 +931,30 @@ class Component extends DCLogic {
           boxShadow: active ? 'inset 2px 0 0 #f5a97f' : 'none',
         },
         onClick: () => this.openDoc(key),
+        indexStyle: { display: 'none' },
       });
     };
-    const folderRow = (name, label) => {
+    const folderRow = (name, label, indexKey, accent) => {
       const open = !!s.open[name];
+      const ac = accent || '#f5a97f';
+      const activeIdx = !!indexKey && s.activeKey === indexKey;
       rows.push({
         label: label, caret: open ? '▾' : '▸', kind: 'folder',
-        caretStyle: { width: '12px', flex: 'none', color: '#565d6b', fontSize: '10px' },
+        caretStyle: { width: '12px', flex: 'none', color: activeIdx ? ac : '#565d6b', fontSize: '10px' },
         dotStyle: { display: 'none' },
-        style: { display: 'flex', alignItems: 'center', gap: '7px', cursor: 'pointer', padding: '5px 7px', borderRadius: '6px', fontSize: '12.5px', color: '#aab1bd', marginBottom: '1px' },
+        style: { display: 'flex', alignItems: 'center', gap: '7px', cursor: 'pointer', padding: '5px 7px', borderRadius: '6px', fontSize: '12.5px', color: activeIdx ? '#e8ebf0' : '#aab1bd', background: activeIdx ? '#262b33' : 'transparent', boxShadow: activeIdx ? ('inset 2px 0 0 ' + ac) : 'none', marginBottom: '1px' },
         onClick: () => this.toggleFolder(name),
+        indexLabel: indexKey ? 'page' : '',
+        indexStyle: indexKey
+          ? { marginLeft: 'auto', flex: 'none', display: 'inline-flex', alignItems: 'center', gap: '2px', padding: '1px 6px 1px 8px', borderRadius: '20px', fontSize: '8.5px', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', cursor: 'pointer', border: '1px solid ' + (activeIdx ? ac : '#3a3f4a'), background: activeIdx ? ac : 'transparent', color: activeIdx ? '#1a1d23' : ac }
+          : { display: 'none' },
+        onIndex: indexKey ? (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.openDoc(indexKey); } : null,
       });
       return open;
     };
 
     fileRow('about.md', 'about.md', 0);
-    if (folderRow('projects', 'projects')) {
+    if (folderRow('projects', 'projects', 'projects/', '#f5a97f')) {
       fileRow('project-aurora.md', 'project-aurora.md', 1);
       fileRow('project-ledger.md', 'project-ledger.md', 1);
       fileRow('project-atlas.md', 'project-atlas.md', 1);
@@ -954,7 +963,7 @@ class Component extends DCLogic {
       fileRow('usability-study.md', 'usability-study.md', 1);
       fileRow('field-interviews.md', 'field-interviews.md', 1);
     }
-    if (folderRow('music', 'music')) {
+    if (folderRow('music', 'music', 'music/', '#cba6f7')) {
       fileRow('nocturne-in-blue.md', 'nocturne-in-blue.md', 1, '#cba6f7');
       fileRow('tidewater.md', 'tidewater.md', 1, '#cba6f7');
       fileRow('signal-lost.md', 'signal-lost.md', 1, '#cba6f7');

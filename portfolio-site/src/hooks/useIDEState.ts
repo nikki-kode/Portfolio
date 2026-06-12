@@ -64,11 +64,20 @@ const initial: IDEState = {
 function reducer(state: IDEState, action: Action): IDEState {
   switch (action.type) {
     case "OPEN_DOC": {
+      const folderForKey = (k: string): string | null => {
+        if (k.startsWith("project-") && k !== "projects/") return "projects";
+        if (k.endsWith(".mp3")) return "music";
+        if (["capstone.md", "ixdf.md", "usability-study.md"].includes(k)) return "ux-research";
+        return null;
+      };
+      const folder = folderForKey(action.key);
+      const openPatch = folder ? { open: { ...state.open, [folder]: true } } : {};
       if (state.tabs.includes(action.key)) {
-        return { ...state, activeKey: action.key, view: "preview", activeSection: "overview" };
+        return { ...state, ...openPatch, activeKey: action.key, view: "preview", activeSection: "overview" };
       }
       return {
         ...state,
+        ...openPatch,
         activeKey: action.key,
         tabs: [...state.tabs, action.key],
         view: "preview",

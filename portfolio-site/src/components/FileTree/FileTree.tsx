@@ -2,6 +2,11 @@ import clsx from "clsx";
 import { fileColor } from "@/lib/fileColor";
 import styles from "./FileTree.module.css";
 
+const FOLDER_ACCENT: Record<string, string> = {
+  "projects/": "var(--accent)",
+  "music/":    "#cba6f7",
+};
+
 type Props = {
   activeKey: string;
   open: Record<string, boolean>;
@@ -55,20 +60,28 @@ export default function FileTree({ activeKey, open, openDoc, toggleFolder }: Pro
       <div className={styles.rows}>
         {rows.map((entry) => {
           if (entry.kind === "folder") {
+            const indexActive = !!entry.indexKey && activeKey === entry.indexKey;
+            const accent = entry.indexKey ? FOLDER_ACCENT[entry.indexKey] : undefined;
             return (
-              <div key={entry.name} className={styles.row}>
-                <span
-                  className={styles.caret}
-                  onClick={() => toggleFolder(entry.name)}
-                >
-                  {entry.isOpen ? "▾" : "▸"}
-                </span>
-                <span
-                  className={styles.label}
-                  onClick={() => entry.indexKey ? openDoc(entry.indexKey) : toggleFolder(entry.name)}
-                >
-                  {entry.label}
-                </span>
+              <div
+                key={entry.name}
+                className={clsx(styles.row, indexActive && styles.rowActive)}
+                style={indexActive && accent ? { boxShadow: `inset 2px 0 0 ${accent}` } : undefined}
+                onClick={() => toggleFolder(entry.name)}
+              >
+                <span className={styles.caret}>{entry.isOpen ? "▾" : "▸"}</span>
+                <span className={styles.label}>{entry.label}</span>
+                {entry.indexKey && accent && (
+                  <span
+                    className={styles.pill}
+                    style={indexActive
+                      ? { borderColor: accent, background: accent, color: "#1a1d23" }
+                      : { borderColor: accent, color: accent }}
+                    onClick={(e) => { e.stopPropagation(); openDoc(entry.indexKey!); }}
+                  >
+                    open →
+                  </span>
+                )}
               </div>
             );
           }
