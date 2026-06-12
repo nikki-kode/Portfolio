@@ -90,7 +90,7 @@ export default function ContentArea({ activeKey, view, activeSection, setSection
 
       {showPreview && (
         <div className={previewPaneClass}>
-          {doc.type === "about" && <AboutView doc={doc} />}
+          {doc.type === "about" && <AboutView doc={doc} onOpenContact={() => openDoc("contact.md")} />}
           {doc.type === "contact" && <ContactView doc={doc} />}
           {doc.type === "stub" && <StubView filename={activeKey} />}
           {doc.type === "projects-index" && <ProjectsIndexView openDoc={openDoc} />}

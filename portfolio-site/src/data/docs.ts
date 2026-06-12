@@ -19,6 +19,8 @@ export type ProjectDoc = {
 export type AboutDoc = {
   type: "about";
   paras: string[];
+  whatIDo: { k: string; d: string }[];
+  toolbox: string[];
   now: string[];
 };
 
@@ -161,8 +163,13 @@ export const docs: Record<string, Doc> = {
     paras: [
       "Placeholder paragraph one.",
       "Placeholder paragraph two.",
-      "Placeholder paragraph three.",
     ],
+    whatIDo: [
+      { k: "Discipline one", d: "Placeholder description for what you do in this area." },
+      { k: "Discipline two", d: "Placeholder description for what you do in this area." },
+      { k: "Discipline three", d: "Placeholder description for what you do in this area." },
+    ],
+    toolbox: ["Tool one", "Tool two", "Tool three", "Tool four", "Tool five"],
     now: [
       "item one here",
       "item two here",
