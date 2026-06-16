@@ -78,7 +78,7 @@
 /* What I do cards */
 .whatIDo {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   margin-top: 30px;
 }
@@ -125,7 +125,7 @@
 .sectionLabel {
   font-size: 10px;
   letter-spacing: 0.12em;
-  color: var(--text-dimmest);
+  color: var(--accent);
   margin-bottom: 13px;
 }
 
@@ -142,6 +142,29 @@
   border: 1px solid var(--border-subtle);
   color: var(--text-meta);
   font-size: 12px;
+}
+
+.sectionGray {
+  color: var(--text-meta);
+}
+
+.sectionDot {
+  color: var(--text-dimmest);
+}
+
+.toolTech {
+  border-color: rgba(245, 169, 127, 0.35);
+  color: var(--accent);
+}
+
+.toolDesign {
+  border-color: rgba(137, 180, 250, 0.35);
+  color: #89b4fa;
+}
+
+.toolCreative {
+  border-color: rgba(203, 166, 247, 0.35);
+  color: #cba6f7;
 }
 
 /* Currently */

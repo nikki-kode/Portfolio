@@ -1,7 +1,11 @@
 "use client";
 
+import clsx from "clsx";
 import type { AboutDoc } from "@/data/docs";
 import styles from "./AboutView.module.css";
+
+const DESIGN_TOOLS = new Set(["Figma", "Adobe Suite", "Otter.ai", "Claude", "Cursor", "Gemini"]);
+const CREATIVE_TOOLS = new Set(["Logic Pro X", "Ableton Live", "Unity"]);
 
 export default function AboutView({
   doc,
@@ -15,7 +19,7 @@ export default function AboutView({
       <div className={styles.inner}>
         {/* Header */}
         <div className={styles.header}>
-          <div className={styles.avatar}>NK</div>
+          <div className={styles.avatar}><img src="/profilepic.jpg" alt="Nikki Kode" /></div>
           <div className={styles.nameBlock}>
             <h1 className={styles.name}>Nikki Kode</h1>
             <div className={styles.role}>Software Engineer · UX Designer/Researcher · Musician</div>
@@ -43,10 +47,25 @@ export default function AboutView({
 
         {/* Toolbox */}
         <div className={styles.toolboxSection}>
-          <div className={styles.sectionLabel}>TOOLBOX</div>
+          <div className={styles.sectionLabel}>
+            <span className={styles.sectionGray}>TOOLBOX:</span>&nbsp;
+            <span style={{ color: "var(--accent)" }}>TECH</span>
+            <span className={styles.sectionDot}> • </span>
+            <span style={{ color: "#89b4fa" }}>DESIGN/RESEARCH</span>
+            <span className={styles.sectionDot}> • </span>
+            <span style={{ color: "#cba6f7" }}>CREATIVE</span>
+          </div>
           <div className={styles.toolbox}>
             {doc.toolbox.map((t) => (
-              <span key={t} className={styles.tool}>{t}</span>
+              <span
+                key={t}
+                className={clsx(
+                  styles.tool,
+                  CREATIVE_TOOLS.has(t) ? styles.toolCreative
+                    : DESIGN_TOOLS.has(t) ? styles.toolDesign
+                    : styles.toolTech
+                )}
+              >{t}</span>
             ))}
           </div>
         </div>

@@ -233,19 +233,28 @@ export const docs: Record<string, Doc> = {
   "about.md": {
     type: "about",
     paras: [
-      "Placeholder paragraph one.",
-      "Placeholder paragraph two.",
+      "Software engineer and UX researcher with a foot on both sides of the design-engineering divide. BS in Computer Science and Arts, MHCI from Carnegie Mellon — August 2026.",
+      "I build things that work and research why they don't. Full-stack when the problem needs it, human-centered always.",
     ],
     whatIDo: [
-      { k: "Discipline one", d: "Placeholder description for what you do in this area." },
-      { k: "Discipline two", d: "Placeholder description for what you do in this area." },
-      { k: "Discipline three", d: "Placeholder description for what you do in this area." },
+      {
+        k: "Software Engineering",
+        d: "I build full-stack web applications and tools with a focus on shipping things that actually work, from real-time collaborative systems to AI-integrated products. I care about clean architecture, strong test coverage, and code that other people can understand.",
+      },
+      {
+        k: "UX Design & Research",
+        d: "I design and run studies that surface how people actually behave, not how we assume they do. I work across the full research arc, from needfinding and contextual inquiry to prototyping and usability testing, and I bring that lens into everything I build.",
+      },
     ],
-    toolbox: ["Tool one", "Tool two", "Tool three", "Tool four", "Tool five"],
+    toolbox: [
+      "React", "TypeScript", "Python", "Django", "PostgreSQL", "Redis", "Docker", "AWS", "Rust",
+      "Figma", "Adobe Suite", "Otter.ai", "Claude", "Cursor", "Gemini",
+      "Logic Pro X", "Ableton Live", "Unity",
+    ],
     now: [
-      "item one here",
-      "item two here",
-      "item three here",
+      "Finishing my MHCI at Carnegie Mellon",
+      "Looking for full-time roles in SWE and UX Research",
+      "Attempting to get my bird to let me pet him",
     ],
   },
 
