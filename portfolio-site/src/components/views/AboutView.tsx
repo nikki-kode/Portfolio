@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import clsx from "clsx";
 import type { AboutDoc } from "@/data/docs";
 import styles from "./AboutView.module.css";
@@ -14,6 +15,21 @@ export default function AboutView({
   doc: AboutDoc;
   onOpenContact: () => void;
 }) {
+  const [filter, setFilter] = useState<"tech" | "design" | "creative" | null>(null);
+
+  function toggle(cat: "tech" | "design" | "creative") {
+    setFilter((f) => (f === cat ? null : cat));
+  }
+
+  function pillClass(t: string) {
+    const cat = CREATIVE_TOOLS.has(t) ? "creative" : DESIGN_TOOLS.has(t) ? "design" : "tech";
+    if (filter === null) return undefined;
+    if (filter === cat) {
+      return cat === "creative" ? styles.toolCreative : cat === "design" ? styles.toolDesign : styles.toolTech;
+    }
+    return styles.toolDim;
+  }
+
   return (
     <div className={styles.scroll}>
       <div className={styles.inner}>
@@ -47,25 +63,21 @@ export default function AboutView({
 
         {/* Toolbox */}
         <div className={styles.toolboxSection}>
-          <div className={styles.sectionLabel}>
-            <span className={styles.sectionGray}>TOOLBOX:</span>&nbsp;
-            <span style={{ color: "var(--accent)" }}>TECH</span>
-            <span className={styles.sectionDot}> • </span>
-            <span style={{ color: "#89b4fa" }}>DESIGN/RESEARCH</span>
-            <span className={styles.sectionDot}> • </span>
-            <span style={{ color: "#cba6f7" }}>CREATIVE</span>
+          <div className={styles.toolboxHeader}>
+            <span className={styles.sectionLabel} style={{ marginBottom: 0, color: "var(--text-meta)" }}>TOOLBOX:</span>
+            <div className={styles.filterBtns}>
+              <button className={clsx(styles.filterBtn, filter === null && styles.filterBtnActive)} style={{"--btn-color": "var(--text-meta)"} as React.CSSProperties} onClick={() => setFilter(null)}>ALL</button>
+              <span className={styles.sectionDot}> • </span>
+              <button className={clsx(styles.filterBtn, filter === "tech" && styles.filterBtnActive)} style={{"--btn-color": "var(--accent)"} as React.CSSProperties} onClick={() => toggle("tech")}>TECH</button>
+              <span className={styles.sectionDot}> • </span>
+              <button className={clsx(styles.filterBtn, filter === "design" && styles.filterBtnActive)} style={{"--btn-color": "#89b4fa"} as React.CSSProperties} onClick={() => toggle("design")}>DESIGN/RESEARCH</button>
+              <span className={styles.sectionDot}> • </span>
+              <button className={clsx(styles.filterBtn, filter === "creative" && styles.filterBtnActive)} style={{"--btn-color": "#cba6f7"} as React.CSSProperties} onClick={() => toggle("creative")}>CREATIVE</button>
+            </div>
           </div>
           <div className={styles.toolbox}>
             {doc.toolbox.map((t) => (
-              <span
-                key={t}
-                className={clsx(
-                  styles.tool,
-                  CREATIVE_TOOLS.has(t) ? styles.toolCreative
-                    : DESIGN_TOOLS.has(t) ? styles.toolDesign
-                    : styles.toolTech
-                )}
-              >{t}</span>
+              <span key={t} className={clsx(styles.tool, pillClass(t))}>{t}</span>
             ))}
           </div>
         </div>
