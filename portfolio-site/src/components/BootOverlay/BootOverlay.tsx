@@ -25,6 +25,12 @@ export default function BootOverlay() {
   useEffect(() => {
     if (!visible) return;
 
+    // Reset in case of StrictMode double-invocation leaving stale state
+    timers.current.forEach(clearTimeout);
+    timers.current = [];
+    setShown(0);
+    setFading(false);
+
     const n = LINES.length;
     for (let i = 1; i <= n; i++) {
       timers.current.push(setTimeout(() => setShown(i), 320 * i));
@@ -37,7 +43,10 @@ export default function BootOverlay() {
     }, 320 * n + 700));
     timers.current.push(setTimeout(() => setVisible(false), 320 * n + 1250));
 
-    return () => timers.current.forEach(clearTimeout);
+    return () => {
+      timers.current.forEach(clearTimeout);
+      timers.current = [];
+    };
   }, []);
 
   function skip() {
