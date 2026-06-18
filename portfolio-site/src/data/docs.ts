@@ -37,6 +37,7 @@ export type ContactDoc = {
 export type StubDoc = { type: "stub" };
 export type ProjectsIndexDoc = { type: "projects-index" };
 export type MusicIndexDoc = { type: "music-index" };
+export type ResumeDoc = { type: "resume" };
 export type TrackDoc = {
   type: "track";
   title: string;
@@ -49,7 +50,7 @@ export type TrackDoc = {
   links: string[];
 };
 
-export type Doc = ProjectDoc | AboutDoc | ContactDoc | StubDoc | ProjectsIndexDoc | MusicIndexDoc | TrackDoc;
+export type Doc = ProjectDoc | AboutDoc | ContactDoc | StubDoc | ProjectsIndexDoc | MusicIndexDoc | TrackDoc | ResumeDoc;
 
 export const SECTIONS = ["overview", "problem", "research", "design", "outcome", "gallery"] as const;
 export type SectionId = (typeof SECTIONS)[number];
@@ -257,6 +258,8 @@ export const docs: Record<string, Doc> = {
       "Attempting to get my bird to let me pet him",
     ],
   },
+
+  "resume.pdf": { type: "resume" },
 
   "contact.md": {
     type: "contact",

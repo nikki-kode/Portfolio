@@ -7,7 +7,7 @@ import styles from "./ContactView.module.css";
 
 type Row = ContactDoc["rows"][number];
 
-function ContactRow({ row }: { row: Row }) {
+function ContactRow({ row, onOpenResume }: { row: Row; onOpenResume: () => void }) {
   const [copied, setCopied] = useState(false);
 
   function handleClick() {
@@ -20,12 +20,12 @@ function ContactRow({ row }: { row: Row }) {
       const href = row.value.startsWith("http") ? row.value : `https://${row.value}`;
       window.open(href, "_blank", "noopener,noreferrer");
     } else if (row.action === "↓") {
-      window.open(`/${row.value}`, "_blank");
+      onOpenResume();
     }
   }
 
   return (
-    <div className={styles.row} onClick={handleClick}>
+    <div className={styles.row} onClick={handleClick} style={{ cursor: "pointer" }}>
       <span className={clsx(styles.iconBox, (row.action === "copy" || row.action === "↓") && styles.iconBoxBigGlyph)}>{row.icon}</span>
       <span className={styles.label}>{row.label}</span>
       <span className={styles.value}>{row.value}</span>
@@ -37,7 +37,7 @@ function ContactRow({ row }: { row: Row }) {
   );
 }
 
-export default function ContactView({ doc }: { doc: ContactDoc }) {
+export default function ContactView({ doc, onOpenResume }: { doc: ContactDoc; onOpenResume: () => void }) {
   return (
     <div className={styles.scroll}>
       <div className={styles.inner}>
@@ -52,7 +52,7 @@ export default function ContactView({ doc }: { doc: ContactDoc }) {
         </div>
 
         {doc.rows.map((row) => (
-          <ContactRow key={row.label} row={row} />
+          <ContactRow key={row.label} row={row} onOpenResume={onOpenResume} />
         ))}
 
         <div className={styles.location}>
