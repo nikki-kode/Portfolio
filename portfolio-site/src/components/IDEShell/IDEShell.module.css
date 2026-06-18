@@ -2,6 +2,7 @@
   height: 100vh;
   display: flex;
   overflow: hidden;
+  position: relative;
   background: var(--editor-bg);
   color: var(--text-body-2);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;

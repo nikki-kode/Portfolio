@@ -26,6 +26,7 @@ export default function GateScreen({ children }: Props) {
   function attempt() {
     if (input === PASSWORD) {
       localStorage.setItem(STORAGE_KEY, "1");
+      sessionStorage.removeItem("nkdev_booted");
       setEntering(true);
       setTimeout(() => setUnlocked(true), 400);
     } else {

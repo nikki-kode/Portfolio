@@ -1,0 +1,93 @@
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  background: #15171c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  pointer-events: auto;
+}
+
+.overlay[data-fading="true"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.panel {
+  width: 100%;
+  max-width: 660px;
+  padding: 0 36px;
+}
+
+.titleBar {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 26px;
+}
+
+.lights {
+  display: flex;
+  gap: 6px;
+}
+
+.lightRed    { width: 11px; height: 11px; border-radius: 50%; background: #e0655b; }
+.lightYellow { width: 11px; height: 11px; border-radius: 50%; background: #dba93f; }
+.lightGreen  { width: 11px; height: 11px; border-radius: 50%; background: #5ba85f; }
+
+.title {
+  color: #565d6b;
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+.skip {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #7b828f;
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.skip:hover {
+  color: #f5a97f;
+}
+
+.lines {
+  font-size: 14.5px;
+  line-height: 1.95;
+}
+
+.line {
+  display: flex;
+  align-items: baseline;
+}
+
+.badge {
+  font-weight: 700;
+  margin-right: 10px;
+  flex: none;
+  min-width: 42px;
+}
+
+.cursor {
+  display: inline-block;
+  width: 9px;
+  height: 15px;
+  background: #f5a97f;
+  vertical-align: -2px;
+  margin-left: 4px;
+  animation: blink 1s step-end infinite;
+}

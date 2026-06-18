@@ -3,6 +3,7 @@
 import { useIDEState } from "@/hooks/useIDEState";
 import { promptPath } from "@/lib/promptPath";
 import ActivityBar from "@/components/ActivityBar/ActivityBar";
+import BootOverlay from "@/components/BootOverlay/BootOverlay";
 import FileTree from "@/components/FileTree/FileTree";
 import TabBar from "@/components/TabBar/TabBar";
 import ContentArea from "@/components/views/ContentArea";
@@ -15,6 +16,7 @@ export default function IDEShell() {
 
   return (
     <div className={styles.root}>
+      <BootOverlay />
       <ActivityBar />
       <FileTree
         activeKey={ide.state.activeKey}
