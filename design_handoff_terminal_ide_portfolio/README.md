@@ -3,10 +3,11 @@
 ## Overview
 A personal portfolio website for someone applying to **software-engineering, UX-design, and UX-research** roles. The entire site is styled as a **code editor / terminal**: a left file-tree (`about.md`, `projects/`, `ux-research/`, `music/`, `resume.pdf`, `contact.md`), editor tabs, a `Source / Split / Preview` toggle, a docked **typeable terminal**, and a status bar.
 
-The IDE shell is persistent chrome; the editor body swaps between **nine distinct page/document views** depending on the open file. This handoff documents **all of them**:
+The site's front door is a bolder **Home / landing page** (`Home.dc.html`) — a hero that states what the person does and routes visitors into the work. From there the IDE shell is persistent chrome; the editor body swaps between **nine distinct page/document views** depending on the open file. This handoff documents the home page **and all of them**:
 
 | # | View | Opened by | type |
 |---|---|---|---|
+| 1 | **Home / landing** | default entry — `Home.dc.html` | hero page |
 | 2 | **Project case study** | `project-aurora.md`, `project-ledger.md` | `project` |
 | 3 | **Source / Split / Code views** | the view toggle on any doc | — |
 | 4 | **Research writeup** | `project-atlas.md` (+ `ux-research/` files) | `research` |
@@ -16,8 +17,9 @@ The IDE shell is persistent chrome; the editor body swaps between **nine distinc
 | 8 | **about.md** | `about.md` | `about` |
 | 9 | **contact.md** | `contact.md` | `contact` |
 | 10 | **Draft / stub** | any not-yet-written file | `stub` |
+| 🥚 | **Birds / photo archive** (easter egg) | hidden link in `about.md` → `Birds.dc.html` | hero page |
 
-The case study (#2) is the most polished view and was designed first; the others share its IDE shell, type scale, and token set. A **logo / brand variant** of the whole site also ships — see *Logo variant* below.
+The case study (#2) is the most polished view and was designed first; the others share its IDE shell, type scale, and token set. The **Home page (#1)** is the entry point and ships in **three variants** (base, logo, boot) — see *Home / landing page* below. A **logo / brand variant** of the case-study page also ships — see *Logo variant* below.
 
 ## About the Design Files
 The files in this bundle are **design references created in HTML** — prototypes showing the intended look and behavior. They are **not production code to copy directly**.
@@ -34,6 +36,25 @@ To open the prototype: open `Project Page.dc.html` in a browser (it loads the si
 ---
 
 ## Screens / Views
+
+### Home / landing page (`Home.dc.html` — the site's front door)
+A bolder, hero-style entry that **opens first**; visitors navigate out into the file views from here. Reuses the exact IDE shell (activity bar, file tree, tab bar, **terminal**, status bar) but the editor body is a scrolling landing rather than a document. Active tab = `⌂ home`; the tab-bar right side carries quick links (`about.md · projects · contact.md`).
+
+**Body** — a centered `max-width:1000px` wrapper, padding `60px 48px 40px`, over a faint dot-grid background (`radial-gradient(circle at 1px 1px, rgba(255,255,255,.022) 1px, transparent 0) 0 0 / 26px 26px` on `#1e2128`). Sections top→bottom:
+- **Hero** — a `1.12fr / .88fr` two-column grid (gap `52px`, `min-height:62vh`).
+  - *Left*: a `whoami` prompt line (`visitor@portfolio ~ %`, green/peach); a giant **H1 name** (`68px/700/-.035em`, `#f4f6f9`) with a blinking `#f5a97f` block cursor; a `16px #f5a97f` role line `software engineer · ux researcher`; a `20px` lead paragraph (`#c4ccd6`, max-width `530px`) + a `14px #8b93a1` credentials line; an **"open to work · grad Aug 2026" status pill** (green, `rgba(91,168,95,.1)` bg / `.35` border); and a button row — primary **View selected work ↓** (bg `#f5a97f`, text `#1a1d23`) + outline `about.md →` / `resume.pdf ↓` (border `#343a44`, bg `#23262d`).
+  - *Right*: a `me.png` **editor-pane card** (border `1px #343a44`, radius `14px`, bg `#23262d`, drop-shadow) — a `34px` title bar with traffic-lights + `me.png`, a `382px` **portrait image-slot** (id `about-avatar`, shared with `about.md`), and a green code-comment footer.
+- **What I do** — a `// WHAT I DO` label + a 3-col grid of cards (border `1px #2a2f38`, radius `13px`, bg `#23262d`, padding `20px`): a `21px/700 #f5a97f` index (`01`–`03`) + accent dot, a `15.5px/700 #f4f6f9` discipline, and a `13px #9aa1ad` blurb. (Engineering / Design / Research.)
+- **Selected work** (`data-section="work"`) — a header row ("Selected work" `27px/700` + sub + a `#f5a97f` "view all →") over a **3-col grid of project cards** identical to the projects-index card (cover slot id `<slug>-card`, amber kind pill + year, `19px` title, blurb, "Read case study →"). Cards open the matching case study.
+- **Bottom strip** — top border `1px #2a2f38`; left a `// CURRENTLY` block with an open-to-work line and a purple music teaser (`→ music/`); right a column of links (`contact.md →`, github, linkedin).
+
+**Navigation** — every tree row, nav link, project card, and CTA routes to `Project Page.dc.html#<key>` (see *hash deep-linking* under Interactions); the `⌂ home` tree row scrolls to top; **View selected work** smooth-scrolls to the work section. The docked terminal runs a trimmed command set (`help`, `whoami`, `work`/`projects`, `about`, `contact`, `research`, `music`, `open <name>`, `ls`, `clear`) — content commands navigate out to the relevant doc.
+
+**Tweaks (props):** `openToWork` (boolean — toggles the status pill) and `showMusic` (boolean — toggles the music teaser).
+
+**Two variants ship alongside the base:**
+1. **`Home (Logo).dc.html`** — adds three brand drop-slots in the IDE-chrome spots: an **activity-bar mark** (replaces the `⌂` tile; `30×30`, `2px #f5a97f` left border), a **sidebar brand lockup** (a `30×30` mark + `yourname.dev` wordmark above an `EXPLORER` label), and a **hero wordmark slot** (`logo-hero`, `200×44`, `contain`) above the `whoami` line. Slot ids `logo-mark` / `logo-sidebar` are shared with the Project Page logo variant. Same empty-state dashed-box treatment (`::part(empty){color:transparent}` + visible `::part(ring)`); production renders the real `<Logo>` directly.
+2. **`Home (Boot).dc.html`** — prefaces the home with a **terminal boot sequence**: a full-screen `#15171c` overlay that reveals lines one at a time (`$ booting yourname.dev …`, green `[ ok ]` mount / profile / work / status lines, `$ launching interface`) with a blinking cursor, then fades out (`opacity .5s`) into the home. A **skip ▸** control jumps straight in. Timing: lines step every `320ms`; fade ~`700ms` after the last line. Production: gate replays per session if desired — this prototype replays on every load.
 
 ### 1. The IDE Shell (persistent chrome around every page)
 Full-viewport (`100vh`), dark, monospace. Horizontal flex of three regions; the third is a vertical flex.
@@ -129,7 +150,7 @@ Opened from a music row or the tree leaves under `music/`. Content column `max-w
 Sample tracks: **Nocturne in Blue** (solo piano, D♭ minor, 4:12), **Tidewater** (string quartet, A major, 6:38), **Signal Lost** (electronic, 3:55). Waveforms are generated, not real audio — wire the play buttons to a real `<audio>` element / streaming embed in production.
 
 ### 8. about.md (lighter doc — refine in next pass)
-Centered `max-width:600px`, padding `48px 40px 90px`. Header: a circular `78px` avatar image slot + name (`27px`/`700` `#f4f6f9`) and role line (`13px` `#f5a97f`). Body paragraphs `14.5px` line-height `1.8` `#b4bcc8`. A "CURRENTLY" card (border `1px #2a2f38`, radius `12px`, bg `#23262d`, padding `18px 20px`) with `▹`-bulleted (`#5ba85f`) `13.5px` `#cdd2da` rows.
+Centered `max-width:600px`, padding `48px 40px 90px`. Header: a circular `78px` avatar image slot + name (`27px`/`700` `#f4f6f9`) and role line (`13px` `#f5a97f`). Body paragraphs `14.5px` line-height `1.8` `#b4bcc8`. A "CURRENTLY" card (border `1px #2a2f38`, radius `12px`, bg `#23262d`, padding `18px 20px`) with `▹`-bulleted (`#5ba85f`) `13.5px` `#cdd2da` rows. **The last CURRENTLY row is an easter egg** — it carries a `1px dashed rgba(245,169,127,.55)` underline + a faint `↗` and a pointer cursor; clicking it opens `Birds.dc.html` (see *Birds / photo archive* below). The egg is flagged per-row in the data (`{ text, egg: true }`); other rows render as plain text.
 
 ### 9. contact.md (lighter doc — refine in next pass)
 Centered `max-width:560px`. H1 "Get in touch" + intro `#9aa1ad`. Rows: flex cards (border `1px #2a2f38`, radius `11px`, bg `#23262d`, padding `15px 18px`, margin-bottom `11px`) — a `64px` `#f5a97f` `12px` label, a `14px` `#e8ebf0` value, and a trailing action glyph (`copy` / `↗` / `↓`) in `#565d6b`.
@@ -150,9 +171,20 @@ An alternative of the case-study page with **three logo drop-slots** added in th
 ### 10. Draft / stub state (unwritten `ux-research/` leaf files)
 Centered empty-state: a small `54×64` "file" glyph (border `1px #343a44`, bg `#23262d`, folded corner, `MD` label in `#f5a97f`), the filename (`15px` `#cdd2da`), a pill badge "draft · coming in the next pass" (bg `#2a2520`, border `1px #4a3b2c`, text `#f5a97f`, radius `20px`, `11px`), and a `12.5px` `#6b7280` hint. Intentional — not an error state.
 
+### Birds / photo archive (`Birds.dc.html` — easter egg)
+A hidden page reached only by clicking the last **CURRENTLY** row in `about.md` ("…get my bird to let me pet him"). A standalone, playful photo viewer built from the same **"image window"** motif as the home hero. Full-viewport dark, monospace, same tokens; the body sits over the same faint dot-grid background as the Home page.
+- **Window chrome bar** (`44px`, bg `#15171c`): traffic-lights, a centered `birds — photo viewer` pill, and a right `‹ about.md` back link.
+- **Hero**: `~/birds` breadcrumb; H1 “the bird **archive**” (`46px/700/-.03em`, the second word `#f5a97f`) with a blinking peach cursor; a one-line playful subtitle; and a row of stat chips (`2 residents` / `1 visiting` / `pettability: in progress`, each a `#23262d` pill with a colored dot).
+- **Per-bird sections** (`birds[]` in logic): a `22px/700` name + a status **tag pill** (`resident` = green `#a6e3a1`, `visiting` = purple `#cba6f7`) + a one-line bio. Resident birds show a tongue-in-cheek **“PETTABILITY” meter** — a `6px` track (`#2a2f38`) with a `#f5a97f` fill + a `%` label (Pip `8% · working on it`, Mango `66% · chin scratches OK`).
+- **Photo masonry**: a CSS multi-column grid (`column-count` = the `photoColumns` prop, gap `16px`) of **image-window cards** — each a `28px` traffic-light title bar with a playful filename (`pip_glare.png`, `kiwi_judging_me.png`, …) over a cover **image-slot** (id `bird-<id>-<n>`) of varying height (`150–232px`). Cards lift + go peach-bordered on hover (`break-inside:avoid`).
+- **Footer**: a `‹ back to about.md` button + a `// drop your own photos…` note.
+- **Content model**: three birds — **Pip** & **Mango** (residents) and **Kiwi** (the aunt's visiting bird, given more photos). Names, bios, and photos are **placeholders** to swap. **Tweaks (props):** `photoColumns` (int 2–4) and `showPettability` (boolean).
+
 ---
 
 ## Interactions & Behavior
+- **about.md easter egg**: the last CURRENTLY row links to `Birds.dc.html`; the rest of about is unchanged. A discoverable-but-quiet affordance (dashed underline + `↗`), not a visible button.
+- **Home → site navigation / hash deep-linking**: the Home page is the default entry. Its tree rows, nav links, project cards, and CTAs navigate to `Project Page.dc.html#<docKey>` (e.g. `#about.md`, `#projects/`, `#project-aurora.md`). The Project Page reads `location.hash` on mount and opens that doc, expanding the correct folder. The Project Page tree gains a top **`⌂ home`** row that returns to `Home.dc.html`. (Boot variant: an intro overlay precedes the home and is skippable.)
 - **File tree**: clicking a folder's **caret/label** toggles its expand state (and, for `projects/`/`music/`, also opens that folder's overview page on first expand); clicking the folder's **"PAGE →" pill** opens the overview page directly without changing the expand state. Clicking a file opens it (sets active file, switches to Preview, scrolls content to top, resets active section to first). `resume.pdf` should ultimately trigger a PDF download.
 - **View toggle**: `Source` / `Split` / `Preview` switches the body layout (see views above). Default = Preview.
 - **Outline-rail scroll-spy**: on content scroll, the active section = the last `[data-section]` whose `offsetTop <= scrollTop + 90`. The matching TOC item highlights. Clicking a TOC item smooth-scrolls the content container to that section's `offsetTop - 12` and sets it active.
@@ -174,6 +206,7 @@ Single-screen app state (all client-side):
 - `open: Record<folderName, boolean>` — file-tree folder expansion (`projects`, `ux-research`, `music`).
 - `playing: string | null` — key of the currently-playing track (music index / track detail).
 - `termOpen: boolean`, `termInput: string`, `termLines: {isCmd, text, color?}[]`, `history: string[]`, `histIdx: number`.
+- **(Home page)** the same terminal state as above, plus props `openToWork` / `showMusic`. The **boot variant** adds `booting: boolean`, `bootShown: number` (lines revealed so far), `bootFade: boolean` (overlay fade-out) — all driven by mount timers, cleared on unmount/skip.
 
 ### Data Model (already structured — lift directly)
 A `docs` map keyed by filename. Each **project**:
@@ -234,11 +267,13 @@ A `docs` map keyed by filename. Each **project**:
 
 ## Files
 In this bundle:
-- **`Project Page.dc.html`** — the high-fidelity case-study page (the primary reference). Logic (data model, terminal, scroll-spy, view toggle, tree) is in the `<script>` "Component" class near the bottom; markup/styles are inline above it.
+- **`Home.dc.html`** — the **landing / front-door** page (hero + what-I-do + selected work). Opens first; routes into the case-study views via `#hash` links. Two siblings: **`Home (Logo).dc.html`** (adds the three brand logo slots) and **`Home (Boot).dc.html`** (adds the terminal boot-sequence intro).
+- **`Project Page.dc.html`** — the high-fidelity case-study page (the primary reference). Logic (data model, terminal, scroll-spy, view toggle, tree) is in the `<script>` "Component" class near the bottom; markup/styles are inline above it. It also handles **`#hash` deep-linking** (opens the doc named in the URL hash on load, expanding its folder) and shows a top **`⌂ home`** tree row back to `Home.dc.html`. The `about.md` doc's last CURRENTLY row is an **easter-egg link to `Birds.dc.html`**.
+- **`Birds.dc.html`** — the hidden **bird photo archive** (reached from the about easter egg). Image-window masonry; `goBack` returns to `Project Page.dc.html#about.md`.
 - **`Project Page (Logo).dc.html`** — the **logo / brand variant** (identical to the above plus the three logo drop-slots described in *Logo / brand variant* above). Use whichever variant matches whether the portfolio has a personal-brand mark.
 - **`image-slot.js`** — image-slot web component (reference only; do not ship).
 - **`support.js`** — the prototyping runtime that renders `.dc.html`. **Reference/preview only — do not port.**
 - **`Project Page Wireframes.dc.html`** — the 3 low-fi layout explorations for this page (Split / Reading mode / Outline rail). Shows why outline-rail was chosen.
 - **`Portfolio Wireframes.dc.html`** — the 6 site-shell direction explorations (the chosen direction is "IDE + Preview").
 
-To preview: open `Project Page.dc.html` in a browser. To build: recreate it per this README in your chosen framework.
+To preview: open `Home.dc.html` (the front door) or `Project Page.dc.html` in a browser. To build: recreate them per this README in your chosen framework.

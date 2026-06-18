@@ -6,6 +6,7 @@ import ProjectView from "./ProjectView";
 import ProjectsIndexView from "./ProjectsIndexView";
 import MusicIndexView from "./MusicIndexView";
 import TrackView from "./TrackView";
+import HomeView from "./HomeView";
 import ResumeView from "./ResumeView";
 import StubView from "./StubView";
 import styles from "./ContentArea.module.css";
@@ -110,6 +111,7 @@ export default function ContentArea({ activeKey, view, activeSection, setSection
 
       {showPreview && (
         <div className={previewPaneClass}>
+          {doc.type === "home" && <HomeView openDoc={openDoc} />}
           {doc.type === "resume" && <ResumeView />}
           {doc.type === "about" && <AboutView doc={doc} onOpenContact={() => openDoc("contact.md")} />}
           {doc.type === "contact" && <ContactView doc={doc} onOpenResume={() => openDoc("resume.pdf")} />}

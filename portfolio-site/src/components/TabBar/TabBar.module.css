@@ -77,6 +77,29 @@
   opacity: 1;
 }
 
+/* Quick links (home tab only) */
+.quickLinks {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 16px;
+  font-size: 12px;
+}
+
+.quickLink {
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.12s;
+}
+
+.quickLink:hover {
+  color: var(--accent);
+}
+
+.quickSep {
+  color: var(--text-dimmest);
+}
+
 /* View toggle */
 .toggleWrap {
   display: flex;

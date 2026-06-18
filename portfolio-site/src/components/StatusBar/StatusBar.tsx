@@ -13,6 +13,7 @@ const FILE_TYPE_LABELS: Record<string, string> = {
 };
 
 function fileTypeLabel(key: string): string {
+  if (key === "home") return "welcome";
   if (key.endsWith("/")) return "folder";
   const ext = key.split(".").pop()?.toLowerCase() ?? "";
   return FILE_TYPE_LABELS[ext] ?? ext;

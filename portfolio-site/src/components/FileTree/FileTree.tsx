@@ -14,13 +14,14 @@ type Props = {
   toggleFolder: (name: string) => void;
 };
 
-type FileEntry = { kind: "file"; key: string; label: string; depth: number; dotColor?: string };
+type FileEntry = { kind: "file"; key: string; label: string; depth: number; dotColor?: string; isHome?: boolean };
 type FolderEntry = { kind: "folder"; name: string; label: string; isOpen: boolean; indexKey?: string };
 type TreeEntry = FileEntry | FolderEntry;
 
 function buildTree(open: Record<string, boolean>): TreeEntry[] {
   const rows: TreeEntry[] = [];
 
+  rows.push({ kind: "file", key: "home", label: "home", depth: 0, isHome: true });
   rows.push({ kind: "file", key: "about.md", label: "about.md", depth: 0 });
 
   rows.push({ kind: "folder", name: "projects", label: "projects", isOpen: !!open.projects, indexKey: "projects/" });
@@ -88,6 +89,21 @@ export default function FileTree({ activeKey, open, openDoc, toggleFolder }: Pro
 
           const active = entry.key === activeKey;
           const dotColor = entry.dotColor ?? (active ? "var(--accent)" : "#555b66");
+
+          if (entry.isHome) {
+            return (
+              <div
+                key={entry.key}
+                className={clsx(styles.row, active && styles.rowActive)}
+                style={active ? { boxShadow: "inset 2px 0 0 var(--accent)" } : undefined}
+                onClick={() => openDoc(entry.key)}
+              >
+                <span className={styles.caret} />
+                <span className={styles.homeIcon} style={{ color: active ? "var(--accent)" : "#555b66" }}>⌂</span>
+                <span className={styles.label}>{entry.label}</span>
+              </div>
+            );
+          }
 
           return (
             <div

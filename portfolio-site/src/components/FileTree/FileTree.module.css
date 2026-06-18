@@ -92,6 +92,13 @@
   color: var(--text-body-2);
 }
 
+.homeIcon {
+  font-size: 13px;
+  flex: none;
+  width: 12px;
+  text-align: center;
+}
+
 .pill {
   margin-left: auto;
   flex: none;

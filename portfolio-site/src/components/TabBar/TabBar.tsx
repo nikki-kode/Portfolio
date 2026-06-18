@@ -13,6 +13,7 @@ type Props = {
   setView: (v: View) => void;
   onTabClick: (key: string) => void;
   onTabClose: (key: string) => void;
+  openDoc: (key: string) => void;
 };
 
 const VIEWS: { value: View; label: string }[] = [
@@ -21,7 +22,12 @@ const VIEWS: { value: View; label: string }[] = [
   { value: "preview", label: "Preview" },
 ];
 
-export default function TabBar({ tabs, activeKey, view, setView, onTabClick, onTabClose }: Props) {
+function tabLabel(key: string): string {
+  if (key === "home") return "⌂  home";
+  return key;
+}
+
+export default function TabBar({ tabs, activeKey, view, setView, onTabClick, onTabClose, openDoc }: Props) {
   const tabsRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -45,11 +51,13 @@ export default function TabBar({ tabs, activeKey, view, setView, onTabClick, onT
               style={active ? { borderTopColor: color } : undefined}
               onClick={() => onTabClick(key)}
             >
-              <span
-                className={clsx(styles.tabDot, active && styles.tabDotActive)}
-                style={active ? { background: color } : undefined}
-              />
-              {key}
+              {key !== "home" && (
+                <span
+                  className={clsx(styles.tabDot, active && styles.tabDotActive)}
+                  style={active ? { background: color } : undefined}
+                />
+              )}
+              {tabLabel(key)}
               <span
                 className={styles.tabClose}
                 onClick={(e) => {
@@ -64,19 +72,29 @@ export default function TabBar({ tabs, activeKey, view, setView, onTabClick, onT
         })}
       </div>
 
-      <div className={styles.toggleWrap}>
-        <div className={styles.toggle}>
-          {VIEWS.map(({ value, label }) => (
-            <button
-              key={value}
-              className={clsx(styles.toggleBtn, view === value && styles.toggleBtnActive)}
-              onClick={() => setView(value)}
-            >
-              {label}
-            </button>
-          ))}
+      {activeKey === "home" ? (
+        <div className={styles.quickLinks}>
+          <span className={styles.quickLink} onClick={() => openDoc("about.md")}>about.md</span>
+          <span className={styles.quickSep}>·</span>
+          <span className={styles.quickLink} onClick={() => openDoc("projects/")}>projects</span>
+          <span className={styles.quickSep}>·</span>
+          <span className={styles.quickLink} onClick={() => openDoc("contact.md")}>contact.md</span>
         </div>
-      </div>
+      ) : (
+        <div className={styles.toggleWrap}>
+          <div className={styles.toggle}>
+            {VIEWS.map(({ value, label }) => (
+              <button
+                key={value}
+                className={clsx(styles.toggleBtn, view === value && styles.toggleBtnActive)}
+                onClick={() => setView(value)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

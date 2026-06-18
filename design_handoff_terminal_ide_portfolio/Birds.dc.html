@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+    html,body{margin:0;height:100%}
+    #brroot ::-webkit-scrollbar{width:11px;height:11px}
+    #brroot ::-webkit-scrollbar-thumb{background:#343a44;border-radius:6px;border:3px solid transparent;background-clip:content-box}
+    #brroot ::-webkit-scrollbar-thumb:hover{background:#454c58;background-clip:content-box}
+    #brroot ::-webkit-scrollbar-track{background:transparent}
+  </style>
+  <script src="image-slot.js"></script>
+</helmet>
+
+<div id="brroot" style="height:100vh;display:flex;flex-direction:column;overflow:hidden;background:#1e2128;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#aab1bd">
+
+  <!-- WINDOW CHROME -->
+  <div style="height:44px;flex:none;display:flex;align-items:center;gap:14px;padding:0 15px;background:#15171c;border-bottom:1px solid #0d0f13">
+    <div style="display:flex;gap:7px"><span style="width:11px;height:11px;border-radius:50%;background:#e0655b"></span><span style="width:11px;height:11px;border-radius:50%;background:#dba93f"></span><span style="width:11px;height:11px;border-radius:50%;background:#5ba85f"></span></div>
+    <div style="flex:1;display:flex;justify-content:center"><div style="padding:5px 16px;border-radius:7px;background:#23262d;color:#7b828f;font-size:12px">birds — photo viewer</div></div>
+    <span onClick="{{ goBack }}" style="color:#9aa1ad;font-size:12px;cursor:pointer;white-space:nowrap" style-hover="color:#f5a97f">‹ about.md</span>
+  </div>
+
+  <!-- BODY -->
+  <div style="flex:1;overflow-y:auto;min-width:0;background:radial-gradient(circle at 1px 1px, rgba(255,255,255,.022) 1px, transparent 0) 0 0/26px 26px, #1e2128">
+    <div style="max-width:1040px;margin:0 auto;padding:44px 44px 80px">
+
+      <!-- HERO -->
+      <div style="margin-bottom:40px">
+        <div style="color:#565d6b;font-size:12px;margin-bottom:14px">~/birds</div>
+        <h1 style="margin:0;color:#f4f6f9;font-size:46px;font-weight:700;letter-spacing:-.03em;font-family:ui-monospace,Menlo,monospace">the bird<span style="color:#f5a97f"> archive</span><span style="display:inline-block;width:11px;height:34px;background:#f5a97f;margin-left:7px;vertical-align:-5px;animation:blink 1.1s step-end infinite"></span></h1>
+        <p style="color:#9aa1ad;font-size:17px;line-height:1.55;margin:18px 0 0;max-width:580px;text-wrap:pretty">Two residents, one frequent houseguest, and an ongoing negotiation about whether I'm allowed to pet him.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px">
+          <span style="display:inline-flex;align-items:center;gap:8px;padding:6px 13px;border-radius:20px;background:#23262d;border:1px solid #343a44;font-size:12px;color:#cdd2da"><span style="width:7px;height:7px;border-radius:50%;background:#5ba85f"></span>2 residents</span>
+          <span style="display:inline-flex;align-items:center;gap:8px;padding:6px 13px;border-radius:20px;background:#23262d;border:1px solid #343a44;font-size:12px;color:#cdd2da"><span style="width:7px;height:7px;border-radius:50%;background:#cba6f7"></span>1 visiting</span>
+          <span style="display:inline-flex;align-items:center;gap:8px;padding:6px 13px;border-radius:20px;background:#23262d;border:1px solid #343a44;font-size:12px;color:#cdd2da"><span style="width:7px;height:7px;border-radius:50%;background:#f5a97f"></span>pettability: in progress</span>
+        </div>
+      </div>
+
+      <!-- BIRD SECTIONS -->
+      <sc-for list="{{ birds }}" as="b" hint-placeholder-count="3">
+        <div style="margin-bottom:44px">
+          <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px">
+            <h2 style="margin:0;color:#f4f6f9;font-size:22px;font-weight:700;letter-spacing:-.01em;font-family:ui-monospace,Menlo,monospace">{{ b.name }}</h2>
+            <span style="{{ b.tagStyle }}">{{ b.tag }}</span>
+          </div>
+          <div style="color:#7b828f;font-size:13px;margin-bottom:15px">{{ b.bio }}</div>
+
+          <sc-if value="{{ b.hasMeter }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;max-width:360px">
+            <span style="color:#565d6b;font-size:10px;letter-spacing:.1em;flex:none">PETTABILITY</span>
+            <div style="flex:1;height:6px;border-radius:4px;background:#2a2f38;overflow:hidden"><div style="{{ b.meterFill }}"></div></div>
+            <span style="color:#f5a97f;font-size:11.5px;font-variant-numeric:tabular-nums;flex:none">{{ b.meterLabel }}</span>
+          </div>
+          </sc-if>
+
+          <div style="{{ b.gridStyle }}">
+            <sc-for list="{{ b.photos }}" as="ph" hint-placeholder-count="4">
+              <div style="break-inside:avoid;-webkit-column-break-inside:avoid;margin:0 0 16px;border:1px solid #343a44;border-radius:12px;overflow:hidden;background:#23262d;box-shadow:0 12px 30px -20px rgba(0,0,0,.6);transition:transform .16s ease,border-color .16s ease" style-hover="border-color:#f5a97f;transform:translateY(-3px)">
+                <div style="height:28px;display:flex;align-items:center;gap:9px;padding:0 11px;background:#1a1d23;border-bottom:1px solid #0d0f13">
+                  <span style="display:flex;gap:5px"><span style="width:9px;height:9px;border-radius:50%;background:#e0655b"></span><span style="width:9px;height:9px;border-radius:50%;background:#dba93f"></span><span style="width:9px;height:9px;border-radius:50%;background:#5ba85f"></span></span>
+                  <span style="color:#7b828f;font-size:11px;margin-left:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ ph.file }}</span>
+                </div>
+                <image-slot id="{{ ph.slotId }}" shape="rect" fit="cover" placeholder="Drop a photo" style="{{ ph.slotStyle }}"></image-slot>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+
+      <!-- FOOTER -->
+      <div style="border-top:1px solid #2a2f38;padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+        <div onClick="{{ goBack }}" style="display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:9px;border:1px solid #343a44;background:#23262d;color:#cdd2da;font-size:13px;cursor:pointer" style-hover="border-color:#f5a97f;color:#f4f6f9"><span>‹</span> back to about.md</div>
+        <div style="color:#565d6b;font-size:12px">// drop your own photos into any window — they save automatically</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:820},&quot;photoColumns&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:3,&quot;min&quot;:2,&quot;max&quot;:4,&quot;tsType&quot;:&quot;number&quot;},&quot;showPettability&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  data() {
+    return [
+      {
+        id: 'pip', name: 'Pip', tag: 'resident', resident: true,
+        bio: 'small, loud, and deeply suspicious of fingers',
+        meter: 8, meterLabel: '8% · working on it',
+        photos: [
+          { file: 'pip_01.png', h: 180 },
+          { file: 'pip_glare.png', h: 150 },
+          { file: 'pip_on_shoulder.png', h: 232 },
+          { file: 'pip_loaf.png', h: 165 },
+        ],
+      },
+      {
+        id: 'mango', name: 'Mango', tag: 'resident', resident: true,
+        bio: 'sings the wrong songs, beautifully',
+        meter: 66, meterLabel: '66% · chin scratches OK',
+        photos: [
+          { file: 'mango_01.png', h: 204 },
+          { file: 'mango_song.png', h: 156 },
+          { file: 'mango_mirror.png', h: 186 },
+          { file: 'mango_nap.png', h: 150 },
+        ],
+      },
+      {
+        id: 'kiwi', name: 'Kiwi', tag: 'visiting', resident: false,
+        bio: "my aunt's bird · visits so often he earned his own folder",
+        meter: null, meterLabel: '',
+        photos: [
+          { file: 'kiwi_visit_01.png', h: 176 },
+          { file: 'kiwi_visit_02.png', h: 216 },
+          { file: 'kiwi_snack.png', h: 150 },
+          { file: 'kiwi_judging_me.png', h: 192 },
+          { file: 'kiwi_window.png', h: 164 },
+        ],
+      },
+    ];
+  }
+
+  renderVals() {
+    const cols = this.props.photoColumns ?? 3;
+    const showPet = this.props.showPettability ?? true;
+    const residentTag = { padding: '3px 10px', borderRadius: '20px', fontSize: '10.5px', background: 'rgba(91,168,95,.12)', border: '1px solid rgba(91,168,95,.35)', color: '#a6e3a1' };
+    const visitingTag = { padding: '3px 10px', borderRadius: '20px', fontSize: '10.5px', background: 'rgba(203,166,247,.12)', border: '1px solid rgba(203,166,247,.4)', color: '#cba6f7' };
+
+    return {
+      goBack: () => { window.location.href = 'Project Page.dc.html#about.md'; },
+      birds: this.data().map((b) => ({
+        name: b.name, bio: b.bio, tag: b.tag,
+        tagStyle: b.resident ? residentTag : visitingTag,
+        hasMeter: b.meter != null && showPet,
+        meterFill: { width: b.meter + '%', height: '100%', background: '#f5a97f', borderRadius: '4px' },
+        meterLabel: b.meterLabel,
+        gridStyle: { columnCount: cols, columnGap: '16px' },
+        photos: b.photos.map((p, i) => ({
+          file: p.file,
+          slotId: 'bird-' + b.id + '-' + i,
+          slotStyle: { display: 'block', width: '100%', height: p.h + 'px', color: 'rgba(230,235,240,.5)' },
+        })),
+      })),
+    };
+  }
+}
+</script>
+</body>
+</html>

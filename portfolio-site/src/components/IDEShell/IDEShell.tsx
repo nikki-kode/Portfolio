@@ -30,6 +30,7 @@ export default function IDEShell() {
           setView={ide.setView}
           onTabClick={ide.openDoc}
           onTabClose={ide.closeTab}
+          openDoc={ide.openDoc}
         />
         <div className={styles.body}>
           <ContentArea

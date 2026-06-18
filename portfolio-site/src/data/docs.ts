@@ -38,6 +38,7 @@ export type StubDoc = { type: "stub" };
 export type ProjectsIndexDoc = { type: "projects-index" };
 export type MusicIndexDoc = { type: "music-index" };
 export type ResumeDoc = { type: "resume" };
+export type HomeDoc = { type: "home" };
 export type TrackDoc = {
   type: "track";
   title: string;
@@ -50,7 +51,7 @@ export type TrackDoc = {
   links: string[];
 };
 
-export type Doc = ProjectDoc | AboutDoc | ContactDoc | StubDoc | ProjectsIndexDoc | MusicIndexDoc | TrackDoc | ResumeDoc;
+export type Doc = ProjectDoc | AboutDoc | ContactDoc | StubDoc | ProjectsIndexDoc | MusicIndexDoc | TrackDoc | ResumeDoc | HomeDoc;
 
 export const SECTIONS = ["overview", "problem", "research", "design", "outcome", "gallery"] as const;
 export type SectionId = (typeof SECTIONS)[number];
@@ -58,6 +59,7 @@ export type SectionId = (typeof SECTIONS)[number];
 export const MUSIC_KEYS = ["nocturne-in-blue.mp3", "tidewater.mp3", "signal-lost.mp3"] as const;
 
 export const docs: Record<string, Doc> = {
+  "home": { type: "home" },
   "projects/": { type: "projects-index" },
   "music/": { type: "music-index" },
 

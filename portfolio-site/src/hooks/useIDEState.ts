@@ -42,11 +42,11 @@ type Action =
   | { type: "HIST_DOWN" };
 
 const initial: IDEState = {
-  activeKey: "about.md",
-  tabs: ["about.md"],
+  activeKey: "home",
+  tabs: ["home"],
   view: "preview",
   activeSection: "overview",
-  open: { projects: true, "ux-research": false, music: false },
+  open: { projects: false, "ux-research": false, music: false },
   playing: null,
   termOpen: false,
   termInput: "",
@@ -164,6 +164,7 @@ function buildCommandOutput(cmd: string): { lines: TermLine[]; navTo: string | n
     case "help":
       push("Available commands —", "#7b828f");
       [
+        ["home", "return to the landing page"],
         ["about", "who I am & how I work"],
         ["projects", "list case studies"],
         ["open <name>", "open a file (try: open alpha)"],
@@ -187,6 +188,10 @@ function buildCommandOutput(cmd: string): { lines: TermLine[]; navTo: string | n
       break;
     case "whoami":
       push("Nikki Kode — Software Engineer · UX Designer/Researcher · Musician", "#cdd2da");
+      break;
+    case "home":
+      navTo = "home";
+      push("opening home …", "#565d6b");
       break;
     case "about":
     case "contact":

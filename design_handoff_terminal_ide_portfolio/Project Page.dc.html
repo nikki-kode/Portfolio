@@ -183,7 +183,7 @@
 
             <div style="margin-top:28px;border:1px solid #2a2f38;border-radius:12px;background:#23262d;padding:18px 20px">
               <div style="font-size:10px;letter-spacing:.12em;color:#565d6b;margin-bottom:13px">CURRENTLY</div>
-              <sc-for list="{{ aboutNow }}" as="n" hint-placeholder-count="3"><div style="display:flex;gap:11px;align-items:baseline;margin-bottom:10px;font-size:13.5px;color:#cdd2da"><span style="color:#5ba85f">▹</span>{{ n }}</div></sc-for>
+              <sc-for list="{{ aboutNow }}" as="n" hint-placeholder-count="3"><div style="display:flex;gap:11px;align-items:baseline;margin-bottom:10px;font-size:13.5px;color:#cdd2da"><span style="color:#5ba85f">▹</span><span onClick="{{ n.onClick }}" style="{{ n.textStyle }}">{{ n.text }}</span><span style="{{ n.hintStyle }}">{{ n.hint }}</span></div></sc-for>
             </div>
 
             <div onClick="{{ goContact }}" style="margin-top:24px;display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:9px;background:#f5a97f;color:#1a1d23;font-size:13px;font-weight:600;cursor:pointer">Let’s talk <span>→</span></div>
@@ -550,7 +550,11 @@ class Component extends DCLogic {
           { k: 'Research', d: 'Interviews, usability testing, and synthesis. I make sure we build the right thing before building it well.' },
         ],
         toolbox: ['TypeScript', 'React', 'Node', 'Figma', 'Storybook', 'SwiftUI', 'Maze', 'Postgres', 'D3'],
-        now: ['open to: SWE · UX Design · UX Research roles', 'building: this site (you’re looking at it)', 'lately: reading about design tokens and tiny CLIs'],
+        now: [
+          { text: 'Finishing my MHCI at Carnegie Mellon' },
+          { text: 'Looking for full-time roles in SWE and UX Research' },
+          { text: 'Attempting to get my bird to let me pet him', egg: true },
+        ],
       },
       'contact.md': {
         type: 'contact',
@@ -688,6 +692,23 @@ class Component extends DCLogic {
     const d = this.docs()[this.state.activeKey];
     if (d) return d;
     return { type: 'stub' };
+  }
+
+  componentDidMount() {
+    try {
+      const h = decodeURIComponent((location.hash || '').replace(/^#/, ''));
+      const known = this.docs()[h] || h === 'projects/' || h === 'music/';
+      if (h && known) {
+        this.setState((s) => ({
+          activeKey: h, view: 'preview', activeSection: 'overview',
+          open: Object.assign({}, s.open, {
+            projects: h === 'projects/' || /^project-/.test(h) || s.open.projects,
+            'ux-research': /study|interview/.test(h) || s.open['ux-research'],
+            music: h === 'music/' || /nocturne|tidewater|signal/.test(h) || s.open.music,
+          }),
+        }), () => { const el = document.getElementById('pp-scroll'); if (el) el.scrollTop = 0; });
+      }
+    } catch (e) {}
   }
 
   // ---------- navigation ----------
@@ -953,6 +974,14 @@ class Component extends DCLogic {
       return open;
     };
 
+    rows.push({
+      label: 'home', caret: '⌂', kind: 'file',
+      caretStyle: { width: '12px', flex: 'none', color: '#f5a97f', fontSize: '12px' },
+      dotStyle: { display: 'none' },
+      style: { display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', padding: '5px 7px', borderRadius: '6px', fontSize: '12.5px', marginBottom: '1px', color: '#8b93a1', background: 'transparent' },
+      onClick: () => { window.location.href = 'Home.dc.html'; },
+      indexStyle: { display: 'none' },
+    });
     fileRow('about.md', 'about.md', 0);
     if (folderRow('projects', 'projects', 'projects/', '#f5a97f')) {
       fileRow('project-aurora.md', 'project-aurora.md', 1);
@@ -1092,7 +1121,16 @@ class Component extends DCLogic {
       });
     }
     if (doc.type === 'about') {
-      vals.aboutParas = doc.paras; vals.aboutNow = doc.now;
+      vals.aboutParas = doc.paras;
+      vals.aboutNow = doc.now.map((n) => ({
+        text: n.text,
+        textStyle: n.egg
+          ? { cursor: 'pointer', borderBottom: '1px dashed rgba(245,169,127,.55)', color: '#cdd2da', transition: 'color .15s ease' }
+          : {},
+        hint: n.egg ? '↗' : '',
+        hintStyle: n.egg ? { color: '#f5a97f', fontSize: '11px', marginLeft: '1px' } : { display: 'none' },
+        onClick: n.egg ? () => { window.location.href = 'Birds.dc.html'; } : () => {},
+      }));
       vals.aboutWhatIDo = doc.whatIDo; vals.aboutToolbox = doc.toolbox;
     }
     if (doc.type === 'contact') {
