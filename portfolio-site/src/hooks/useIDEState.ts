@@ -30,6 +30,7 @@ export type IDEState = {
 type Action =
   | { type: "OPEN_DOC"; key: string }
   | { type: "CLOSE_TAB"; key: string }
+  | { type: "REORDER_TABS"; from: number; to: number }
   | { type: "SET_VIEW"; view: View }
   | { type: "SET_SECTION"; id: string }
   | { type: "TOGGLE_FOLDER"; name: string }
@@ -94,6 +95,14 @@ function reducer(state: IDEState, action: Action): IDEState {
           ? next[Math.min(idx, next.length - 1)]
           : state.activeKey;
       return { ...state, tabs: next, activeKey: nextActive! };
+    }
+    case "REORDER_TABS": {
+      const { from, to } = action;
+      if (from === to || from < 0 || to < 0 || from >= state.tabs.length || to >= state.tabs.length) return state;
+      const next = [...state.tabs];
+      const [moved] = next.splice(from, 1);
+      next.splice(to, 0, moved!);
+      return { ...state, tabs: next };
     }
     case "SET_VIEW":
       return { ...state, view: action.view };
@@ -241,6 +250,7 @@ export function useIDEState() {
 
   const openDoc = useCallback((key: string) => dispatch({ type: "OPEN_DOC", key }), []);
   const closeTab = useCallback((key: string) => dispatch({ type: "CLOSE_TAB", key }), []);
+  const reorderTabs = useCallback((from: number, to: number) => dispatch({ type: "REORDER_TABS", from, to }), []);
   const setView = useCallback((view: View) => dispatch({ type: "SET_VIEW", view }), []);
   const setSection = useCallback((id: string) => dispatch({ type: "SET_SECTION", id }), []);
   const toggleFolder = useCallback(
@@ -278,6 +288,7 @@ export function useIDEState() {
     state,
     openDoc,
     closeTab,
+    reorderTabs,
     setView,
     setSection,
     toggleFolder,

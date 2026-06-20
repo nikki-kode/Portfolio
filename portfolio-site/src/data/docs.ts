@@ -242,11 +242,11 @@ export const docs: Record<string, Doc> = {
     whatIDo: [
       {
         k: "Software Engineering",
-        d: "I build full-stack web applications and tools with a focus on shipping things that actually work, from real-time collaborative systems to AI-integrated products. I care about clean architecture, strong test coverage, and code that other people can understand.",
+        d: "I build full-stack web applications and tools, from real-time collaborative systems to AI-integrated products. I care about clean architecture, strong test coverage, and code that other people can understand.",
       },
       {
         k: "UX Design & Research",
-        d: "I design and run studies that surface how people actually behave, not how we assume they do. I work across the full research arc, from needfinding and contextual inquiry to prototyping and usability testing, and I bring that lens into everything I build.",
+        d: "From needfinding and contextual inquiry to prototyping and usability testing, I design and run studies, working across the full research arc.",
       },
     ],
     toolbox: [

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import type { TermLine } from "@/hooks/useIDEState";
 import styles from "./Terminal.module.css";
 
@@ -17,11 +17,18 @@ type Props = {
 export default function Terminal({ lines, input, promptPath, onInputChange, onKeyDown, onClear, onCollapse }: Props) {
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [cursorPos, setCursorPos] = useState(0);
 
   useEffect(() => {
     const el = bodyRef.current;
     if (el) el.scrollTop = el.scrollHeight;
   }, [lines]);
+
+  function syncCursor() {
+    setCursorPos(inputRef.current?.selectionStart ?? 0);
+  }
+
+  const safePos = Math.min(cursorPos, input.length);
 
   return (
     <div className={styles.panel}>
@@ -53,16 +60,26 @@ export default function Terminal({ lines, input, promptPath, onInputChange, onKe
         <div className={styles.inputRow}>
           <span className={styles.prompt}>{promptPath}</span>&nbsp;
           <span className={styles.promptSep}>%</span>&nbsp;
-          <input
-            ref={inputRef}
-            className={styles.input}
-            value={input}
-            onChange={(e) => onInputChange(e.target.value)}
-            onKeyDown={onKeyDown}
-            placeholder="type 'help'"
-            autoComplete="off"
-            spellCheck={false}
-          />
+          <div className={styles.inputWrap}>
+            <input
+              ref={inputRef}
+              className={styles.input}
+              value={input}
+              onChange={(e) => { onInputChange(e.target.value); setCursorPos(e.target.selectionStart ?? 0); }}
+              onKeyDown={(e) => { onKeyDown(e); requestAnimationFrame(syncCursor); }}
+              onKeyUp={syncCursor}
+              onSelect={syncCursor}
+              onClick={syncCursor}
+              autoComplete="off"
+              spellCheck={false}
+            />
+            <div className={styles.mirror} aria-hidden="true">
+              {input.slice(0, safePos)}
+              <span className={styles.termCursor} />
+              {input.length === 0 && <span className={styles.placeholder}>type &apos;help&apos;</span>}
+              {input.slice(safePos)}
+            </div>
+          </div>
         </div>
       </div>
     </div>

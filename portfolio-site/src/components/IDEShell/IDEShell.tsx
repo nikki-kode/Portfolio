@@ -33,6 +33,7 @@ export default function IDEShell() {
           onTabClick={ide.openDoc}
           onTabClose={ide.closeTab}
           openDoc={ide.openDoc}
+          reorderTabs={ide.reorderTabs}
         />
         <div className={styles.body}>
           <ContentArea
