@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
+  <style>
+    @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+    @keyframes hmslide { from{transform:translateX(-100%)} to{transform:translateX(0)} }
+    @keyframes hmsheet { from{transform:translateY(100%)} to{transform:translateY(0)} }
+    html,body{margin:0;height:100%}
+    #hmmroot ::-webkit-scrollbar{width:0;height:0}
+    #hmm-term-input::placeholder{color:#565d6b}
+  </style>
+  <script src="image-slot.js"></script>
+</helmet>
+
+<div id="hmmroot" style="height:100vh;max-height:100vh;display:flex;flex-direction:column;overflow:hidden;background:#1e2128;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#aab1bd;position:relative">
+
+  <!-- TOP BAR -->
+  <div style="height:52px;flex:none;display:flex;align-items:center;gap:12px;padding:0 16px;background:#121419;border-bottom:1px solid #0d0f13;z-index:5">
+    <div onClick="{{ openMenu }}" style="width:34px;height:34px;margin-left:-7px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer">
+      <span style="width:17px;height:1.5px;background:#aab1bd;border-radius:2px"></span>
+      <span style="width:17px;height:1.5px;background:#aab1bd;border-radius:2px"></span>
+      <span style="width:11px;height:1.5px;background:#aab1bd;border-radius:2px"></span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#cdd2da">
+      <span style="color:#f5a97f">⌂</span>yourname.dev
+    </div>
+    <span style="margin-left:auto;display:flex;align-items:center;gap:6px;font-size:11px;color:#5ba85f"><span style="width:7px;height:7px;border-radius:50%;background:#5ba85f"></span>open</span>
+  </div>
+
+  <!-- TAB STRIP -->
+  <div style="height:40px;flex:none;display:flex;align-items:stretch;background:#121419;border-bottom:1px solid #0d0f13;overflow-x:auto">
+    <div style="display:flex;align-items:center;gap:8px;padding:0 15px;background:#1e2128;color:#e8ebf0;font-size:12.5px;border-top:2px solid #f5a97f;border-right:1px solid #0d0f13;white-space:nowrap"><span style="color:#f5a97f;font-size:13px">⌂</span>home</div>
+    <div onClick="{{ goAbout }}" style="display:flex;align-items:center;padding:0 15px;color:#9aa1ad;font-size:12.5px;border-right:1px solid #0d0f13;white-space:nowrap">about.md</div>
+    <div onClick="{{ goProjects }}" style="display:flex;align-items:center;padding:0 15px;color:#9aa1ad;font-size:12.5px;border-right:1px solid #0d0f13;white-space:nowrap">projects</div>
+    <div onClick="{{ goContact }}" style="display:flex;align-items:center;padding:0 15px;color:#9aa1ad;font-size:12.5px;white-space:nowrap">contact.md</div>
+  </div>
+
+  <!-- BODY -->
+  <div id="hmm-scroll" style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;background:radial-gradient(circle at 1px 1px, rgba(255,255,255,.022) 1px, transparent 0) 0 0/24px 24px, #1e2128">
+    <div style="padding:30px 20px 40px">
+
+      <!-- HERO -->
+      <div style="font-size:12px;margin-bottom:20px"><span style="color:#5ba85f">visitor@portfolio</span> <span style="color:#f5a97f">%</span> <span style="color:#cdd2da">whoami</span></div>
+      <h1 style="margin:0;color:#f4f6f9;font-size:44px;line-height:1.02;font-weight:700;letter-spacing:-.035em">Your Name<span style="display:inline-block;width:10px;height:34px;background:#f5a97f;margin-left:6px;vertical-align:-5px;animation:blink 1.1s step-end infinite"></span></h1>
+      <div style="color:#f5a97f;font-size:14px;margin-top:16px">software engineer&nbsp;·&nbsp;ux researcher</div>
+      <p style="color:#c4ccd6;font-size:16.5px;line-height:1.55;margin:16px 0 0;text-wrap:pretty">Software engineer &amp; UX researcher with a foot on both sides of the design–engineering divide.</p>
+      <p style="color:#8b93a1;font-size:13px;line-height:1.6;margin:12px 0 0">BS in Computer Science &amp; Arts · MHCI, Carnegie Mellon — graduating August 2026.</p>
+
+      <sc-if value="{{ openToWork }}" hint-placeholder-val="{{ true }}">
+      <div style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:20px;background:rgba(91,168,95,.1);border:1px solid rgba(91,168,95,.35);margin-top:22px">
+        <span style="width:7px;height:7px;border-radius:50%;background:#5ba85f"></span><span style="color:#a6e3a1;font-size:12px">open to work · grad Aug 2026</span>
+      </div>
+      </sc-if>
+
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:22px">
+        <div onClick="{{ viewWork }}" style="display:flex;align-items:center;justify-content:center;gap:9px;padding:14px;border-radius:10px;background:#f5a97f;color:#1a1d23;font-size:14px;font-weight:600">View selected work <span>↓</span></div>
+        <div style="display:flex;gap:10px">
+          <div onClick="{{ goAbout }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border-radius:10px;border:1px solid #343a44;background:#23262d;color:#cdd2da;font-size:13.5px">about.md <span style="color:#7b828f">→</span></div>
+          <div onClick="{{ goResume }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border-radius:10px;border:1px solid #343a44;background:#23262d;color:#cdd2da;font-size:13.5px">resume.pdf <span style="color:#7b828f">↓</span></div>
+        </div>
+      </div>
+
+      <!-- PORTRAIT PANE -->
+      <div style="border:1px solid #343a44;border-radius:14px;overflow:hidden;background:#23262d;margin-top:26px;box-shadow:0 20px 50px -30px rgba(0,0,0,.6)">
+        <div style="height:34px;display:flex;align-items:center;gap:11px;padding:0 13px;background:#1a1d23;border-bottom:1px solid #0d0f13">
+          <div style="display:flex;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#e0655b"></span><span style="width:10px;height:10px;border-radius:50%;background:#dba93f"></span><span style="width:10px;height:10px;border-radius:50%;background:#5ba85f"></span></div>
+          <span style="color:#7b828f;font-size:11.5px;margin-left:4px">me.png</span>
+        </div>
+        <image-slot id="about-avatar" shape="rect" fit="cover" placeholder="Drop a portrait" style="display:block;width:100%;height:300px;color:rgba(230,235,240,.5)"></image-slot>
+        <div style="padding:11px 14px;border-top:1px solid #0d0f13;font-size:12px;color:#5ba85f">// builds it, then tests it on real people</div>
+      </div>
+
+      <!-- WHAT I DO -->
+      <div style="margin-top:38px">
+        <div style="font-size:11px;letter-spacing:.13em;color:#565d6b;margin-bottom:14px">// WHAT I DO</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <sc-for list="{{ whatIDo }}" as="w" hint-placeholder-count="3">
+            <div style="border:1px solid #2a2f38;border-radius:13px;background:#23262d;padding:18px 18px 19px">
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <span style="color:#f5a97f;font-size:19px;font-weight:700;letter-spacing:-.01em">{{ w.n }}</span>
+                <span style="width:7px;height:7px;border-radius:50%;background:#f5a97f"></span>
+              </div>
+              <div style="color:#f4f6f9;font-size:15.5px;font-weight:700;margin-top:12px">{{ w.k }}</div>
+              <div style="color:#9aa1ad;font-size:13px;line-height:1.65;margin-top:7px">{{ w.d }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- SELECTED WORK -->
+      <div data-section="work" style="scroll-margin-top:20px;margin-top:40px">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:18px">
+          <div>
+            <h2 style="margin:0;color:#f4f6f9;font-size:24px;font-weight:700;letter-spacing:-.02em">Selected work</h2>
+            <div style="color:#7b828f;font-size:12.5px;margin-top:6px">Three case studies.</div>
+          </div>
+          <span onClick="{{ goProjects }}" style="color:#f5a97f;font-size:12.5px;white-space:nowrap">view all →</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ featured }}" as="p" hint-placeholder-count="3">
+            <div onClick="{{ p.onClick }}" style="border:1px solid #2a2f38;border-radius:14px;background:#23262d;overflow:hidden;display:flex;flex-direction:column">
+              <div style="border-bottom:1px solid #2a2f38"><image-slot id="{{ p.thumbId }}" shape="rect" fit="cover" placeholder="Thumbnail" style="display:block;width:100%;height:160px;color:rgba(230,235,240,.5)"></image-slot></div>
+              <div style="padding:16px 17px 18px">
+                <div style="display:flex;align-items:center;gap:9px;margin-bottom:11px">
+                  <span style="padding:3px 9px;border-radius:20px;background:#2a2520;border:1px solid #4a3b2c;color:#f5a97f;font-size:10.5px">{{ p.kind }}</span>
+                  <span style="color:#565d6b;font-size:11.5px">{{ p.year }}</span>
+                </div>
+                <div style="color:#f4f6f9;font-size:19px;font-weight:700;letter-spacing:-.01em;margin-bottom:8px">{{ p.title }}</div>
+                <div style="color:#9aa1ad;font-size:13px;line-height:1.6;margin-bottom:14px">{{ p.blurb }}</div>
+                <div style="color:#f5a97f;font-size:12.5px;display:flex;align-items:center;gap:7px">Read case study <span>→</span></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- BOTTOM STRIP -->
+      <div style="margin-top:44px;border-top:1px solid #2a2f38;padding-top:24px">
+        <div style="font-size:11px;letter-spacing:.13em;color:#565d6b;margin-bottom:11px">// CURRENTLY</div>
+        <div style="color:#cdd2da;font-size:13px;line-height:1.7"><span style="color:#5ba85f">▹</span> open to SWE · UX research roles — graduating Aug 2026</div>
+        <sc-if value="{{ showMusic }}" hint-placeholder-val="{{ true }}">
+        <div onClick="{{ goMusic }}" style="color:#9aa1ad;font-size:13px;line-height:1.7"><span style="color:#cba6f7">♪</span> I also compose — solo piano, strings &amp; electronic <span style="color:#cba6f7">→ music/</span></div>
+        </sc-if>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-top:20px">
+          <span onClick="{{ goContact }}" style="color:#9aa1ad;font-size:13px">contact.md →</span>
+          <span style="color:#7b828f;font-size:12.5px">github.com/yourname ↗</span>
+          <span style="color:#7b828f;font-size:12.5px">linkedin.com/in/yourname ↗</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div style="height:54px;flex:none;display:flex;align-items:stretch;background:#15171c;border-top:1px solid #0d0f13;z-index:5">
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#f5a97f;font-size:10px"><span style="font-size:16px">⌂</span>home</div>
+    <div onClick="{{ goAbout }}" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#7b828f;font-size:10px"><span style="font-size:15px">◎</span>about</div>
+    <div onClick="{{ goProjects }}" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#7b828f;font-size:10px"><span style="font-size:15px">⊞</span>work</div>
+    <div onClick="{{ toggleTerm }}" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#7b828f;font-size:10px"><span style="font-size:15px">▸_</span>terminal</div>
+  </div>
+
+  <!-- DRAWER (FILE TREE) -->
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeMenu }}" style="position:absolute;inset:0;background:rgba(0,0,0,.55);z-index:20"></div>
+  <div style="position:absolute;top:0;left:0;bottom:0;width:270px;background:#181b21;border-right:1px solid #0d0f13;z-index:21;display:flex;flex-direction:column;animation:hmslide .22s ease">
+    <div style="height:52px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid #0d0f13">
+      <span style="font-size:10px;letter-spacing:.14em;color:#565d6b">EXPLORER — YOURNAME.DEV</span>
+      <span onClick="{{ closeMenu }}" style="color:#7b828f;font-size:18px;padding:4px">×</span>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:10px 8px 12px">
+      <sc-for list="{{ treeRows }}" as="row" hint-placeholder-count="9">
+        <div onClick="{{ row.onClick }}" style="{{ row.style }}">
+          <span style="{{ row.caretStyle }}">{{ row.caret }}</span>
+          <span style="{{ row.dotStyle }}"></span>
+          <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ row.label }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="padding:13px 16px;border-top:1px solid #0d0f13;font-size:11px;color:#565d6b;display:flex;align-items:center;gap:8px">
+      <span style="width:7px;height:7px;border-radius:50%;background:#5ba85f"></span>open to work
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- TERMINAL SHEET -->
+  <sc-if value="{{ termOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeTerm }}" style="position:absolute;inset:0;background:rgba(0,0,0,.5);z-index:20"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:64vh;background:#15171c;border-top:1px solid #0d0f13;border-radius:14px 14px 0 0;z-index:21;display:flex;flex-direction:column;animation:hmsheet .24s ease">
+    <div style="height:38px;flex:none;display:flex;align-items:center;gap:14px;padding:0 16px;border-bottom:1px solid #0d0f13;font-size:10.5px;letter-spacing:.1em;color:#565d6b">
+      <span style="color:#cdd2da;box-shadow:inset 0 -1px 0 #f5a97f;padding:11px 2px">TERMINAL</span>
+      <span style="margin-left:auto;color:#7b828f;letter-spacing:0;font-size:12px" onClick="{{ clearTerm }}">clear</span>
+      <span style="color:#7b828f;letter-spacing:0;font-size:16px" onClick="{{ closeTerm }}">⌄</span>
+    </div>
+    <div onClick="{{ focusTerm }}" style="flex:1;overflow-y:auto;padding:13px 16px;font-size:13px;line-height:1.7">
+      <sc-for list="{{ termLines }}" as="l" hint-placeholder-count="1">
+        <div style="{{ l.wrapStyle }}"><sc-if value="{{ l.isCmd }}" hint-placeholder-val="{{ false }}"><span style="color:#5ba85f">~/portfolio</span> <span style="color:#f5a97f">%</span> </sc-if><span style="{{ l.style }}">{{ l.text }}</span></div>
+      </sc-for>
+      <div style="display:flex;align-items:center"><span style="color:#5ba85f">~/portfolio</span>&nbsp;<span style="color:#f5a97f">%</span>&nbsp;<input id="hmm-term-input" value="{{ termInput }}" onInput="{{ onTermChange }}" onKeyDown="{{ onTermKey }}" placeholder="type 'help'" autocomplete="off" spellcheck="false" style="flex:1;background:transparent;border:0;outline:0;color:#e8ebf0;font:13px ui-monospace,Menlo,monospace;caret-color:#f5a97f;padding:0" /></div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;openToWork&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showMusic&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = {
+    menuOpen: false,
+    termOpen: false,
+    termInput: '',
+    termLines: [{ isCmd: false, text: "welcome — type 'help' to list commands, or tap anything to dive in.", color: '#7b828f' }],
+    history: [],
+    histIdx: -1,
+  };
+
+  go(key) {
+    const base = 'Project Page (Mobile).dc.html';
+    window.location.href = key ? base + '#' + key : base;
+  }
+
+  data() {
+    return {
+      whatIDo: [
+        { n: '01', k: 'Engineering', d: 'React, TypeScript & design-systems work. I turn fuzzy specs into solid, tested, accessible components.' },
+        { n: '02', k: 'Design', d: 'Interaction & systems design — tokens, flows, and the small details that make a UI feel calm.' },
+        { n: '03', k: 'Research', d: 'Interviews, usability testing & synthesis. I make sure we build the right thing before building it well.' },
+      ],
+      featured: [
+        { key: 'project-aurora.md', title: 'Aurora', kind: 'Design system', year: '2024', blurb: 'Unified six fintech products onto one accessible, themeable component library.' },
+        { key: 'project-ledger.md', title: 'Ledger', kind: 'Internal tool', year: '2023', blurb: 'Turned a 3-hour manual month-end close into a 20-minute guided flow.' },
+        { key: 'project-atlas.md', title: 'Atlas', kind: 'Mobile · research', year: '2023', blurb: 'A research-led hospital wayfinding app, tested with real patients & visitors.' },
+      ],
+    };
+  }
+
+  buildTree() {
+    const rows = [];
+    const file = (key, label, depth, dot, opts) => {
+      opts = opts || {};
+      rows.push({
+        label: label, caret: opts.caret || '',
+        caretStyle: opts.caret ? { width: '12px', flex: 'none', color: opts.caretColor || '#f5a97f', fontSize: '12px' } : { width: '12px', flex: 'none' },
+        dotStyle: opts.caret ? { display: 'none' } : { width: '8px', height: '10px', borderRadius: '2px', flex: 'none', background: dot || '#555b66' },
+        style: {
+          display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer',
+          padding: '9px 7px', paddingLeft: (7 + depth * 16) + 'px', borderRadius: '6px',
+          fontSize: '13px', marginBottom: '1px',
+          color: opts.active ? '#e8ebf0' : (opts.folder ? '#aab1bd' : '#8b93a1'),
+          background: opts.active ? '#262b33' : 'transparent',
+          boxShadow: opts.active ? 'inset 2px 0 0 #f5a97f' : 'none',
+        },
+        onClick: opts.onClick || (() => this.go(key)),
+      });
+    };
+
+    file('', 'home', 0, null, { caret: '⌂', caretColor: '#f5a97f', active: true, onClick: () => this.setState({ menuOpen: false }) });
+    file('about.md', 'about.md', 0);
+    file('projects/', 'projects', 0, null, { caret: '▾', caretColor: '#565d6b', folder: true, onClick: () => this.go('projects/') });
+    file('project-aurora.md', 'project-aurora.md', 1);
+    file('project-ledger.md', 'project-ledger.md', 1);
+    file('project-atlas.md', 'project-atlas.md', 1);
+    file('usability-study.md', 'ux-research', 0, null, { caret: '▸', caretColor: '#565d6b', folder: true, onClick: () => this.go('usability-study.md') });
+    file('music/', 'music', 0, null, { caret: '▸', caretColor: '#cba6f7', folder: true, onClick: () => this.go('music/') });
+    file('', 'resume.pdf', 0, '#e0655b', { onClick: () => this.go('') });
+    file('contact.md', 'contact.md', 0);
+    return rows;
+  }
+
+  openMenu() { this.setState({ menuOpen: true }); }
+  closeMenu() { this.setState({ menuOpen: false }); }
+
+  toggleTerm() {
+    const willOpen = !this.state.termOpen;
+    this.setState({ termOpen: willOpen }, () => {
+      if (willOpen) { const i = document.getElementById('hmm-term-input'); if (i) i.focus(); }
+    });
+  }
+  closeTerm() { this.setState({ termOpen: false }); }
+  focusTerm() { const i = document.getElementById('hmm-term-input'); if (i) i.focus(); }
+  clearTerm() { this.setState({ termLines: [] }); }
+  onTermChange(e) { this.setState({ termInput: e.target.value }); }
+
+  resolveFile(arg) {
+    if (!arg) return null;
+    const a = arg.toLowerCase().replace(/\.md$/, '').replace(/\//g, '');
+    const map = {
+      aurora: 'project-aurora.md', ledger: 'project-ledger.md', atlas: 'project-atlas.md',
+      about: 'about.md', contact: 'contact.md', me: 'about.md',
+      projects: 'projects/', work: 'projects/', music: 'music/', songs: 'music/',
+      research: 'usability-study.md', usability: 'usability-study.md', interviews: 'field-interviews.md',
+    };
+    return map[a] || null;
+  }
+
+  runCommand(raw) {
+    const cmd = raw.trim();
+    const out = [];
+    const push = (text, color) => out.push({ isCmd: false, text: text, color: color || '#9aa1ad' });
+    const parts = cmd.split(/\s+/);
+    const verb = (parts[0] || '').toLowerCase();
+    const arg = parts.slice(1).join(' ');
+    let navTo = null, navReady = false;
+
+    if (cmd === '') { /* noop */ }
+    else if (verb === 'help') {
+      push('Available commands —', '#7b828f');
+      [['about', 'who I am & how I work'], ['work', 'selected case studies'], ['open <name>', 'open a project (try: open atlas)'],
+       ['research', 'ux research & writeups'], ['music', 'things I\u2019ve composed'], ['resume', 'grab my CV'],
+       ['contact', 'email · github · linkedin'], ['ls', 'list files'], ['clear', 'clear the screen']].forEach((r) => {
+        push('  ' + r[0] + Array(Math.max(1, 16 - r[0].length)).join(' ') + r[1], '#cdd2da');
+      });
+    }
+    else if (verb === 'ls') { push('about.md   projects/   ux-research/   music/   resume.pdf   contact.md', '#cdd2da'); }
+    else if (verb === 'whoami') { push('Your Name — software engineer · ux researcher', '#cdd2da'); }
+    else if (verb === 'work' || verb === 'projects') { navTo = 'projects/'; push('opening projects/ …', '#565d6b'); navReady = true; }
+    else if (verb === 'about' || verb === 'contact') { navTo = verb + '.md'; push('opening ' + verb + '.md …', '#565d6b'); navReady = true; }
+    else if (verb === 'research') { navTo = 'usability-study.md'; push('opening ux-research/ …', '#565d6b'); navReady = true; }
+    else if (verb === 'music') { navTo = 'music/'; push('opening music/ …', '#565d6b'); navReady = true; }
+    else if (verb === 'resume') { push('resume.pdf — wire this up to your real CV file ✦', '#cdd2da'); }
+    else if (verb === 'open' || verb === 'cat' || verb === 'cd') {
+      const key = this.resolveFile(arg);
+      if (key) { navTo = key; push('opening ' + key + ' …', '#565d6b'); navReady = true; }
+      else push("no such file: " + (arg || '?') + " — try 'ls'", '#e0655b');
+    }
+    else { push('zsh: command not found: ' + verb + " — type 'help'", '#e0655b'); }
+
+    this.setState((s) => {
+      const lines = s.termLines.concat([{ isCmd: true, text: cmd }]).concat(out);
+      const hist = cmd ? s.history.concat([cmd]) : s.history;
+      return { termLines: cmd === 'clear' ? [] : lines, history: hist, histIdx: -1, termInput: '' };
+    }, () => { if (navReady) setTimeout(() => this.go(navTo), 320); });
+  }
+
+  onTermKey(e) {
+    if (e.key === 'Enter') { e.preventDefault(); this.runCommand(this.state.termInput); }
+    else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      const h = this.state.history;
+      if (!h.length) return;
+      const idx = this.state.histIdx < 0 ? h.length - 1 : Math.max(0, this.state.histIdx - 1);
+      this.setState({ histIdx: idx, termInput: h[idx] });
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      const h = this.state.history;
+      if (this.state.histIdx < 0) return;
+      const idx = this.state.histIdx + 1;
+      if (idx >= h.length) this.setState({ histIdx: -1, termInput: '' });
+      else this.setState({ histIdx: idx, termInput: h[idx] });
+    }
+  }
+
+  viewWork() {
+    const c = document.getElementById('hmm-scroll');
+    if (!c) return;
+    const el = c.querySelector('[data-section="work"]');
+    if (el) c.scrollTo({ top: el.offsetTop - 20, behavior: 'smooth' });
+  }
+
+  renderVals() {
+    const d = this.data();
+    const termLines = this.state.termLines.map((l) => ({
+      isCmd: !!l.isCmd, text: l.text,
+      wrapStyle: { marginBottom: '3px', color: '#aab1bd' },
+      style: { color: l.isCmd ? '#e8ebf0' : (l.color || '#9aa1ad'), whiteSpace: 'pre-wrap' },
+    }));
+
+    return {
+      treeRows: this.buildTree(),
+      whatIDo: d.whatIDo,
+      featured: d.featured.map((p) => ({
+        title: p.title, kind: p.kind, year: p.year, blurb: p.blurb,
+        thumbId: p.key.replace(/\.md$/, '') + '-card',
+        onClick: () => this.go(p.key),
+      })),
+      openToWork: this.props.openToWork ?? true,
+      showMusic: this.props.showMusic ?? true,
+      menuOpen: this.state.menuOpen,
+      openMenu: () => this.openMenu(),
+      closeMenu: () => this.closeMenu(),
+      goAbout: () => this.go('about.md'),
+      goProjects: () => this.go('projects/'),
+      goContact: () => this.go('contact.md'),
+      goMusic: () => this.go('music/'),
+      goResume: () => this.go(''),
+      viewWork: () => this.viewWork(),
+      termOpen: this.state.termOpen,
+      termInput: this.state.termInput,
+      termLines: termLines,
+      toggleTerm: () => this.toggleTerm(),
+      closeTerm: () => this.closeTerm(),
+      clearTerm: () => this.clearTerm(),
+      focusTerm: () => this.focusTerm(),
+      onTermChange: (e) => this.onTermChange(e),
+      onTermKey: (e) => this.onTermKey(e),
+    };
+  }
+}
+</script>
+</body>
+</html>

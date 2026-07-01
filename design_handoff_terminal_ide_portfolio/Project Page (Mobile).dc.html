@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
+  <style>
+    @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+    @keyframes ppmslide { from{transform:translateX(-100%)} to{transform:translateX(0)} }
+    @keyframes ppmsheet { from{transform:translateY(100%)} to{transform:translateY(0)} }
+    html,body{margin:0;height:100%}
+    #ppmroot ::-webkit-scrollbar{width:0;height:0}
+    #ppm-term-input::placeholder{color:#565d6b}
+  </style>
+  <script src="image-slot.js"></script>
+</helmet>
+
+<div id="ppmroot" style="height:100vh;max-height:100vh;display:flex;flex-direction:column;overflow:hidden;background:#1e2128;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#aab1bd;position:relative">
+
+  <!-- TOP BAR -->
+  <div style="height:52px;flex:none;display:flex;align-items:center;gap:12px;padding:0 14px;background:#121419;border-bottom:1px solid #0d0f13;z-index:5">
+    <div onClick="{{ openMenu }}" style="width:34px;height:34px;margin-left:-7px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer">
+      <span style="width:17px;height:1.5px;background:#aab1bd;border-radius:2px"></span>
+      <span style="width:17px;height:1.5px;background:#aab1bd;border-radius:2px"></span>
+      <span style="width:11px;height:1.5px;background:#aab1bd;border-radius:2px"></span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#e8ebf0;min-width:0"><span style="width:8px;height:10px;border-radius:2px;background:#f5a97f;flex:none"></span><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ activeName }}</span></div>
+    <div style="margin-left:auto;display:flex;gap:3px;background:#23262d;border:1px solid #343a44;border-radius:8px;padding:3px;flex:none">
+      <button onClick="{{ setCode }}" style="{{ tabCodeStyle }}">&lt;/&gt;</button>
+      <button onClick="{{ setPreview }}" style="{{ tabPreviewStyle }}">Preview</button>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div id="ppm-scroll" onScroll="{{ onScroll }}" style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;position:relative;background:#1e2128">
+
+    <!-- SOURCE VIEW -->
+    <sc-if value="{{ srcVisible }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:20px 18px;background:#1b1e24;min-height:100%">
+      <sc-for list="{{ sourceLines }}" as="ln" hint-placeholder-count="10">
+        <div style="{{ ln.style }}">{{ ln.text }}</div>
+      </sc-for>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ prevVisible }}" hint-placeholder-val="{{ true }}">
+    <div style="padding:22px 20px 44px">
+
+      <!-- PROJECT DOC -->
+      <sc-if value="{{ isProject }}" hint-placeholder-val="{{ true }}">
+        <div onClick="{{ goIndex }}" style="color:#f5a97f;font-size:12px;margin-bottom:14px;display:inline-block">‹ projects/</div>
+        <h1 style="margin:0;color:#f4f6f9;font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1.1">{{ title }}</h1>
+        <p style="color:#9aa1ad;font-size:14px;line-height:1.6;margin:10px 0 18px">{{ tagline }}</p>
+
+        <div style="border:1px solid #2a2f38;border-radius:12px;background:#23262d;padding:15px 16px;margin-bottom:22px;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <sc-for list="{{ detailRows }}" as="d" hint-placeholder-count="4">
+            <div><div style="color:#5b6270;font-size:10px;letter-spacing:.06em;margin-bottom:5px">{{ d.label }}</div><div style="color:#cdd2da;font-size:12.5px;line-height:1.4">{{ d.value }}</div></div>
+          </sc-for>
+        </div>
+
+        <div style="border-radius:12px;overflow:hidden;border:1px solid #343a44;background:#23262d;margin-bottom:30px"><image-slot id="{{ heroId }}" shape="rect" fit="cover" placeholder="Drop your hero / product shot" style="display:block;width:100%;height:220px;color:rgba(230,235,240,.5)"></image-slot></div>
+
+        <div data-section="overview" style="scroll-margin-top:16px;margin-bottom:32px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px"><span style="width:6px;height:16px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:16px;font-weight:700">Overview</span></div>
+          <sc-for list="{{ overviewParas }}" as="p" hint-placeholder-count="2"><p style="color:#b4bcc8;font-size:14px;line-height:1.75;margin:0 0 13px">{{ p }}</p></sc-for>
+        </div>
+
+        <div data-section="problem" style="scroll-margin-top:16px;margin-bottom:32px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px"><span style="width:6px;height:16px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:16px;font-weight:700">The problem</span></div>
+          <sc-for list="{{ problemParas }}" as="p" hint-placeholder-count="2"><p style="color:#b4bcc8;font-size:14px;line-height:1.75;margin:0 0 13px">{{ p }}</p></sc-for>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">
+            <div><div style="border-radius:10px;overflow:hidden;border:1px solid #343a44;background:#23262d;margin-bottom:7px"><image-slot id="{{ pbAId }}" shape="rect" fit="cover" placeholder="Before" style="display:block;width:100%;height:130px;color:rgba(230,235,240,.5)"></image-slot></div><div style="color:#5b6270;font-size:11px">before</div></div>
+            <div><div style="border-radius:10px;overflow:hidden;border:1px solid #343a44;background:#23262d;margin-bottom:7px"><image-slot id="{{ pbBId }}" shape="rect" fit="cover" placeholder="After" style="display:block;width:100%;height:130px;color:rgba(230,235,240,.5)"></image-slot></div><div style="color:#5b6270;font-size:11px">after</div></div>
+          </div>
+        </div>
+
+        <div data-section="research" style="scroll-margin-top:16px;margin-bottom:32px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px"><span style="width:6px;height:16px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:16px;font-weight:700">Research</span></div>
+          <sc-for list="{{ researchParas }}" as="p" hint-placeholder-count="2"><p style="color:#b4bcc8;font-size:14px;line-height:1.75;margin:0 0 13px">{{ p }}</p></sc-for>
+          <div style="border-left:3px solid #f5a97f;padding:6px 0 6px 16px;margin:16px 0 4px">
+            <div style="color:#d6dbe3;font-size:15px;font-style:italic;line-height:1.55">“{{ quoteText }}”</div>
+            <div style="color:#6b7280;font-size:12px;margin-top:8px">— {{ quoteWho }}</div>
+          </div>
+        </div>
+
+        <div data-section="design" style="scroll-margin-top:16px;margin-bottom:32px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px"><span style="width:6px;height:16px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:16px;font-weight:700">Design &amp; build</span></div>
+          <sc-for list="{{ designParas }}" as="p" hint-placeholder-count="2"><p style="color:#b4bcc8;font-size:14px;line-height:1.75;margin:0 0 13px">{{ p }}</p></sc-for>
+          <div style="border-radius:10px;overflow:hidden;border:1px solid #343a44;background:#23262d;margin-top:14px"><image-slot id="{{ desId }}" shape="rect" fit="cover" placeholder="Drop a key screen or diagram" style="display:block;width:100%;height:210px;color:rgba(230,235,240,.5)"></image-slot></div>
+        </div>
+
+        <div data-section="outcome" style="scroll-margin-top:16px;margin-bottom:32px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><span style="width:6px;height:16px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:16px;font-weight:700">Outcome</span></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+            <sc-for list="{{ outcomeStats }}" as="o" hint-placeholder-count="3">
+              <div style="border:1px solid #2a2f38;border-radius:11px;padding:14px 12px;background:#23262d">
+                <div style="color:#f5a97f;font-size:19px;font-weight:700;letter-spacing:-.01em">{{ o.stat }}</div>
+                <div style="color:#9aa1ad;font-size:11px;line-height:1.4;margin-top:7px">{{ o.label }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div data-section="gallery" style="scroll-margin-top:16px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><span style="width:6px;height:16px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:16px;font-weight:700">Gallery</span></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <sc-for list="{{ galleryItems }}" as="g" hint-placeholder-count="3">
+              <div><div style="border-radius:10px;overflow:hidden;border:1px solid #343a44;background:#23262d;margin-bottom:7px"><image-slot id="{{ g.id }}" shape="rect" fit="cover" placeholder="Image" style="display:block;width:100%;height:120px;color:rgba(230,235,240,.5)"></image-slot></div><div style="color:#5b6270;font-size:11px">{{ g.caption }}</div></div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ABOUT DOC -->
+      <sc-if value="{{ isAbout }}">
+        <div style="color:#565d6b;font-size:12px;margin-bottom:18px"># about.md</div>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+          <image-slot id="about-avatar" shape="circle" fit="cover" placeholder="You" style="display:block;width:76px;height:76px;flex:none;color:rgba(230,235,240,.5)"></image-slot>
+          <div>
+            <h1 style="margin:0;color:#f4f6f9;font-size:24px;font-weight:700;letter-spacing:-.02em">Your Name</h1>
+            <div style="color:#f5a97f;font-size:12px;margin-top:6px;line-height:1.4">software engineer · ux designer · ux researcher</div>
+          </div>
+        </div>
+        <sc-for list="{{ aboutParas }}" as="p" hint-placeholder-count="2"><p style="color:#b4bcc8;font-size:14.5px;line-height:1.8;margin:0 0 15px">{{ p }}</p></sc-for>
+
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:24px">
+          <sc-for list="{{ aboutWhatIDo }}" as="w" hint-placeholder-count="3">
+            <div style="border:1px solid #2a2f38;border-radius:12px;background:#23262d;padding:15px 16px">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:9px"><span style="width:6px;height:6px;border-radius:50%;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:14px;font-weight:700">{{ w.k }}</span></div>
+              <div style="color:#9aa1ad;font-size:13px;line-height:1.65">{{ w.d }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="margin-top:26px">
+          <div style="font-size:10px;letter-spacing:.12em;color:#565d6b;margin-bottom:12px">TOOLBOX</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ aboutToolbox }}" as="t" hint-placeholder-count="9"><span style="padding:6px 12px;border-radius:7px;background:#23262d;border:1px solid #343a44;color:#cdd2da;font-size:12.5px">{{ t }}</span></sc-for>
+          </div>
+        </div>
+
+        <div style="margin-top:26px;border:1px solid #2a2f38;border-radius:12px;background:#23262d;padding:18px 18px">
+          <div style="font-size:10px;letter-spacing:.12em;color:#565d6b;margin-bottom:13px">CURRENTLY</div>
+          <sc-for list="{{ aboutNow }}" as="n" hint-placeholder-count="3"><div style="display:flex;gap:11px;align-items:baseline;margin-bottom:11px;font-size:13.5px;color:#cdd2da"><span style="color:#5ba85f">▹</span><span onClick="{{ n.onClick }}" style="{{ n.textStyle }}">{{ n.text }}</span><span style="{{ n.hintStyle }}">{{ n.hint }}</span></div></sc-for>
+        </div>
+
+        <div onClick="{{ goContact }}" style="margin-top:22px;display:flex;align-items:center;justify-content:center;gap:9px;padding:14px;border-radius:10px;background:#f5a97f;color:#1a1d23;font-size:14px;font-weight:600">Let’s talk <span>→</span></div>
+      </sc-if>
+
+      <!-- CONTACT DOC -->
+      <sc-if value="{{ isContact }}">
+        <div style="color:#565d6b;font-size:12px;margin-bottom:18px"># contact.md</div>
+        <h1 style="margin:0 0 10px;color:#f4f6f9;font-size:26px;font-weight:700;letter-spacing:-.02em">Get in touch</h1>
+        <p style="color:#9aa1ad;font-size:14px;line-height:1.65;margin:0 0 16px">Open to SWE, UX design, and UX research roles. The fastest way to reach me is email — tap to copy.</p>
+        <div style="display:inline-flex;align-items:center;gap:9px;padding:7px 13px;border-radius:20px;background:rgba(91,168,95,.1);border:1px solid rgba(91,168,95,.35);margin-bottom:24px">
+          <span style="width:7px;height:7px;border-radius:50%;background:#5ba85f"></span><span style="color:#a6e3a1;font-size:12px">{{ contactAvail }}</span>
+        </div>
+        <sc-for list="{{ contactRows }}" as="c" hint-placeholder-count="4">
+          <div onClick="{{ c.onClick }}" style="display:flex;align-items:center;gap:13px;padding:15px 16px;border:1px solid #2a2f38;border-radius:11px;background:#23262d;margin-bottom:11px">
+            <span style="width:30px;height:30px;flex:none;border-radius:8px;background:#1e2128;border:1px solid #343a44;display:flex;align-items:center;justify-content:center;color:#f5a97f;font-size:12px">{{ c.icon }}</span>
+            <div style="flex:1;min-width:0">
+              <div style="color:#7b828f;font-size:11px;margin-bottom:2px">{{ c.label }}</div>
+              <div style="color:#e8ebf0;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.value }}</div>
+            </div>
+            <span style="{{ c.actionStyle }}">{{ c.action }}</span>
+          </div>
+        </sc-for>
+        <div style="margin-top:16px;color:#565d6b;font-size:12px;display:flex;align-items:center;gap:8px"><span>⌖</span>{{ contactLocation }}</div>
+      </sc-if>
+
+      <!-- PROJECTS INDEX -->
+      <sc-if value="{{ isIndex }}" hint-placeholder-val="{{ false }}">
+        <div style="color:#565d6b;font-size:12px;margin-bottom:12px">~/projects</div>
+        <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px">
+          <h1 style="margin:0;color:#f4f6f9;font-size:26px;font-weight:700;letter-spacing:-.02em">Projects</h1>
+          <span style="color:#565d6b;font-size:13px">{{ indexCount }} case studies</span>
+        </div>
+        <p style="color:#9aa1ad;font-size:14px;line-height:1.6;margin:0 0 18px">Selected work across engineering, design, and research.</p>
+        <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
+          <sc-for list="{{ filterTabs }}" as="f" hint-placeholder-count="4"><span onClick="{{ f.onClick }}" style="{{ f.style }}">{{ f.label }}</span></sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ projectCards }}" as="p" hint-placeholder-count="3">
+            <div onClick="{{ p.onClick }}" style="border:1px solid #2a2f38;border-radius:13px;background:#23262d;overflow:hidden">
+              <div style="border-bottom:1px solid #2a2f38"><image-slot id="{{ p.thumbId }}" shape="rect" fit="cover" placeholder="Thumbnail" style="display:block;width:100%;height:160px;color:rgba(230,235,240,.5)"></image-slot></div>
+              <div style="padding:16px 17px 18px">
+                <div style="display:flex;align-items:center;gap:9px;margin-bottom:10px">
+                  <span style="padding:3px 9px;border-radius:20px;background:#2a2520;border:1px solid #4a3b2c;color:#f5a97f;font-size:10.5px">{{ p.kind }}</span>
+                  <span style="color:#565d6b;font-size:11.5px">{{ p.year }}</span>
+                </div>
+                <div style="color:#f4f6f9;font-size:18px;font-weight:700;letter-spacing:-.01em;margin-bottom:7px">{{ p.title }}</div>
+                <div style="color:#9aa1ad;font-size:12.5px;line-height:1.6;margin-bottom:14px">{{ p.blurb }}</div>
+                <div style="color:#f5a97f;font-size:12px;display:flex;align-items:center;gap:7px">Read case study <span>→</span></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- RESEARCH WRITEUP -->
+      <sc-if value="{{ isResearch }}" hint-placeholder-val="{{ false }}">
+        <div style="color:#565d6b;font-size:12px;margin-bottom:14px">~/ux-research</div>
+        <h1 style="margin:0;color:#f4f6f9;font-size:27px;font-weight:700;letter-spacing:-.02em;line-height:1.1">{{ rTitle }}</h1>
+        <p style="color:#9aa1ad;font-size:14px;line-height:1.6;margin:10px 0 18px">{{ rSubtitle }}</p>
+
+        <div style="border:1px solid #2a2f38;border-radius:12px;background:#23262d;padding:15px 16px;margin-bottom:26px;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <sc-for list="{{ detailRows }}" as="d" hint-placeholder-count="4">
+            <div><div style="color:#5b6270;font-size:10px;letter-spacing:.06em;margin-bottom:5px">{{ d.label }}</div><div style="color:#cdd2da;font-size:12.5px;line-height:1.4">{{ d.value }}</div></div>
+          </sc-for>
+        </div>
+
+        <div data-section="background" style="scroll-margin-top:16px;margin-bottom:32px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px"><span style="width:6px;height:16px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:16px;font-weight:700">Background</span></div>
+          <sc-for list="{{ rBackground }}" as="p" hint-placeholder-count="2"><p style="color:#b4bcc8;font-size:14px;line-height:1.75;margin:0 0 13px">{{ p }}</p></sc-for>
+        </div>
+        <div data-section="method" style="scroll-margin-top:16px;margin-bottom:32px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px"><span style="width:6px;height:16px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:16px;font-weight:700">Method</span></div>
+          <sc-for list="{{ rMethod }}" as="p" hint-placeholder-count="2"><p style="color:#b4bcc8;font-size:14px;line-height:1.75;margin:0 0 13px">{{ p }}</p></sc-for>
+        </div>
+        <div data-section="findings" style="scroll-margin-top:16px;margin-bottom:32px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><span style="width:6px;height:16px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:16px;font-weight:700">Key findings</span></div>
+          <div style="display:flex;flex-direction:column;gap:11px;margin-bottom:22px">
+            <sc-for list="{{ rFindings }}" as="f" hint-placeholder-count="4">
+              <div style="display:flex;gap:13px;border:1px solid #2a2f38;border-radius:12px;background:#23262d;padding:15px 16px">
+                <span style="color:#f5a97f;font-size:14px;font-weight:700;flex:none;margin-top:1px">{{ f.num }}</span>
+                <div><div style="color:#f4f6f9;font-size:14px;font-weight:600;margin-bottom:6px">{{ f.title }}</div><div style="color:#9aa1ad;font-size:13px;line-height:1.65">{{ f.text }}</div></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="font-size:10px;letter-spacing:.12em;color:#565d6b;margin-bottom:13px">VERBATIMS</div>
+          <sc-for list="{{ rQuotes }}" as="q" hint-placeholder-count="2">
+            <div style="border-left:3px solid #f5a97f;padding:4px 0 4px 16px;margin-bottom:16px">
+              <div style="color:#d6dbe3;font-size:14.5px;font-style:italic;line-height:1.55">“{{ q.text }}”</div>
+              <div style="color:#6b7280;font-size:12px;margin-top:7px">— {{ q.who }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div data-section="recommendations" style="scroll-margin-top:16px;margin-bottom:32px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><span style="width:6px;height:16px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:16px;font-weight:700">Recommendations</span></div>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <sc-for list="{{ rRecs }}" as="r" hint-placeholder-count="4">
+              <div style="display:flex;gap:12px;align-items:baseline;color:#cdd2da;font-size:14px;line-height:1.6"><span style="color:#5ba85f;flex:none">→</span><span>{{ r }}</span></div>
+            </sc-for>
+          </div>
+        </div>
+        <div data-section="impact" style="scroll-margin-top:16px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><span style="width:6px;height:16px;border-radius:2px;background:#f5a97f"></span><span style="color:#f4f6f9;font-size:16px;font-weight:700">Impact</span></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+            <sc-for list="{{ rImpact }}" as="o" hint-placeholder-count="3">
+              <div style="border:1px solid #2a2f38;border-radius:11px;padding:14px 12px;background:#23262d">
+                <div style="color:#f5a97f;font-size:18px;font-weight:700;letter-spacing:-.01em">{{ o.stat }}</div>
+                <div style="color:#9aa1ad;font-size:11px;line-height:1.4;margin-top:7px">{{ o.label }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- MUSIC INDEX -->
+      <sc-if value="{{ isMusic }}" hint-placeholder-val="{{ false }}">
+        <div style="color:#565d6b;font-size:12px;margin-bottom:12px">~/music</div>
+        <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px">
+          <h1 style="margin:0;color:#f4f6f9;font-size:26px;font-weight:700;letter-spacing:-.02em">Compositions</h1>
+          <span style="color:#565d6b;font-size:13px">selected</span>
+        </div>
+        <p style="color:#9aa1ad;font-size:14px;line-height:1.6;margin:0 0 20px">Solo piano, chamber, and electronic pieces I compose alongside my design and engineering work.</p>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <sc-for list="{{ musicRows }}" as="t" hint-placeholder-count="3">
+            <div onClick="{{ t.onClick }}" style="border:1px solid #2a2f38;border-radius:13px;background:#23262d;padding:14px 16px">
+              <div style="display:flex;align-items:center;gap:14px">
+                <div onClick="{{ t.onPlay }}" style="{{ t.playStyle }}">{{ t.playIcon }}</div>
+                <div style="flex:1;min-width:0">
+                  <div style="{{ t.titleStyle }}">{{ t.title }}</div>
+                  <div style="color:#7b828f;font-size:11.5px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.meta }}</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:2px;height:28px;margin-top:12px">
+                <sc-for list="{{ t.bars }}" as="b" hint-placeholder-count="40"><div style="{{ b.style }}"></div></sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- TRACK DETAIL -->
+      <sc-if value="{{ isTrack }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ goMusic }}" style="color:#cba6f7;font-size:12px;margin-bottom:18px;display:inline-block">‹ music/</div>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:8px">
+          <div onClick="{{ onTrackPlay }}" style="{{ tPlayStyle }}">{{ tPlayIcon }}</div>
+          <div>
+            <h1 style="margin:0;color:#f4f6f9;font-size:24px;font-weight:700;letter-spacing:-.02em">{{ tTitle }}</h1>
+            <div style="color:#cba6f7;font-size:12px;margin-top:6px">{{ tGenre }} · {{ tYear }}</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:2px;height:54px;margin:20px 0 8px">
+          <sc-for list="{{ tBars }}" as="b" hint-placeholder-count="60"><div style="{{ b.style }}"></div></sc-for>
+        </div>
+        <div style="display:flex;justify-content:space-between;color:#565d6b;font-size:11px;margin-bottom:24px"><span>0:00</span><span>{{ tDuration }}</span></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:16px 0;border-top:1px solid #2a2f38;border-bottom:1px solid #2a2f38;margin-bottom:22px">
+          <div><div style="color:#5b6270;font-size:9.5px;letter-spacing:.1em;margin-bottom:5px">KEY</div><div style="color:#cdd2da;font-size:12.5px">{{ tKey }}</div></div>
+          <div><div style="color:#5b6270;font-size:9.5px;letter-spacing:.1em;margin-bottom:5px">DURATION</div><div style="color:#cdd2da;font-size:12.5px">{{ tDuration }}</div></div>
+          <div><div style="color:#5b6270;font-size:9.5px;letter-spacing:.1em;margin-bottom:5px">YEAR</div><div style="color:#cdd2da;font-size:12.5px">{{ tYear }}</div></div>
+        </div>
+        <sc-for list="{{ tDesc }}" as="p" hint-placeholder-count="2"><p style="color:#b4bcc8;font-size:14px;line-height:1.75;margin:0 0 13px">{{ p }}</p></sc-for>
+        <div style="margin-top:20px">
+          <div style="font-size:10px;letter-spacing:.12em;color:#565d6b;margin-bottom:11px">INSTRUMENTATION</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px">
+            <sc-for list="{{ tInstruments }}" as="i" hint-placeholder-count="3"><span style="padding:6px 12px;border-radius:7px;background:#23262d;border:1px solid #343a44;color:#cdd2da;font-size:12.5px">{{ i }}</span></sc-for>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <sc-for list="{{ tLinks }}" as="l" hint-placeholder-count="2"><span style="display:inline-flex;align-items:center;gap:7px;padding:10px 15px;border-radius:9px;border:1px solid #4a3b5c;background:rgba(203,166,247,.1);color:#cba6f7;font-size:12.5px">{{ l }} <span>↗</span></span></sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- STUB -->
+      <sc-if value="{{ isStub }}">
+        <div style="min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px">
+          <div style="width:54px;height:64px;border-radius:8px;border:1px solid #343a44;background:#23262d;display:flex;align-items:flex-end;justify-content:center;padding-bottom:9px;margin-bottom:20px;position:relative">
+            <span style="position:absolute;top:9px;right:9px;width:14px;height:14px;border-left:1px solid #343a44;border-bottom:1px solid #343a44;background:#1e2128"></span>
+            <span style="color:#f5a97f;font-size:10px">MD</span>
+          </div>
+          <div style="color:#cdd2da;font-size:15px;margin-bottom:8px">{{ stubName }}</div>
+          <div style="display:inline-flex;align-items:center;gap:7px;padding:4px 11px;border-radius:20px;background:#2a2520;border:1px solid #4a3b2c;color:#f5a97f;font-size:11px;margin-bottom:16px">draft · coming in the next pass</div>
+          <div style="color:#6b7280;font-size:12.5px;max-width:300px;line-height:1.6">This section is mapped out but not written yet.</div>
+        </div>
+      </sc-if>
+
+    </div>
+    </sc-if>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div style="height:54px;flex:none;display:flex;align-items:stretch;background:#15171c;border-top:1px solid #0d0f13;z-index:5">
+    <div onClick="{{ goHome }}" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#7b828f;font-size:10px"><span style="font-size:16px">⌂</span>home</div>
+    <div onClick="{{ goAbout }}" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:{{ aboutNavColor }};font-size:10px"><span style="font-size:15px">◎</span>about</div>
+    <div onClick="{{ goIndex }}" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:{{ workNavColor }};font-size:10px"><span style="font-size:15px">⊞</span>work</div>
+    <div onClick="{{ toggleTerm }}" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#7b828f;font-size:10px"><span style="font-size:15px">▸_</span>terminal</div>
+  </div>
+
+  <!-- DRAWER -->
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeMenu }}" style="position:absolute;inset:0;background:rgba(0,0,0,.55);z-index:20"></div>
+  <div style="position:absolute;top:0;left:0;bottom:0;width:270px;background:#181b21;border-right:1px solid #0d0f13;z-index:21;display:flex;flex-direction:column;animation:ppmslide .22s ease">
+    <div style="height:52px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid #0d0f13">
+      <span style="font-size:10px;letter-spacing:.14em;color:#565d6b">EXPLORER — YOURNAME.DEV</span>
+      <span onClick="{{ closeMenu }}" style="color:#7b828f;font-size:18px;padding:4px">×</span>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:10px 8px 12px">
+      <sc-for list="{{ treeRows }}" as="row" hint-placeholder-count="8">
+        <div onClick="{{ row.onClick }}" style="{{ row.style }}">
+          <span style="{{ row.caretStyle }}">{{ row.caret }}</span>
+          <span style="{{ row.dotStyle }}"></span>
+          <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ row.label }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="padding:13px 16px;border-top:1px solid #0d0f13;font-size:11px;color:#565d6b;display:flex;align-items:center;gap:8px">
+      <span style="width:7px;height:7px;border-radius:50%;background:#5ba85f"></span>open to work
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- TERMINAL SHEET -->
+  <sc-if value="{{ termOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeTerm }}" style="position:absolute;inset:0;background:rgba(0,0,0,.5);z-index:20"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:64vh;background:#15171c;border-top:1px solid #0d0f13;border-radius:14px 14px 0 0;z-index:21;display:flex;flex-direction:column;animation:ppmsheet .24s ease">
+    <div style="height:38px;flex:none;display:flex;align-items:center;gap:14px;padding:0 16px;border-bottom:1px solid #0d0f13;font-size:10.5px;letter-spacing:.1em;color:#565d6b">
+      <span style="color:#cdd2da;box-shadow:inset 0 -1px 0 #f5a97f;padding:11px 2px">TERMINAL</span>
+      <span style="margin-left:auto;color:#7b828f;letter-spacing:0;font-size:12px" onClick="{{ clearTerm }}">clear</span>
+      <span style="color:#7b828f;letter-spacing:0;font-size:16px" onClick="{{ closeTerm }}">⌄</span>
+    </div>
+    <div onClick="{{ focusTerm }}" style="flex:1;overflow-y:auto;padding:13px 16px;font-size:13px;line-height:1.7">
+      <sc-for list="{{ termLines }}" as="l" hint-placeholder-count="1">
+        <div style="{{ l.wrapStyle }}"><sc-if value="{{ l.isCmd }}" hint-placeholder-val="{{ false }}"><span style="color:#5ba85f">~/portfolio</span> <span style="color:#f5a97f">%</span> </sc-if><span style="{{ l.style }}">{{ l.text }}</span></div>
+      </sc-for>
+      <div style="display:flex;align-items:center"><span style="color:#5ba85f">~/portfolio</span>&nbsp;<span style="color:#f5a97f">%</span>&nbsp;<input id="ppm-term-input" value="{{ termInput }}" onInput="{{ onTermChange }}" onKeyDown="{{ onTermKey }}" placeholder="type 'help'" autocomplete="off" spellcheck="false" style="flex:1;background:transparent;border:0;outline:0;color:#e8ebf0;font:13px ui-monospace,Menlo,monospace;caret-color:#f5a97f;padding:0" /></div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844}}">
+class Component extends DCLogic {
+  state = {
+    activeKey: 'project-aurora.md',
+    view: 'preview',
+    activeSection: 'overview',
+    open: { projects: true, 'ux-research': false, music: false },
+    playing: null,
+    menuOpen: false,
+    termOpen: false,
+    termInput: '',
+    termLines: [{ isCmd: false, text: "portfolio shell — type 'help' to list commands, or tap a file in the tree.", color: '#7b828f' }],
+    history: [],
+    histIdx: -1,
+    filter: 'All',
+    copied: null,
+  };
+
+  docs() {
+    if (this._docs) return this._docs;
+    const proj = (o) => Object.assign({ type: 'project' }, o);
+    this._docs = {
+      'project-aurora.md': proj({
+        title: 'Aurora', platform: 'Web app',
+        kind: 'Design system', year: '2024', tags: ['Engineering', 'Design'],
+        blurb: 'Unified six fintech products onto one accessible, themeable component library.',
+        tagline: 'A design system & component library that unified six fintech products onto one accessible, themeable foundation.',
+        role: 'Lead engineer + design', timeline: '2024 · 5 months',
+        tools: 'Figma · React · TypeScript · Storybook', link: 'aurora.example.com',
+        overview: [
+          'Aurora is the shared design system behind a suite of six fintech products. Before it existed, every team shipped its own buttons, forms, and tables — inconsistent, hard to maintain, and rarely accessible.',
+          'I led the effort end to end: auditing the existing UI, defining tokens, building the component library in React, and rolling it out team by team.',
+        ],
+        problem: [
+          'A UI audit turned up 14 distinct button styles, 9 input components, and no shared color or spacing scale. Accessibility was an afterthought — contrast failures and missing focus states everywhere.',
+          'Shipping one cross-product feature meant rebuilding the same patterns three or four times. Velocity was bleeding into duplicated work.',
+        ],
+        research: [
+          'I ran a component inventory across all six products and interviewed eight engineers and three designers about where the current UI slowed them down.',
+          "The recurring theme: people didn't distrust a design system — they distrusted one that would lag behind their needs and force workarounds.",
+        ],
+        quote: { text: "I'll adopt it the day it stops being faster to copy-paste from the last feature.", who: 'senior engineer, payments team' },
+        design: [
+          'I defined a three-tier token model — primitive, semantic, and component — so theming a whole product meant swapping the semantic layer. Dark mode fell out almost for free.',
+          "Every component shipped with accessible defaults, keyboard support, and a Storybook page documenting props, do's and don'ts, and live examples.",
+        ],
+        outcome: [{ stat: '6 → 1', label: 'design systems consolidated' }, { stat: '40%', label: 'less UI code per feature' }, { stat: 'AA', label: 'contrast across all components' }],
+        gallery: ['Token architecture', 'Component library', 'Dark mode'],
+      }),
+      'project-ledger.md': proj({
+        title: 'Ledger', platform: 'Internal web tool',
+        kind: 'Internal tool', year: '2023', tags: ['Engineering'],
+        blurb: 'Turned a 3-hour manual month-end close into a 20-minute guided flow.',
+        tagline: 'A reconciliation tool that turned a 3-hour manual month-end close into a 20-minute guided flow.',
+        role: 'Product engineer', timeline: '2023 · 4 months',
+        tools: 'React · D3 · Node · Postgres', link: '—',
+        overview: [
+          'Ledger is the internal tool the finance team uses to reconcile transactions at month-end. The old process was a maze of spreadsheets and copy-paste that ate most of a day and was easy to get wrong.',
+          'I designed and built the reconciliation flow, the diff view, and the audit trail.',
+        ],
+        problem: [
+          'Reconciliation meant exporting CSVs from three systems, eyeballing mismatches in Excel, and noting resolutions by hand — with no record of who changed what.',
+          'One missed mismatch could take hours to trace. The team wanted speed, but even more they wanted confidence.',
+        ],
+        research: [
+          'I shadowed two analysts through a full month-end close, timing each step and noting every place they switched tools or second-guessed a number.',
+          "The biggest time sink wasn't fixing mismatches — it was finding them.",
+        ],
+        quote: { text: "Show me what doesn't match and why, and I'll do the rest.", who: 'finance analyst' },
+        design: [
+          'The core is a side-by-side diff that surfaces only the rows that disagree, ranked by dollar impact. Every resolution writes an immutable audit entry.',
+          "A guided flow walks the analyst from import to sign-off, so the tool carries the process instead of living in someone's head.",
+        ],
+        outcome: [{ stat: '3h → 20m', label: 'time to close the books' }, { stat: '100%', label: 'resolutions audited' }, { stat: '0', label: 'spreadsheets in the loop' }],
+        gallery: ['Diff view', 'Guided close', 'Audit trail'],
+      }),
+      'project-atlas.md': proj({
+        title: 'Atlas', platform: 'iOS',
+        kind: 'Mobile · research', year: '2023', tags: ['Research', 'Design'],
+        blurb: 'A research-led hospital wayfinding app, tested with real patients and visitors.',
+        tagline: 'A wayfinding app for a hospital network — research-led, tested with real patients and visitors.',
+        role: 'UX researcher + designer', timeline: '2023 · 3 months',
+        tools: 'Figma · Maze · SwiftUI', link: '—',
+        overview: [
+          'Atlas helps patients and visitors navigate a sprawling three-building hospital campus. Getting lost meant missed appointments and stressed people arriving late.',
+          'I owned the research and the interaction design, partnering with one engineer to ship the iOS pilot.',
+        ],
+        problem: [
+          'Signage assumed you already knew the building names. First-time visitors — often anxious, sometimes in pain — had no mental model of the campus to hang directions on.',
+          "Consumer map apps stopped at the front door; indoor turn-by-turn didn't exist here.",
+        ],
+        research: [
+          'I ran 12 contextual interviews in waiting rooms and shadowed 6 visitors trying to reach a department from the entrance.',
+          'Then I tested two prototype directions with 18 participants in unmoderated studies, measuring task success and time-to-find.',
+        ],
+        quote: { text: "I don't want a map. I want you to tell me where to turn.", who: 'visitor, cardiology wing' },
+        design: [
+          'The winning direction dropped the map-first model for a step-by-step prompt: one landmark-based instruction at a time, with a glance-able progress bar.',
+          'Color and iconography matched the physical signage so the digital and built environments reinforced each other.',
+        ],
+        outcome: [{ stat: '+34%', label: 'task success vs. baseline' }, { stat: '−41%', label: 'time to find a department' }, { stat: '18', label: 'usability-test participants' }],
+        gallery: ['Landmark prompts', 'Usability testing', 'Signage system'],
+      }),
+      'about.md': {
+        type: 'about',
+        paras: [
+          "I'm a generalist happiest in the seam between engineering and design — close enough to the code to build it, close enough to the research to know it's the right thing to build.",
+          "I've shipped design systems, internal tools, and research-led product work. I care about accessibility, fast feedback loops, and writing things down so the next person moves quicker.",
+        ],
+        whatIDo: [
+          { k: 'Engineering', d: 'React, TypeScript, and design-systems work. I like turning fuzzy specs into solid, tested components.' },
+          { k: 'Design', d: 'Interaction and systems design — tokens, flows, and the small details that make a UI feel calm.' },
+          { k: 'Research', d: 'Interviews, usability testing, and synthesis. I make sure we build the right thing before building it well.' },
+        ],
+        toolbox: ['TypeScript', 'React', 'Node', 'Figma', 'Storybook', 'SwiftUI', 'Maze', 'Postgres', 'D3'],
+        now: [
+          { text: 'Finishing my MHCI at Carnegie Mellon' },
+          { text: 'Looking for full-time roles in SWE and UX Research' },
+          { text: 'Attempting to get my bird to let me pet him', egg: true },
+        ],
+      },
+      'contact.md': {
+        type: 'contact',
+        avail: 'Open to work · usually replies within a day',
+        location: 'Somewhere, Earth · UTC−5',
+        rows: [
+          { label: 'email', value: 'you@\u200byourname.dev', copyVal: 'you@yourname.dev', action: 'copy', icon: '✉' },
+          { label: 'github', value: 'github.com/yourname', action: '↗', icon: '⌥' },
+          { label: 'linkedin', value: 'linkedin.com/in/yourname', action: '↗', icon: 'in' },
+          { label: 'resume', value: 'resume.pdf', action: '↓', icon: '↓' },
+        ],
+      },
+      'usability-study.md': {
+        type: 'research', title: 'Checkout usability study',
+        subtitle: 'Where a four-step checkout lost people — and the five fixes that brought them back.',
+        method: 'Moderated usability test', participants: '12 participants', timeline: '2024 · 2 weeks', role: 'Lead researcher',
+        background: [
+          'Conversion dropped sharply at checkout, but analytics could only tell us where people left — not why. We ran a moderated study to watch real users complete a purchase and narrate their thinking.',
+          'The goal: find the friction points in the four-step flow and prioritise fixes the team could ship that quarter.',
+        ],
+        methodParas: [
+          'Twelve participants, recruited to match our two primary segments (first-time and returning buyers), each completed three purchase tasks while thinking aloud. Sessions ran 45 minutes, remote and moderated.',
+          'I scored task success, time-on-task, and error counts, and tagged every moment of hesitation or confusion for thematic analysis.',
+        ],
+        findings: [
+          { title: 'The guest-checkout option was invisible', text: '9 of 12 tried to avoid making an account but could not find the guest path — it sat below the fold under a “Sign in” wall.' },
+          { title: 'Shipping cost appeared too late', text: 'Cost only showed on the final step. Seven participants expressed surprise; three abandoned the task entirely at that moment.' },
+          { title: 'The progress bar was not trusted', text: 'Participants could not tell how many steps remained; several assumed the flow was longer than it was and braced to give up.' },
+          { title: 'Form errors were easy to miss', text: 'Inline errors rendered in a low-contrast grey; 5 participants submitted twice before noticing the flagged field.' },
+        ],
+        quotes: [
+          { text: 'Wait — why do I have to make an account just to give you money?', who: 'P4, first-time buyer' },
+          { text: 'If I’d known shipping was that much I would’ve left two screens ago.', who: 'P9, returning buyer' },
+        ],
+        recommendations: [
+          'Surface guest checkout as a primary, equal-weight option at step one.',
+          'Show the full price — including shipping — before the final step.',
+          'Replace the progress bar with a labelled “Step 2 of 4” counter.',
+          'Raise error-state contrast to AA and scroll focus to the first error.',
+        ],
+        impact: [{ stat: '9/12', label: 'missed guest checkout' }, { stat: '+18%', label: 'checkout completion (post-fix A/B)' }, { stat: '5', label: 'prioritised fixes shipped' }],
+      },
+      'field-interviews.md': {
+        type: 'research', title: 'Field interviews: home-care nurses',
+        subtitle: 'Shadowing nurses on their rounds to understand how documentation really happens.',
+        method: 'Contextual inquiry', participants: '8 nurses · 3 clinics', timeline: '2023 · 3 weeks', role: 'UX researcher',
+        background: [
+          'Our charting tool was built for a desk. But home-care nurses chart in cars, doorways, and kitchens — so we went to watch how the work actually happens, in context.',
+          'The aim was to map the real documentation journey and find where the software fought the realities of the job.',
+        ],
+        methodParas: [
+          'I shadowed eight nurses across three clinics through full shifts, observing and asking questions in the moment (contextual inquiry), then debriefed each at the end of the day.',
+          'Observations were affinity-mapped into themes; I traced the documentation journey from visit to sign-off.',
+        ],
+        findings: [
+          { title: 'Charting is deferred, then batched', text: 'Nurses rarely charted during a visit — they jotted shorthand on paper and re-entered everything later, doubling the work and risking errors.' },
+          { title: 'Connectivity is never guaranteed', text: 'Half of visits happened in low- or no-signal homes; the tool assumed a live connection and lost data when it dropped.' },
+          { title: 'The phone is the real device', text: 'Despite issued tablets, nurses reached for their phones — one-handed, pocketable, already in hand between visits.' },
+        ],
+        quotes: [
+          { text: 'I chart at 9pm from my couch. By then I’m recreating the day from memory.', who: 'Nurse, suburban route' },
+          { text: 'If it needs two hands and good signal, it’s not coming into the house with me.', who: 'Nurse, rural route' },
+        ],
+        recommendations: [
+          'Design offline-first: capture locally, sync when a connection returns.',
+          'Prioritise a one-handed phone layout over the tablet experience.',
+          'Add quick structured-shorthand capture for use during the visit.',
+        ],
+        impact: [{ stat: '8', label: 'nurses shadowed in-context' }, { stat: '3', label: 'clinics across urban & rural' }, { stat: 'offline-first', label: 'roadmap re-prioritised' }],
+      },
+      'nocturne-in-blue.md': {
+        type: 'track', title: 'Nocturne in Blue', year: '2024', musKey: 'D♭ minor', duration: '4:12', genre: 'Solo piano',
+        instruments: ['Piano'],
+        desc: [
+          'A late-night solo-piano piece built on a descending left-hand figure that never quite resolves — the harmonic equivalent of not being able to sleep.',
+          'Written in a single sitting and barely edited since; I wanted to keep the unsteadiness of the first take.',
+        ],
+        links: ['SoundCloud', 'Score (PDF)'],
+      },
+      'tidewater.md': {
+        type: 'track', title: 'Tidewater', year: '2023', musKey: 'A major', duration: '6:38', genre: 'String quartet',
+        instruments: ['Violin I', 'Violin II', 'Viola', 'Cello'],
+        desc: [
+          'A string quartet in three connected sections that ebb and flow like a tide — phrases pass between the instruments and return slightly changed each time.',
+          'The middle section borrows a folk melody my grandmother used to hum.',
+        ],
+        links: ['SoundCloud', 'Score (PDF)'],
+      },
+      'signal-lost.md': {
+        type: 'track', title: 'Signal Lost', year: '2023', musKey: '—', duration: '3:55', genre: 'Electronic',
+        instruments: ['Synths', 'Drum machine', 'Field recordings'],
+        desc: [
+          'An electronic piece assembled from analog-synth takes and field recordings of a train station, slowly degrading into static.',
+          'A study in letting a clean signal fall apart on purpose.',
+        ],
+        links: ['SoundCloud', 'Bandcamp'],
+      },
+    };
+    return this._docs;
+  }
+
+  musicList() {
+    const d = this.docs();
+    return ['nocturne-in-blue.md', 'tidewater.md', 'signal-lost.md'].map((k) => ({
+      key: k, title: d[k].title, year: d[k].year, musKey: d[k].musKey, duration: d[k].duration, genre: d[k].genre,
+    }));
+  }
+
+  waveform(key, n) {
+    let seed = 0; for (let i = 0; i < key.length; i++) seed = (seed * 31 + key.charCodeAt(i)) % 9973;
+    const bars = [];
+    for (let i = 0; i < n; i++) { seed = (seed * 1103515245 + 12345) % 2147483648; bars.push(18 + (seed % 82)); }
+    return bars;
+  }
+
+  projectList() {
+    const d = this.docs();
+    return ['project-aurora.md', 'project-ledger.md', 'project-atlas.md'].map((k) => ({
+      key: k, title: d[k].title, blurb: d[k].blurb, kind: d[k].kind, year: d[k].year, tags: d[k].tags,
+    }));
+  }
+
+  curDoc() {
+    if (this.state.activeKey === 'projects/') return { type: 'index' };
+    if (this.state.activeKey === 'music/') return { type: 'music' };
+    const d = this.docs()[this.state.activeKey];
+    if (d) return d;
+    return { type: 'stub' };
+  }
+
+  componentDidMount() {
+    try {
+      const h = decodeURIComponent((location.hash || '').replace(/^#/, ''));
+      const known = this.docs()[h] || h === 'projects/' || h === 'music/';
+      if (h && known) {
+        this.setState({ activeKey: h, view: 'preview', activeSection: 'overview' },
+          () => { const el = document.getElementById('ppm-scroll'); if (el) el.scrollTop = 0; });
+      }
+    } catch (e) {}
+  }
+
+  openDoc(key) {
+    this.setState({ activeKey: key, view: 'preview', activeSection: 'overview', menuOpen: false, termOpen: false }, () => {
+      const el = document.getElementById('ppm-scroll');
+      if (el) el.scrollTop = 0;
+    });
+  }
+
+  openMenu() { this.setState({ menuOpen: true }); }
+  closeMenu() { this.setState({ menuOpen: false }); }
+
+  toggleFolder(name) {
+    this.setState((s) => {
+      const open = Object.assign({}, s.open, { [name]: !s.open[name] });
+      return { open: open };
+    });
+  }
+
+  setFilter(f) { this.setState({ filter: f }); }
+  togglePlay(key) { this.setState((s) => ({ playing: s.playing === key ? null : key })); }
+
+  copyValue(text, label) {
+    try { const p = navigator.clipboard && navigator.clipboard.writeText(text); if (p && p.catch) p.catch(() => {}); } catch (e) {}
+    this.setState({ copied: label });
+    clearTimeout(this._copyT);
+    this._copyT = setTimeout(() => this.setState({ copied: null }), 1600);
+  }
+
+  setView(v) { this.setState({ view: v }); }
+
+  onScroll(e) {
+    const cont = e.currentTarget;
+    const doc = this.curDoc();
+    if (doc.type !== 'project' && doc.type !== 'research') return;
+    const ids = doc.type === 'research'
+      ? ['background', 'method', 'findings', 'recommendations', 'impact']
+      : ['overview', 'problem', 'research', 'design', 'outcome', 'gallery'];
+    const top = cont.scrollTop + 90;
+    let cur = ids[0];
+    for (const id of ids) { const el = cont.querySelector('[data-section="' + id + '"]'); if (el && el.offsetTop <= top) cur = id; }
+    if (cur !== this.state.activeSection) this.setState({ activeSection: cur });
+  }
+
+  toggleTerm() {
+    const willOpen = !this.state.termOpen;
+    this.setState({ termOpen: willOpen }, () => { if (willOpen) { const i = document.getElementById('ppm-term-input'); if (i) i.focus(); } });
+  }
+  closeTerm() { this.setState({ termOpen: false }); }
+  focusTerm() { const i = document.getElementById('ppm-term-input'); if (i) i.focus(); }
+  clearTerm() { this.setState({ termLines: [] }); }
+  onTermChange(e) { this.setState({ termInput: e.target.value }); }
+
+  resolveFile(arg) {
+    if (!arg) return null;
+    const a = arg.toLowerCase().replace(/\.md$/, '').replace(/\//g, '');
+    const map = {
+      aurora: 'project-aurora.md', 'project-aurora': 'project-aurora.md',
+      ledger: 'project-ledger.md', 'project-ledger': 'project-ledger.md',
+      atlas: 'project-atlas.md', 'project-atlas': 'project-atlas.md',
+      about: 'about.md', contact: 'contact.md', me: 'about.md',
+      projects: 'projects/', 'projects/': 'projects/',
+      music: 'music/', 'music/': 'music/', songs: 'music/', compositions: 'music/',
+      research: 'usability-study.md', usability: 'usability-study.md', interviews: 'field-interviews.md',
+      nocturne: 'nocturne-in-blue.md', tidewater: 'tidewater.md', signal: 'signal-lost.md',
+    };
+    if (map[a]) return map[a];
+    const keys = Object.keys(this.docs());
+    for (const k of keys) { if (k.toLowerCase().indexOf(a) >= 0) return k; }
+    return null;
+  }
+
+  runCommand(raw) {
+    const cmd = raw.trim();
+    const out = [];
+    const push = (text, color) => out.push({ isCmd: false, text: text, color: color || '#9aa1ad' });
+    const parts = cmd.split(/\s+/);
+    const verb = (parts[0] || '').toLowerCase();
+    const arg = parts.slice(1).join(' ');
+    let navTo = null;
+
+    if (cmd === '') {}
+    else if (verb === 'help') {
+      push('Available commands —', '#7b828f');
+      [['about', 'who I am & how I work'], ['projects', 'list case studies'], ['open <name>', 'open a file (try: open atlas)'],
+       ['research', 'ux research & writeups'], ['music', 'things I\u2019ve composed'], ['resume', 'grab my CV'],
+       ['contact', 'email · github · linkedin'], ['ls', 'list files here'], ['clear', 'clear the screen']].forEach((r) => {
+        push('  ' + r[0] + Array(Math.max(1, 16 - r[0].length)).join(' ') + r[1], '#cdd2da');
+      });
+    }
+    else if (verb === 'ls') { push('about.md   projects/   ux-research/   music/   resume.pdf   contact.md', '#cdd2da'); }
+    else if (verb === 'music') { navTo = 'music/'; push('opening music/ …', '#565d6b'); }
+    else if (verb === 'projects') { navTo = 'projects/'; push('project-aurora.md   project-ledger.md   project-atlas.md', '#cdd2da'); push('opening projects/ …', '#565d6b'); }
+    else if (verb === 'whoami') { push('Your Name — software engineer · ux designer · ux researcher', '#cdd2da'); }
+    else if (verb === 'about' || verb === 'contact') { navTo = verb + '.md'; push('opening ' + verb + '.md …', '#565d6b'); }
+    else if (verb === 'research') { navTo = 'usability-study.md'; push('ux-research/ — usability-study.md, field-interviews.md', '#cdd2da'); push('opening usability-study.md …', '#565d6b'); }
+    else if (verb === 'resume') { push('resume.pdf — wire this up to your real CV file ✦', '#cdd2da'); }
+    else if (verb === 'open' || verb === 'cat' || verb === 'vim' || verb === 'cd') {
+      const key = this.resolveFile(arg);
+      if (key) { navTo = key; push('opening ' + key + ' …', '#565d6b'); }
+      else if (verb === 'cd' && (arg === '..' || arg === '~' || arg === '')) { push('~', '#565d6b'); }
+      else push("no such file: " + (arg || '?') + " — try 'ls'", '#e0655b');
+    }
+    else { push('zsh: command not found: ' + verb + " — type 'help'", '#e0655b'); }
+
+    this.setState((s) => {
+      const lines = s.termLines.concat([{ isCmd: true, text: cmd }]).concat(out);
+      const hist = cmd ? s.history.concat([cmd]) : s.history;
+      return { termLines: cmd === 'clear' ? [] : lines, history: hist, histIdx: -1, termInput: '' };
+    }, () => { if (navTo) this.openDoc(navTo); });
+  }
+
+  onTermKey(e) {
+    if (e.key === 'Enter') { e.preventDefault(); this.runCommand(this.state.termInput); }
+    else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      const h = this.state.history;
+      if (!h.length) return;
+      const idx = this.state.histIdx < 0 ? h.length - 1 : Math.max(0, this.state.histIdx - 1);
+      this.setState({ histIdx: idx, termInput: h[idx] });
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      const h = this.state.history;
+      if (this.state.histIdx < 0) return;
+      const idx = this.state.histIdx + 1;
+      if (idx >= h.length) this.setState({ histIdx: -1, termInput: '' });
+      else this.setState({ histIdx: idx, termInput: h[idx] });
+    }
+  }
+
+  buildSource(doc) {
+    const lines = [];
+    const c = { fm: '#9aa1ad', head: '#f5a97f', quote: '#5ba85f', text: '#aab1bd', dim: '#565d6b' };
+    const add = (text, color) => lines.push({ text: text || '\u00a0', style: { color: color, whiteSpace: 'pre-wrap', fontSize: '12.5px', lineHeight: '1.55', fontFamily: 'ui-monospace,Menlo,monospace' } });
+    if (doc.type === 'project') {
+      add('---', c.dim); add('title:    ' + doc.title, c.fm); add('role:     ' + doc.role, c.fm);
+      add('timeline: ' + doc.timeline, c.fm); add('tools:    ' + doc.tools, c.fm); add('---', c.dim); add('');
+      add('# ' + doc.title, c.head); add('> ' + doc.tagline, c.quote); add('');
+      const secs = [['Overview', doc.overview], ['The problem', doc.problem], ['Research', doc.research], ['Design & build', doc.design]];
+      secs.forEach((s) => { add('## ' + s[0], c.head); s[1].forEach((p) => add(p, c.text)); if (s[0] === 'Research') add('> "' + doc.quote.text + '"  — ' + doc.quote.who, c.quote); add(''); });
+      add('## Outcome', c.head); doc.outcome.forEach((o) => add('- ' + o.stat + ' — ' + o.label, c.text));
+    } else if (doc.type === 'about') {
+      add('# About', c.head); add(''); doc.paras.forEach((p) => { add(p, c.text); add(''); });
+    } else if (doc.type === 'contact') {
+      add('# Contact', c.head); add(''); doc.rows.forEach((r) => add(r.label + ': ' + r.value, c.fm));
+    } else if (doc.type === 'index') {
+      add('# projects', c.head); add(''); this.projectList().forEach((p) => add('- [' + p.title + '](' + p.key + ') — ' + p.blurb, c.text));
+    } else if (doc.type === 'research') {
+      add('---', c.dim); add('method:       ' + doc.method, c.fm); add('participants: ' + doc.participants, c.fm);
+      add('timeline:     ' + doc.timeline, c.fm); add('---', c.dim); add('');
+      add('# ' + doc.title, c.head); add('> ' + doc.subtitle, c.quote); add('');
+      add('## Background', c.head); doc.background.forEach((p) => add(p, c.text)); add('');
+      add('## Method', c.head); doc.methodParas.forEach((p) => add(p, c.text)); add('');
+      add('## Findings', c.head); doc.findings.forEach((f, i) => { add((i + 1) + '. ' + f.title, c.text); add('   ' + f.text, c.text); });
+      add(''); add('## Recommendations', c.head); doc.recommendations.forEach((r) => add('- ' + r, c.text));
+    } else if (doc.type === 'music') {
+      add('# music', c.head); add(''); this.musicList().forEach((t) => add('- ' + t.title + '  (' + t.genre + ' · ' + t.duration + ')', c.text));
+    } else if (doc.type === 'track') {
+      add('---', c.dim); add('year:     ' + doc.year, c.fm); add('key:      ' + doc.musKey, c.fm);
+      add('duration: ' + doc.duration, c.fm); add('---', c.dim); add('');
+      add('# ' + doc.title, c.head); add('> ' + doc.genre, c.quote); add('');
+      doc.desc.forEach((p) => { add(p, c.text); add(''); });
+    } else { add('# Draft', c.head); add(''); add('coming in the next pass…', c.dim); }
+    return lines;
+  }
+
+  buildTree() {
+    const s = this.state;
+    const rows = [];
+    const fileRow = (key, label, depth, dot) => {
+      const active = key === s.activeKey;
+      rows.push({
+        label: label, caret: '',
+        caretStyle: { width: '12px', flex: 'none' },
+        dotStyle: { width: '8px', height: '10px', borderRadius: '2px', flex: 'none', background: dot || (active ? '#f5a97f' : '#555b66') },
+        style: { display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', padding: '9px 7px', paddingLeft: (7 + depth * 16) + 'px', borderRadius: '6px', fontSize: '13px', marginBottom: '1px', color: active ? '#e8ebf0' : '#8b93a1', background: active ? '#262b33' : 'transparent', boxShadow: active ? 'inset 2px 0 0 #f5a97f' : 'none' },
+        onClick: () => this.openDoc(key),
+      });
+    };
+    const folderRow = (name, label, indexKey, accent) => {
+      const open = !!s.open[name];
+      const ac = accent || '#f5a97f';
+      const activeIdx = !!indexKey && s.activeKey === indexKey;
+      rows.push({
+        label: label, caret: open ? '▾' : '▸',
+        caretStyle: { width: '12px', flex: 'none', color: activeIdx ? ac : '#565d6b', fontSize: '10px' },
+        dotStyle: { display: 'none' },
+        style: { display: 'flex', alignItems: 'center', gap: '7px', cursor: 'pointer', padding: '9px 7px', borderRadius: '6px', fontSize: '13px', color: activeIdx ? '#e8ebf0' : '#aab1bd', background: activeIdx ? '#262b33' : 'transparent', boxShadow: activeIdx ? ('inset 2px 0 0 ' + ac) : 'none', marginBottom: '1px' },
+        onClick: indexKey ? () => this.openDoc(indexKey) : () => this.toggleFolder(name),
+      });
+      return open;
+    };
+
+    rows.push({
+      label: 'home', caret: '⌂',
+      caretStyle: { width: '12px', flex: 'none', color: '#f5a97f', fontSize: '12px' },
+      dotStyle: { display: 'none' },
+      style: { display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', padding: '9px 7px', borderRadius: '6px', fontSize: '13px', marginBottom: '1px', color: '#8b93a1', background: 'transparent' },
+      onClick: () => { window.location.href = 'Home (Mobile).dc.html'; },
+    });
+    fileRow('about.md', 'about.md', 0);
+    if (folderRow('projects', 'projects', 'projects/', '#f5a97f')) {
+      fileRow('project-aurora.md', 'project-aurora.md', 1);
+      fileRow('project-ledger.md', 'project-ledger.md', 1);
+      fileRow('project-atlas.md', 'project-atlas.md', 1);
+    }
+    if (folderRow('ux-research', 'ux-research')) {
+      fileRow('usability-study.md', 'usability-study.md', 1);
+      fileRow('field-interviews.md', 'field-interviews.md', 1);
+    }
+    if (folderRow('music', 'music', 'music/', '#cba6f7')) {
+      fileRow('nocturne-in-blue.md', 'nocturne-in-blue.md', 1, '#cba6f7');
+      fileRow('tidewater.md', 'tidewater.md', 1, '#cba6f7');
+      fileRow('signal-lost.md', 'signal-lost.md', 1, '#cba6f7');
+    }
+    fileRow('resume.pdf', 'resume.pdf', 0, '#e0655b');
+    fileRow('contact.md', 'contact.md', 0);
+    return rows;
+  }
+
+  renderVals() {
+    const s = this.state;
+    const doc = this.curDoc();
+    const view = s.view;
+    const isProject = doc.type === 'project';
+    const isResearch = doc.type === 'research';
+    const slug = s.activeKey.replace(/\.md$/, '');
+    const prevVisible = view === 'preview';
+    const srcVisible = view === 'code';
+
+    const tabBtn = (active) => ({
+      padding: '4px 10px', borderRadius: '6px', cursor: 'pointer', border: '0',
+      font: '500 11.5px ui-monospace,Menlo,monospace',
+      background: active ? '#f5a97f' : 'transparent', color: active ? '#1a1d23' : '#7b828f', fontWeight: active ? 600 : 500,
+    });
+
+    const termLines = s.termLines.map((l) => ({
+      isCmd: !!l.isCmd, text: l.text,
+      wrapStyle: { marginBottom: '3px', color: '#aab1bd' },
+      style: { color: l.isCmd ? '#e8ebf0' : (l.color || '#9aa1ad'), whiteSpace: 'pre-wrap' },
+    }));
+
+    let detailRows = [];
+    if (isProject) {
+      detailRows = [
+        { label: 'ROLE', value: doc.role }, { label: 'TIMELINE', value: doc.timeline },
+        { label: 'PLATFORM', value: doc.platform }, { label: 'TOOLS', value: doc.tools },
+      ];
+    } else if (isResearch) {
+      detailRows = [
+        { label: 'METHOD', value: doc.method }, { label: 'PARTICIPANTS', value: doc.participants },
+        { label: 'TIMELINE', value: doc.timeline }, { label: 'ROLE', value: doc.role },
+      ];
+    }
+
+    const isWorkNav = isProject || doc.type === 'index';
+    const vals = {
+      treeRows: this.buildTree(),
+      activeName: s.activeKey,
+      setCode: () => this.setView('code'),
+      setPreview: () => this.setView('preview'),
+      tabCodeStyle: tabBtn(view === 'code'),
+      tabPreviewStyle: tabBtn(view === 'preview'),
+      prevVisible: prevVisible, srcVisible: srcVisible,
+      sourceLines: this.buildSource(doc),
+      onScroll: (e) => this.onScroll(e),
+      isProject: isProject, isResearch: isResearch,
+      isAbout: doc.type === 'about', isContact: doc.type === 'contact',
+      isIndex: doc.type === 'index', isMusic: doc.type === 'music',
+      isTrack: doc.type === 'track', isStub: doc.type === 'stub',
+      stubName: s.activeKey,
+      goIndex: () => this.openDoc('projects/'),
+      goContact: () => this.openDoc('contact.md'),
+      goAbout: () => this.openDoc('about.md'),
+      goHome: () => { window.location.href = 'Home (Mobile).dc.html'; },
+      aboutNavColor: doc.type === 'about' ? '#f5a97f' : '#7b828f',
+      workNavColor: isWorkNav ? '#f5a97f' : '#7b828f',
+      menuOpen: s.menuOpen,
+      openMenu: () => this.openMenu(),
+      closeMenu: () => this.closeMenu(),
+      termOpen: s.termOpen,
+      toggleTerm: () => this.toggleTerm(),
+      closeTerm: () => this.closeTerm(),
+      clearTerm: () => this.clearTerm(),
+      focusTerm: () => this.focusTerm(),
+      termLines: termLines, termInput: s.termInput,
+      onTermChange: (e) => this.onTermChange(e),
+      onTermKey: (e) => this.onTermKey(e),
+      detailRows: detailRows,
+    };
+
+    if (isProject) {
+      Object.assign(vals, {
+        title: doc.title, tagline: doc.tagline,
+        overviewParas: doc.overview, problemParas: doc.problem, researchParas: doc.research, designParas: doc.design,
+        quoteText: doc.quote.text, quoteWho: doc.quote.who, outcomeStats: doc.outcome,
+        heroId: slug + '-hero', pbAId: slug + '-pb-a', pbBId: slug + '-pb-b', desId: slug + '-design',
+        galleryItems: doc.gallery.map((cap, i) => ({ id: slug + '-g' + i, caption: cap })),
+      });
+    }
+    if (doc.type === 'about') {
+      vals.aboutParas = doc.paras;
+      vals.aboutNow = doc.now.map((n) => ({
+        text: n.text,
+        textStyle: n.egg ? { cursor: 'pointer', borderBottom: '1px dashed rgba(245,169,127,.55)', color: '#cdd2da' } : {},
+        hint: n.egg ? '↗' : '', hintStyle: n.egg ? { color: '#f5a97f', fontSize: '11px', marginLeft: '1px' } : { display: 'none' },
+        onClick: n.egg ? () => { window.location.href = 'Birds (Mobile).dc.html'; } : () => {},
+      }));
+      vals.aboutWhatIDo = doc.whatIDo; vals.aboutToolbox = doc.toolbox;
+    }
+    if (doc.type === 'contact') {
+      vals.contactAvail = doc.avail; vals.contactLocation = doc.location;
+      vals.contactRows = doc.rows.map((r) => {
+        const isCopy = r.action === 'copy';
+        const copied = s.copied === r.label;
+        return {
+          label: r.label, value: r.value, icon: r.icon,
+          action: copied ? 'copied ✓' : r.action,
+          actionStyle: { color: copied ? '#5ba85f' : '#565d6b', fontSize: '12px', flex: 'none' },
+          onClick: isCopy ? () => this.copyValue(r.copyVal || r.value, r.label) : () => {},
+        };
+      });
+    }
+    if (doc.type === 'index') {
+      const tabs = ['All', 'Engineering', 'Design', 'Research'];
+      vals.filterTabs = tabs.map((t) => ({
+        label: t, onClick: () => this.setFilter(t),
+        style: { fontSize: '12px', padding: '6px 13px', borderRadius: '7px', cursor: 'pointer', border: '1px solid ' + (s.filter === t ? '#f5a97f' : '#2a2f38'), background: s.filter === t ? 'rgba(245,169,127,.12)' : 'transparent', color: s.filter === t ? '#f5a97f' : '#9aa1ad', fontWeight: s.filter === t ? 600 : 400 },
+      }));
+      const all = this.projectList();
+      const list = s.filter === 'All' ? all : all.filter((p) => p.tags.indexOf(s.filter) >= 0);
+      vals.indexCount = all.length;
+      vals.projectCards = list.map((p) => ({
+        title: p.title, blurb: p.blurb, kind: p.kind, year: p.year,
+        thumbId: p.key.replace(/\.md$/, '') + '-card', onClick: () => this.openDoc(p.key),
+      }));
+    }
+    if (isResearch) {
+      vals.rTitle = doc.title; vals.rSubtitle = doc.subtitle;
+      vals.rBackground = doc.background; vals.rMethod = doc.methodParas;
+      vals.rFindings = doc.findings.map((f, i) => ({ num: String(i + 1).padStart(2, '0'), title: f.title, text: f.text }));
+      vals.rQuotes = doc.quotes; vals.rRecs = doc.recommendations; vals.rImpact = doc.impact;
+    }
+    const barStyle = (h, on) => ({ flex: '1', height: h + '%', minWidth: '2px', borderRadius: '2px', background: on ? '#cba6f7' : '#3a3344' });
+    if (doc.type === 'music') {
+      vals.musicRows = this.musicList().map((t) => {
+        const on = s.playing === t.key;
+        return {
+          title: t.title, meta: t.genre + ' · ' + t.musKey + ' · ' + t.duration,
+          playIcon: on ? '❚❚' : '▶',
+          playStyle: { width: '38px', height: '38px', flex: 'none', borderRadius: '50%', border: '1px solid ' + (on ? '#cba6f7' : '#3a3344'), background: on ? 'rgba(203,166,247,.15)' : '#1e2128', color: '#cba6f7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: on ? '10px' : '11px', cursor: 'pointer' },
+          titleStyle: { color: on ? '#e9ddff' : '#f4f6f9', fontSize: '15px', fontWeight: 700 },
+          bars: this.waveform(t.key, 40).map((h) => ({ style: barStyle(h, on) })),
+          onPlay: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.togglePlay(t.key); },
+          onClick: () => this.openDoc(t.key),
+        };
+      });
+    }
+    if (doc.type === 'track') {
+      const on = s.playing === s.activeKey;
+      vals.tTitle = doc.title; vals.tGenre = doc.genre; vals.tYear = doc.year; vals.tKey = doc.musKey; vals.tDuration = doc.duration;
+      vals.tInstruments = doc.instruments; vals.tDesc = doc.desc; vals.tLinks = doc.links;
+      vals.tBars = this.waveform(s.activeKey, 60).map((h) => ({ style: barStyle(h, on) }));
+      vals.tPlayIcon = on ? '❚❚' : '▶';
+      vals.tPlayStyle = { width: '52px', height: '52px', flex: 'none', borderRadius: '50%', border: '1px solid ' + (on ? '#cba6f7' : '#3a3344'), background: on ? 'rgba(203,166,247,.15)' : '#23262d', color: '#cba6f7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: on ? '13px' : '15px', cursor: 'pointer' };
+      vals.onTrackPlay = () => this.togglePlay(s.activeKey);
+      vals.goMusic = () => this.openDoc('music/');
+    }
+    return vals;
+  }
+}
+</script>
+</body>
+</html>

@@ -21,6 +21,8 @@ The site's front door is a bolder **Home / landing page** (`Home.dc.html`) — a
 
 The case study (#2) is the most polished view and was designed first; the others share its IDE shell, type scale, and token set. The **Home page (#1)** is the entry point and ships in **three variants** (base, logo, boot) — see *Home / landing page* below. A **logo / brand variant** of the case-study page also ships — see *Logo variant* below.
 
+A **mobile / small-screen adaptation** of the site also ships as a parallel set of files (`* (Mobile).dc.html`). The desktop IDE chrome doesn't fit a phone, so these re-house the exact same content, tokens, and behavior in a mobile shell (top bar + hamburger drawer + bottom tab nav + slide-up terminal sheet). See **Mobile / responsive versions** below.
+
 ## About the Design Files
 The files in this bundle are **design references created in HTML** — prototypes showing the intended look and behavior. They are **not production code to copy directly**.
 
@@ -182,6 +184,30 @@ A hidden page reached only by clicking the last **CURRENTLY** row in `about.md` 
 
 ---
 
+## Mobile / responsive versions
+A parallel set of **phone-width** files re-house the whole experience for small screens. They are **not a separate design language** — they reuse every token, type treatment, content string, and interaction from the desktop set; only the *shell and layout* change to suit touch and a ~390px viewport. Ship these behind a viewport/media-query switch (or build the desktop layouts as the `md:`+ breakpoints of one responsive app — the data model is identical). Designed at **390×844** (iPhone-class); all layouts are fluid and scale up/down from there.
+
+**What changes from desktop → mobile (applies to all mobile files):**
+- **IDE chrome → mobile chrome.** The `48px` activity bar, `236px` file tree, and `248px` outline rail are all removed from the persistent layout. In their place:
+  - a **top bar** (`52px`, bg `#121419`): a **hamburger** (opens the file tree as a drawer), the current filename/brand, and a right-side status/affordance.
+  - a **bottom tab nav** (`54px`, bg `#15171c`): four touch targets — `⌂ home`, `◎ about`, `⊞ work`, `▸_ terminal` — the active one tinted `#f5a97f`. This replaces the desktop status bar as the primary nav.
+- **File tree → slide-in drawer.** The full explorer tree (same rows, accents, active-state treatment) lives in a `270px` left drawer over a `rgba(0,0,0,.55)` scrim, animated in (`translateX`), opened by the hamburger. Rows use taller `9px` touch padding.
+- **Terminal → bottom sheet.** The docked terminal becomes a `64vh` **slide-up sheet** (radius `14px 14px 0 0`) over a scrim, animated from the bottom; same prompt, same command set, same history. Opened from the bottom-nav `terminal` tab (or status affordances).
+- **All multi-column grids collapse.** Hero two-column → stacked; "what I do" / selected-work / project-index cards → **single column**; outcome & impact stat grids stay `3-up` but at reduced size; galleries and before/after → `2-up`; bird masonry → **2 columns** (`photoColumns` default `2`). Button rows stack (primary full-width).
+- **Outline rail → inline details card.** Project & research pages drop the sticky rail; the `ROLE / TIMELINE / PLATFORM / TOOLS` (or research `METHOD / PARTICIPANTS / …`) details move into a **2-col card** placed under the tagline. Scroll-spy still runs (used internally) but there's no visible TOC — sections are a short scroll on mobile.
+- **View toggle trimmed.** The `Source / Split / Preview` segmented control drops **Split** (no room for two panes); mobile keeps **`</>` (Source)** and **Preview**. Source view renders full-width.
+- **Type scale nudged down** for the narrow column: hero H1 `68px → 44px` (home) / `34px → 30px` (project), section headings `17px → 16px`, etc. Body copy stays `≥13–14px` for readability; all touch targets are `≥44px`.
+
+**Mobile files (one-to-one with their desktop originals):**
+- **`Home (Mobile).dc.html`** — the landing page: stacked hero + portrait pane, single-column "what I do" and selected-work, editor-style horizontal tab strip under the top bar, bottom nav, drawer tree, terminal sheet. Same `openToWork` / `showMusic` props. Routes into `Project Page (Mobile).dc.html#<key>`.
+- **`Project Page (Mobile).dc.html`** — all **ten** doc views (project, research, index, music, track, about, contact, stub, source) in the mobile shell. Same data model, terminal, hash deep-linking, filter tabs, play/waveform behavior. The about easter-egg row links to `Birds (Mobile).dc.html`.
+- **`Home (Boot) (Mobile).dc.html`** — the mobile landing prefaced by the **terminal boot sequence** (full-screen `#15171c` overlay, lines revealed every `300ms`, blinking cursor, `skip ▸`, fades into home). Same content as `Home (Mobile)`.
+- **`Birds (Mobile).dc.html`** — the bird archive at phone width: same window-chrome bar, hero, per-bird pettability meters, and a **2-column** image-window masonry. Slot ids match the desktop Birds page, so **dropped photos are shared** across both. `goBack` → `Project Page (Mobile).dc.html#about.md`.
+
+> The **Logo** variants (`Home (Logo)` / `Project Page (Logo)`) were **not** given separate mobile files — fold their three brand slots into the mobile top bar / drawer header / contact sign-off when you build the responsive app.
+
+---
+
 ## Interactions & Behavior
 - **about.md easter egg**: the last CURRENTLY row links to `Birds.dc.html`; the rest of about is unchanged. A discoverable-but-quiet affordance (dashed underline + `↗`), not a visible button.
 - **Home → site navigation / hash deep-linking**: the Home page is the default entry. Its tree rows, nav links, project cards, and CTAs navigate to `Project Page.dc.html#<docKey>` (e.g. `#about.md`, `#projects/`, `#project-aurora.md`). The Project Page reads `location.hash` on mount and opens that doc, expanding the correct folder. The Project Page tree gains a top **`⌂ home`** row that returns to `Home.dc.html`. (Boot variant: an intro overlay precedes the home and is skippable.)
@@ -271,6 +297,7 @@ In this bundle:
 - **`Project Page.dc.html`** — the high-fidelity case-study page (the primary reference). Logic (data model, terminal, scroll-spy, view toggle, tree) is in the `<script>` "Component" class near the bottom; markup/styles are inline above it. It also handles **`#hash` deep-linking** (opens the doc named in the URL hash on load, expanding its folder) and shows a top **`⌂ home`** tree row back to `Home.dc.html`. The `about.md` doc's last CURRENTLY row is an **easter-egg link to `Birds.dc.html`**.
 - **`Birds.dc.html`** — the hidden **bird photo archive** (reached from the about easter egg). Image-window masonry; `goBack` returns to `Project Page.dc.html#about.md`.
 - **`Project Page (Logo).dc.html`** — the **logo / brand variant** (identical to the above plus the three logo drop-slots described in *Logo / brand variant* above). Use whichever variant matches whether the portfolio has a personal-brand mark.
+- **Mobile set** — `Home (Mobile).dc.html`, `Project Page (Mobile).dc.html`, `Home (Boot) (Mobile).dc.html`, `Birds (Mobile).dc.html`: the phone-width adaptation of the site (top bar + hamburger drawer + bottom tab nav + terminal sheet). Same tokens, content, and behavior as their desktop originals — see **Mobile / responsive versions** above. Recreate as the base layout of a responsive app, with the desktop layouts as the wider breakpoints.
 - **`image-slot.js`** — image-slot web component (reference only; do not ship).
 - **`support.js`** — the prototyping runtime that renders `.dc.html`. **Reference/preview only — do not port.**
 - **`Project Page Wireframes.dc.html`** — the 3 low-fi layout explorations for this page (Split / Reading mode / Outline rail). Shows why outline-rail was chosen.
